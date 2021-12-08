@@ -12,7 +12,9 @@ from unittest.mock import Mock
 
 
 def test_main_menu_to_game_menu():
-    #Test script test going to main menu from game menu
+    """
+    Test script test going to main menu from game menu
+    """
     set_keyboard_input(["1","0"])
     selected = main_menu()
 
@@ -34,7 +36,9 @@ def test_main_menu_to_game_menu():
 
 
 def test_main_menu():
-    #Test script to test main menu output
+    """
+    Test script to test main menu output
+    """
     set_keyboard_input(["0"])
     main_menu()
     result = get_display_output()
@@ -46,7 +50,9 @@ def test_main_menu():
 
 
 def test_main_menu_invalid_input():
-    #Test script to test invalid input in main menu
+    """
+    Test script to test invalid input in main menu
+    """
     set_keyboard_input(["-1","0"])
     main_menu()
     result = get_display_output()
