@@ -14,7 +14,7 @@ def test_build_a_building():
     """
     Test script to test Building a building from the Main Menu
     """
-    set_keyboard_input(["1","a1","0"])
+    set_keyboard_input(["1","a2","0"])
 
     test_game = Game()
     test_game.start_new_turn()
@@ -61,7 +61,7 @@ def test_build_a_building_invalid_location():
     """
     Test Script to test Invalid location for building
     """
-    set_keyboard_input(["1","a1","1","c4","0"])
+    set_keyboard_input(["1","a2","1","c4","0"])
     test_game = Game()
     test_game.start_new_turn()
     result = get_display_output()
@@ -88,7 +88,7 @@ def test_build_a_building_build_on_existing_building():
     """
     Test script to test building on existing building
     """
-    set_keyboard_input(["1","a1","1","a1","0"])
+    set_keyboard_input(["1","a2","1","a2","0"])
     test_game = Game()
     test_game.start_new_turn()
     result = get_display_output()
