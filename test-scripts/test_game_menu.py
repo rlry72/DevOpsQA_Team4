@@ -3,6 +3,43 @@ from tud_test_base import set_keyboard_input, get_display_output
 from classes.menu import *
 from classes.game import *
 
+def test_game_menu_display_board():
+    """
+    Tests if the game board is displayed properly upon starting a new game
+    Starts a new game and checks the game output against what the proper output should be.
+    """
+    # set input 0, but first input will be ignored.
+    set_keyboard_input(["0"])
+    # start new game and turn
+    test_game = Game()
+    test_game.start_new_turn()
+    # get what is printed in the console
+    result = get_display_output()
+    
+    # compares what is printed in console with what should be shown. if different, test fails.
+    assert result == [
+    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
+    ]
+
+
+def test_game_menu_display_options():
+    """
+    Tests if the game options (only game options) are displayed properly upon starting a new game
+    Starts a new game and checks the game output against what the proper output should be.
+    """
+    # set input 0, but first input will be ignored.
+    set_keyboard_input(["0"])
+    # start new game and turn
+    test_game = Game()
+    test_game.start_new_turn()
+    # get what is printed in the console
+    result = get_display_output()[2:4]
+    
+    # compares what is printed in console with what should be shown. if different, test fails.
+    assert result == [
+    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu\n",
+    "Your choice? "    ]
+
 
 def test_game_menu_display_board_options():
     """
