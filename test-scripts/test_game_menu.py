@@ -17,7 +17,7 @@ def test_game_menu_display_board():
     result = get_display_output()
     
     # compares what is printed in console with what should be shown. if different, test fails.
-    assert result == [
+    assert result == ["Turn 1"
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
     ]
 
