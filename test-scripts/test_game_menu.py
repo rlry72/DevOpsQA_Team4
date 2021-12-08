@@ -63,8 +63,8 @@ def test_game_menu_display_board_options():
 
 
 @pytest.mark.parametrize("invalidInput, expectedResult", 
-[("-1", ["Invalid input, please try again", "Your choice? "]), ("asdf", ["Invalid input, please try again", "Your choice? "]), 
-("13@!$`a", ["Invalid input, please try again", "Your choice? "]), (9, ["Invalid input, please try again", "Your choice? "]), ("", ["Invalid input, please try again", "Your choice? "])])
+[("-1", ['Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), ("asdf", ['Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), 
+("13@!$`a", ['Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), (9, ['Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), ("", ["Invalid input, please try again", "Your choice? "])])
 def test_game_menu_invalid_input(invalidInput, expectedResult):
     """
     Runs a set of invalid inputs to test the input failure and message in the game menu. Tests to check if output messages are correct.
@@ -80,6 +80,7 @@ def test_game_menu_invalid_input(invalidInput, expectedResult):
     result = get_display_output()[-2:]
     # compares console output to expected result set in pytest mark parametrize. if different, test fails
     assert result == expectedResult
+
 
 
 def test_game_menu_return_main_menu():
