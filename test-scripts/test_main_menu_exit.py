@@ -5,9 +5,16 @@ from classes.game import *
 
 
 def test_main_menu_exit():
+    """
+    Tests the exit function of main menu. This checks if game exits out of console or out of the game completely if opened from console properly.
+    """
+    # set keyboard input to 0 (ignores first 0)
     set_keyboard_input(["0", "0"])
+    # starts main menu
     main_menu()
+    # use pytest to raise a systemexit exception, then calls exit game function
     with pytest.raises(SystemExit) as e:
         exit_game()
+    # checks if exception type and value code are that of exit code. if different, test fails
     assert e.type == SystemExit
     assert e.value.code == 1
