@@ -14,10 +14,10 @@ def test_game_menu_display_board():
     test_game = Game()
     test_game.start_new_turn()
     # get what is printed in the console
-    result = get_display_output()
+    result = get_display_output()[:3]
     
     # compares what is printed in console with what should be shown. if different, test fails.
-    assert result == ["Turn 1"
+    assert result == ["", "Turn 1",
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
     ]
 
@@ -33,11 +33,11 @@ def test_game_menu_display_options():
     test_game = Game()
     test_game.start_new_turn()
     # get what is printed in the console
-    result = get_display_output()[2:4]
+    result = get_display_output()[-2:]
     
     # compares what is printed in console with what should be shown. if different, test fails.
     assert result == [
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu\n",
+    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "    ]
 
 
@@ -55,9 +55,9 @@ def test_game_menu_display_board_options():
     result = get_display_output()
     
     # compares what is printed in console with what should be shown. if different, test fails.
-    assert result == ["Turn 1",
+    assert result == ["", "Turn 1",
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu\n",
+    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
 
