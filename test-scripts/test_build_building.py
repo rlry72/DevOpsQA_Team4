@@ -107,7 +107,7 @@ def test_build_a_building_build_on_existing_building():
     "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? ",
     "Build where? ",
-    "You cannot build on an existing building.",
+    "You cannot build on a location that has already had a building",
     "",
     "Turn 2",
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1| SHP |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
