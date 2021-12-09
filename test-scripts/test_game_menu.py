@@ -87,14 +87,14 @@ def test_game_menu_return_main_menu():
     Tests if the game can return to the main menu from the game menu. Tests to make sure the output in console is correct and main menu is displayed.
     """
     # set keyboard input to 0, then 0. (ignores 1)
-    set_keyboard_input(["1", "0", "0"])
+    set_keyboard_input(["0", "0"])
     # set expected output to that of main menu string
-    expectedOutput = ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n\n0. Exit",
+    expectedOutput = ["",  "1. Start new game\n2. Load saved game\n0. Exit",
     "Your choice? "]
     # starts a new game and new turn and enters game menu
     selection = Game().start_new_turn()
     # if input in game menu is 0,
-    if selection == 0:
+    if selection == "0":
         # get output messages in console
         result = get_display_output()
         # compares output messages with the expected output set above. if different, test fails
