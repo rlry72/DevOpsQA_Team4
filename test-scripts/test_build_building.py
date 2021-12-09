@@ -12,7 +12,7 @@ from unittest.mock import Mock
 
 def test_build_a_building():
     """
-    Test script to test Building a building from the Main Menu
+    Test script to test Building a building from the game menu
     """
     set_keyboard_input(["1","a1","0"])
 
@@ -30,7 +30,6 @@ def test_build_a_building():
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1| SHP |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
     "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
-
 
 
 
