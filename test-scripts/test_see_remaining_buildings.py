@@ -12,7 +12,7 @@ def test_see_remaining_building_initial_state():
     Test script to test see remaining buildings during turn 1 from the game menu
     """
 
-    set_keyboard_input(["3"])
+    set_keyboard_input(["3","0"])
 
     test_game = Game()
     test_game.start_new_turn()
@@ -68,7 +68,7 @@ def test_see_remaining_building_after_play():
     Test script to test see remaining buildings after turn 1 from the game menu
     """
 
-    set_keyboard_input(["3","1","a1","3"])
+    set_keyboard_input(["3","1","a1","3","0"])
 
     test_game = Game()
     test_game.start_new_turn()
