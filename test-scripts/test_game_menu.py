@@ -3,6 +3,43 @@ from tud_test_base import set_keyboard_input, get_display_output
 from classes.menu import *
 from classes.game import *
 
+def test_game_menu_display_board():
+    """
+    Tests if the game board is displayed properly upon starting a new game
+    Starts a new game and checks the game output against what the proper output should be.
+    """
+    # set input 0, but first input will be ignored.
+    set_keyboard_input(["0"])
+    # start new game and turn
+    test_game = Game()
+    test_game.start_new_turn()
+    # get what is printed in the console
+    result = get_display_output()[:3]
+    
+    # compares what is printed in console with what should be shown. if different, test fails.
+    assert result == ["", "Turn 1",
+    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
+    ]
+
+
+def test_game_menu_display_options():
+    """
+    Tests if the game options (only game options) are displayed properly upon starting a new game
+    Starts a new game and checks the game output against what the proper output should be.
+    """
+    # set input 0, but first input will be ignored.
+    set_keyboard_input(["0"])
+    # start new game and turn
+    test_game = Game()
+    test_game.start_new_turn()
+    # get what is printed in the console
+    result = get_display_output()[-2:]
+    
+    # compares what is printed in console with what should be shown. if different, test fails.
+    assert result == [
+    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
+    "Your choice? "    ]
+
 
 def test_game_menu_display_board_options():
     """
@@ -18,16 +55,16 @@ def test_game_menu_display_board_options():
     result = get_display_output()
     
     # compares what is printed in console with what should be shown. if different, test fails.
-    assert result == ["Turn 1",
+    assert result == ["", "Turn 1",
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu\n",
+    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
 
 
 @pytest.mark.parametrize("invalidInput, expectedResult", 
-[("-1", ["Invalid input, please try again", "Your choice? "]), ("asdf", ["Invalid input, please try again", "Your choice? "]), 
-("13@!$`a", ["Invalid input, please try again", "Your choice? "]), (9, ["Invalid input, please try again", "Your choice? "]), ("", ["Invalid input, please try again", "Your choice? "])])
+[("-1", ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), ("asdf", ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), 
+("13@!$`a", ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), (9, ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), ("", ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "])])
 def test_game_menu_invalid_input(invalidInput, expectedResult):
     """
     Runs a set of invalid inputs to test the input failure and message in the game menu. Tests to check if output messages are correct.
@@ -35,14 +72,14 @@ def test_game_menu_invalid_input(invalidInput, expectedResult):
     Tested invalid inputs: special characters, integers, strings, out of bound number string.
     """
     # set input to start new game, then set invalid input and exit
-    set_keyboard_input(["1", "1", invalidInput, "0"])
+    set_keyboard_input([invalidInput, "0"])
     # start game and new turn
-    testGame = Game()
-    testGame.start_new_turn()
+    testGame = Game().start_new_turn()
     # get the LAST TWO items printed in console. These last two items must be "Invalid input, please try again" and "Your choice? "
     result = get_display_output()[-2:]
     # compares console output to expected result set in pytest mark parametrize. if different, test fails
     assert result == expectedResult
+
 
 
 def test_game_menu_return_main_menu():
