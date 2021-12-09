@@ -10,6 +10,7 @@ from unittest.mock import Mock
 
 
 
+
 def test_main_menu_to_game_menu():
     """
     Test script test going to main menu from game menu
@@ -22,13 +23,15 @@ def test_main_menu_to_game_menu():
 
 
     result = get_display_output()
-    assert result == ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n\n0. Exit",
+    assert result == ["Welcome, mayor of Simp City!        \n----------------------------\n1. Start new game\n2. Load saved game\n0. Exit\n",
     "Your choice? ",
-    "",
     "Turn 1",
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
+    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu\n",
     "Your choice? "]
+
+
+
 
 
 
@@ -40,7 +43,7 @@ def test_main_menu():
     main_menu()
     result = get_display_output()
 
-    assert result == ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n\n0. Exit",
+    assert result == ["Welcome, mayor of Simp City!        \n----------------------------\n1. Start new game\n2. Load saved game\n0. Exit\n",
     "Your choice? "]
 
 
@@ -54,7 +57,7 @@ def test_main_menu_invalid_input():
     main_menu()
     result = get_display_output()
 
-    assert result == ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n\n0. Exit",
+    assert result == ["Welcome, mayor of Simp City!        \n----------------------------\n1. Start new game\n2. Load saved game\n0. Exit\n",
     "Your choice? ",
     "Invalid input, please try again",
     "Your choice? "]
