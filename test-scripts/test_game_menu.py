@@ -26,8 +26,8 @@ def test_game_menu_display_board_options():
 
 
 @pytest.mark.parametrize("invalidInput, expectedResult", 
-[("-1", ["Invalid input, please try again", "Your choice? "]), ("asdf", ["Invalid input, please try again", "Your choice? "]), 
-("13@!$`a", ["Invalid input, please try again", "Your choice? "]), (9, ["Invalid input, please try again", "Your choice? "]), ("", ['Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "])])
+[("-1", ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), ("asdf", ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), 
+("13@!$`a", ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), (9, ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), ("", ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "])])
 def test_game_menu_invalid_input(invalidInput, expectedResult):
     """
     Runs a set of invalid inputs to test the input failure and message in the game menu. Tests to check if output messages are correct.
@@ -35,7 +35,7 @@ def test_game_menu_invalid_input(invalidInput, expectedResult):
     Tested invalid inputs: special characters, integers, strings, out of bound number string.
     """
     # set input to start new game, then set invalid input and exit
-    set_keyboard_input(["1", "1", invalidInput, "0"])
+    set_keyboard_input([invalidInput, "0"])
     # start game and new turn
     testGame = Game().start_new_turn()
     # get the LAST TWO items printed in console. These last two items must be "Invalid input, please try again" and "Your choice? "
