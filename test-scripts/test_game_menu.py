@@ -27,7 +27,7 @@ def test_game_menu_display_board_options():
 
 @pytest.mark.parametrize("invalidInput, expectedResult", 
 [("-1", ["Invalid input, please try again", "Your choice? "]), ("asdf", ["Invalid input, please try again", "Your choice? "]), 
-("13@!$`a", ["Invalid input, please try again", "Your choice? "]), (9, ["Invalid input, please try again", "Your choice? "]), ("", ["Invalid input, please try again", "Your choice? "])])
+("13@!$`a", ["Invalid input, please try again", "Your choice? "]), (9, ["Invalid input, please try again", "Your choice? "]), ("", ['Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "])])
 def test_game_menu_invalid_input(invalidInput, expectedResult):
     """
     Runs a set of invalid inputs to test the input failure and message in the game menu. Tests to check if output messages are correct.
@@ -37,8 +37,7 @@ def test_game_menu_invalid_input(invalidInput, expectedResult):
     # set input to start new game, then set invalid input and exit
     set_keyboard_input(["1", "1", invalidInput, "0"])
     # start game and new turn
-    testGame = Game()
-    testGame.start_new_turn()
+    testGame = Game().start_new_turn()
     # get the LAST TWO items printed in console. These last two items must be "Invalid input, please try again" and "Your choice? "
     result = get_display_output()[-2:]
     # compares console output to expected result set in pytest mark parametrize. if different, test fails
@@ -52,7 +51,7 @@ def test_game_menu_return_main_menu():
     # set keyboard input to 0, then 0. (ignores 1)
     set_keyboard_input(["1", "0", "0"])
     # set expected output to that of main menu string
-    expectedOutput = ["Welcome, mayor of Simp City!        \n----------------------------\n1. Start new game\n2. Load saved game\n0. Exit\n",
+    expectedOutput = ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n\n0. Exit",
     "Your choice? "]
     # starts a new game and new turn and enters game menu
     selection = Game().start_new_turn()
