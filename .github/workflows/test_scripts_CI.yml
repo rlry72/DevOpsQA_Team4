@@ -34,7 +34,7 @@ jobs:
         with:
           repository: zengzihui/DevOps_Oct2021_Team04
           path: tests
-          token: ${{ secrets.QA_REMOTE }}
+          token: ${{ secrets.DEV_REPO }}
       
       - name: Begin Pytest
         run: |
