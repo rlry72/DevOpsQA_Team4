@@ -8,6 +8,8 @@ import sys
 import pytest
 import os
 import random
+import math
+import statistics
 
 class SideEffect:
     def __init__(self, *fns):
@@ -22,10 +24,39 @@ def fake_randomized_buildings_1():
 def fake_randomized_buildings_2():
     return ["SHP", "HWY"]
 
+
+def runsTest(l, l_median):
+  
+    runs, n1, n2 = 0, 0, 0
+      
+    # Checking for start of new run
+    for i in range(len(l)):
+          
+        # no. of runs
+        if (l[i] >= l_median and l[i-1] < l_median) or \
+                (l[i] < l_median and l[i-1] >= l_median):
+            runs += 1  
+          
+        # no. of positive values
+        if(l[i]) >= l_median:
+            n1 += 1   
+          
+        # no. of negative values
+        else:
+            n2 += 1   
+  
+    runs_exp = ((2*n1*n2)/(n1+n2))+1
+    stan_dev = math.sqrt((2*n1*n2*(2*n1*n2-n1-n2))/ \
+                       (((n1+n2)**2)*(n1+n2-1)))
+  
+    z = (runs-runs_exp)/stan_dev
+  
+    return z
+
 @mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_1, fake_randomized_buildings_2))
-def test_randomized_building(mock_random_buildings):
+def test_mock_randomized_building(mock_random_buildings):
     """
-    Test script to test Building a building from the game menu
+    Test script to test building a randomized building from the game menu
     """
     set_keyboard_input(["1","a1","0"])
 
@@ -44,6 +75,17 @@ def test_randomized_building(mock_random_buildings):
     "1. Build a SHP\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
+def test_compare_randomized_building():
+    """
+    Test script to compare randomized building output over 2 turns
+    """
+    set_keyboard_input(["1","a1","0"])
 
+    test_game = Game()
+    test_game.start_new_turn()
+    result = get_display_output()
+
+    assert result[3] != result[9]
+    
 
 # need to test how random the randomized selections actually are
