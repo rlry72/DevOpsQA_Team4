@@ -1,3 +1,4 @@
+from distutils.command.build import build
 from classes.game import *
 from classes.menu import *
 from tud_test_base import set_keyboard_input, get_display_output
@@ -75,7 +76,7 @@ def test_mock_randomized_building(mock_random_buildings):
     "1. Build a SHP\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-def test_compare_randomized_building():
+def test_compare_randomized_building_2_turns():
     """
     Test script to compare randomized building output over 2 turns
     """
@@ -86,6 +87,54 @@ def test_compare_randomized_building():
     result = get_display_output()
 
     assert result[3] != result[9]
-    
+
+@pytest.mark.skip(reason="no way of currently testing this, will manually test")
+def test_compare_randomized_building_10_turns():
+    """
+    Test script to compare randomized building output over 10 turns
+    """
+
+    option1Arr = []
+    option2Arr = []
+
+    set_keyboard_input(["1","a1","1","a2","1","a3","1","a4","1","b1","1","b2","1","b3","1","b4","1","c1","1","c2","0"])
+
+    test_game = Game()
+    test_game.start_new_turn()
+    result = get_display_output()
+
+    for output in result:
+        if "1." in output:
+            opt1 = output.split("\n")[0].split(" ")[-1]
+            option1Arr.append(opt1)
+        if "2." in output:
+            opt2 = output.split("\n")[1].split(" ")[-1]
+            option2Arr.append(opt2)
+    # assert result[3] != result[9]
+
+def test_check_randomized_building_in_building_pool():
+    """
+    Test script to check that buildings in options are in building pool
+    """
+
+    optList = []
+    buildingPool = ["BCH", "FAC", "HSE", "SHP", "HWY"]
+
+
+    set_keyboard_input(["1","a1","1","a2","1","a3","1","a4","1","b1","1","b2","1","b3","1","b4","0"])
+
+    test_game = Game()
+    test_game.start_new_turn()
+    result = get_display_output()
+
+    for output in result:
+        if "1." in output:
+            opt1 = output.split("\n")[0].split(" ")[-1]
+            optList.append(opt1)
+        if "2." in output:
+            opt2 = output.split("\n")[1].split(" ")[-1]
+            optList.append(opt2)
+    assert set(optList).issubset(buildingPool) is True
+    # assert result[3] != result[9]
 
 # need to test how random the randomized selections actually are
