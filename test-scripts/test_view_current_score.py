@@ -560,7 +560,7 @@ def test_view_currentscore_shp_singlebchadjacent_notincenter(mock_random_buildin
     "",
     "Turn 3",
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2| BCH | SHP |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
+    "1. Build a BCH\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
 #@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_2,fake_randomized_buildings_1,fake_randomized_buildings_3,fake_randomized_buildings_3))
@@ -635,7 +635,7 @@ def test_view_currentscore_shp_2bchadjacent_singlefacadjacent_bchnotincenter(moc
     "",
     "Turn 3",
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1| BCH |     |     |     |\n +-----+-----+-----+-----+\n2| SHP |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a FAC\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
+    "1. Build a BCH\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? ",
     "Build where? ",
     "",
