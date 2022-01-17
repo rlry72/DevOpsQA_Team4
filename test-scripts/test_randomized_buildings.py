@@ -1,10 +1,8 @@
-from distutils.command.build import build
 from classes.game import *
 from classes.menu import *
 from tud_test_base import set_keyboard_input, get_display_output
 from io import StringIO 
 from unittest.mock import Mock, patch
-from unittest import mock
 import sys
 import pytest
 import os
@@ -19,11 +17,17 @@ class SideEffect:
         f = next(self.fs)
         return f(*args, **kwargs)
 
-def fake_randomized_buildings_1():
-    return ["BCH", "HSE"]
+def fake_randomized_buildings_1(self, building_pool):
+    # updates randomized building history with the list of 2 randomized buildings
+    self.randomized_building_history[str(self.turn_num)] = ["SHP", "HSE"]
 
-def fake_randomized_buildings_2():
-    return ["SHP", "HWY"]
+    # return ["BCH", "HSE"]
+
+def fake_randomized_buildings_2(self, building_pool):
+    # updates randomized building history with the list of 2 randomized buildings
+    self.randomized_building_history[str(self.turn_num)] = ["BCH", "HWY"]
+
+    # return ["SHP", "HWY"]
 
 
 def runsTest(l, l_median):
@@ -54,44 +58,57 @@ def runsTest(l, l_median):
   
     return z
 
-@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_1, fake_randomized_buildings_2))
-def test_mock_randomized_building(mock_random_buildings):
+# @patch('classes.game.Game.get_two_buildings_from_pool', side_effect = SideEffect(fake_randomized_buildings_1, fake_randomized_buildings_2))
+@pytest.mark.skip(reason="invalid test, does not really test random")
+def test_mock_randomized_building(mocker):
     """
     Test script to test building a randomized building from the game menu
     """
     set_keyboard_input(["1","a1","0"])
 
     test_game = Game()
+    # test_game.randomized_building_history = {"1": ["SHP", "HSE"], "2": ["BCH", "HWY"]}
     test_game.start_new_turn()
     result = get_display_output()
     
+    # mock_randomized_building = mocker.patch('classes.game.Game.get_two_buildings_from_pool');
+
+    # assert mock_randomized_building.call_count == 2
+
     assert result == ["", "Turn 1",
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a BCH\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
+    "1. Build a SHP\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? ",
     "Build where? ",
     "",
     "Turn 2",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1| BCH |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
+    "    A     B     C     D  \n +-----+-----+-----+-----+\n1| SHP |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
+    "1. Build a BCH\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-def test_compare_randomized_building_2_turns():
+def test_compare_randomized_building_5_turns():
     """
-    Test script to compare randomized building output over 2 turns
+    Test script to compare randomized building output over 5 turns
     """
-    set_keyboard_input(["1","a1","0"])
+    set_keyboard_input(["1","a1","1", "b1", "1", "c1", "1", "d1", "1", "a2","0"])
+
+    optList = []
 
     test_game = Game()
     test_game.start_new_turn()
     result = get_display_output()
 
-    assert result[3] != result[9]
+    for i in range(len(result)):
+        if "1" or "2" in result[i]:
+            optList.append(result[i])
+
+    assert optList[0] != optList[1] != optList[2] != optList[3] != optList[4]
+    # assert result[3] != result[9] != result[15] != result[21] != result[26]
 
 @pytest.mark.skip(reason="no way of currently testing this, will manually test")
 def test_compare_randomized_building_10_turns():
     """
-    Test script to compare randomized building output over 10 turns
+    Test script to check randomized building output over 10 turns whether the randomizer is good enough
     """
 
     option1Arr = []
@@ -137,4 +154,25 @@ def test_check_randomized_building_in_building_pool():
     assert set(optList).issubset(buildingPool) is True
     # assert result[3] != result[9]
 
+def test_randomized_building_options_1_building_left():
+    """
+    Test script to test options when only 1 building is left
+    """
+    set_keyboard_input(["0"])
+
+    test_game = Game()
+    test_game.building_pool = {"HSE": 0, "FAC": 0, "SHP": 1, "HWY": 0, "BCH": 0}
+    test_game.start_new_turn()
+    result = get_display_output()
+    
+    opt1 = ""
+    opt2 = ""
+
+    for output in result:
+        if "1." in output:
+            opt1 = output.split("\n")[0].split(" ")[-1]
+        if "2." in output:
+            opt2 = output.split("\n")[1].split(" ")[-1]
+
+    assert opt1 == opt2
 # need to test how random the randomized selections actually are
