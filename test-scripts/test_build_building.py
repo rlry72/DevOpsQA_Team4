@@ -54,8 +54,26 @@ def test_build_a_building_invalid_input():
     "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
+def test_build_a_building_invalid_input_1character():
+    """
+    Test Script to test Invalid input when building from game menu
+    """
+    set_keyboard_input(["1","a","0"])
+    test_game = Game()
+    test_game.start_new_turn()
+    result = get_display_output()
 
-
+    assert result == ["","Turn 1",
+    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
+    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
+    "Your choice? ",
+    "Build where? ",
+    "Your input is invalid, please follow 'letter' + 'digit' format to input for location.",
+    "",
+    "Turn 1",
+    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
+    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
+    "Your choice? "]
 
 
 def test_build_a_building_invalid_location():

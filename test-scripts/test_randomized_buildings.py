@@ -32,7 +32,7 @@ def test_compare_randomized_building_5_turns():
 @pytest.mark.skip(reason="no way of currently testing this, will manually test")
 def test_compare_randomized_building_10_turns():
     """
-    Test script to check randomized building output over 10 turns whether the randomizer is good enough
+    Test script to compare randomized building output over 10 turns
     """
 
     option1Arr = []
