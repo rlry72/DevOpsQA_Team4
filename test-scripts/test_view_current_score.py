@@ -11,26 +11,11 @@ import random
 import math
 import statistics
 
-class SideEffect:
-    def __init__(self, *fns):
-        self.fs = iter(fns)
-    def __call__(self, *args, **kwargs):
-        f = next(self.fs)
-        return f(*args, **kwargs)
 
 gamemenuoptions = "1. Build a BCH\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu"
 
-def fake_randomized_buildings_1():
-    return ["BCH", "HSE"]
 
-def fake_randomized_buildings_2():
-    return ["SHP", "HWY"]
-
-def fake_randomized_buildings_3():
-    return ["FAC", "HWY"]
-
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_1))
-def test_view_currentscore_empty(mock_random_buildings):
+def test_view_current_score_empty():
     """
     Test script to test viewing current score when there are 0 buildings on the board. (TC-07A)
     """
@@ -59,8 +44,7 @@ def test_view_currentscore_empty(mock_random_buildings):
     "Your choice? "]
 
 
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_1,fake_randomized_buildings_1))
-def test_view_currentscore_bch_centerofcity(mock_random_buildings):
+def test_view_current_score_bch_center_of_city():
     """
     Test script to test viewing current score when a single "BCH" is on the board not on the right or left side of the city. (TC-07B)
     """
@@ -94,8 +78,7 @@ def test_view_currentscore_bch_centerofcity(mock_random_buildings):
     "1. Build a BCH\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_1,fake_randomized_buildings_1))
-def test_view_currentscore_bch_rightorleftofcity(mock_random_buildings):
+def test_view_current_score_bch_right_or_left_of_city():
     """
     Test script to test viewing current score when a single "BCH" is on the board on the right or left side of the city. (TC-07B)
     """
@@ -129,8 +112,7 @@ def test_view_currentscore_bch_rightorleftofcity(mock_random_buildings):
     "1. Build a BCH\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_3,fake_randomized_buildings_3))
-def test_view_currentscore_fac_singlefac(mock_random_buildings):
+def test_view_current_score_fac_single_fac():
     """
     Test script to test viewing current score when a single "FAC" is on the board. (TC-07C)
     """
@@ -164,8 +146,7 @@ def test_view_currentscore_fac_singlefac(mock_random_buildings):
     "1. Build a FAC\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_3,fake_randomized_buildings_3,fake_randomized_buildings_3,fake_randomized_buildings_3,fake_randomized_buildings_3))
-def test_view_currentscore_fac_4fac(mock_random_buildings):
+def test_view_current_score_fac_4fac():
     """
     Test script to test viewing current score when a 4 "FAC" is on the board. (TC-07C)
     """
@@ -217,8 +198,7 @@ def test_view_currentscore_fac_4fac(mock_random_buildings):
     "1. Build a FAC\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_3,fake_randomized_buildings_3,fake_randomized_buildings_3,fake_randomized_buildings_3,fake_randomized_buildings_3,fake_randomized_buildings_3))
-def test_view_currentscore_fac_5fac(mock_random_buildings):
+def test_view_current_score_fac_5fac():
     """
     Test script to test viewing current score when a 5 "FAC" is on the board. (TC-07C)
     """
@@ -276,8 +256,7 @@ def test_view_currentscore_fac_5fac(mock_random_buildings):
     "1. Build a FAC\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_1,fake_randomized_buildings_1))
-def test_view_currentscore_hse_singlehse(mock_random_buildings):
+def test_view_current_score_hse_single_hse():
     """
     Test script to test viewing current score when a single "HSE" is on the board. (TC-07D)
     """
@@ -299,20 +278,19 @@ def test_view_currentscore_hse_singlehse(mock_random_buildings):
     "1. Build a BCH\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? ",
     "",
-    "HSE: 0",
+    "HSE: 1 = 1",
     "FAC: 0",
     "SHP: 0",
     "HWY: 0",
     "BCH: 0",
-    "Total Score: 0",
+    "Total Score: 1",
     "",
     "Turn 2",
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1| HSE |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
     "1. Build a BCH\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_1,fake_randomized_buildings_1,fake_randomized_buildings_1))
-def test_view_currentscore_hse_2hse_adjacent(mock_random_buildings):
+def test_view_current_score_hse_2hse_adjacent():
     """
     Test script to test viewing current score when  2 "HSE" is on the board and they are adjacent. (TC-07D)
     """
@@ -352,8 +330,7 @@ def test_view_currentscore_hse_2hse_adjacent(mock_random_buildings):
     "1. Build a BCH\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_1,fake_randomized_buildings_1,fake_randomized_buildings_1,fake_randomized_buildings_1))
-def test_view_currentscore_hse_2bch_center(mock_random_buildings):
+def test_view_current_score_hse_2bch_center():
     """
     Test script to test viewing current score when a single "HSE" and 2 "BCH" is on the board and the "BCH" are adjacent to the "HSE". The "BCH" are not in the Right or Left side of the city (TC-07D)
     """
@@ -399,8 +376,7 @@ def test_view_currentscore_hse_2bch_center(mock_random_buildings):
     "1. Build a BCH\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_1,fake_randomized_buildings_2,fake_randomized_buildings_2,fake_randomized_buildings_2))
-def test_view_currentscore_hse_2shp_adjacent_tohsebutnottoeachother(mock_random_buildings):
+def test_view_current_score_hse_2shp_adjacent_to_hse_but_not_to_each_other():
     """
     Test script to test viewing current score when a single "HSE" and 2 "SHP" is on the board and the "SHP" are adjacent to the "HSE" but not adjacent to each other. (TC-07D)
     """
@@ -446,8 +422,7 @@ def test_view_currentscore_hse_2shp_adjacent_tohsebutnottoeachother(mock_random_
     "1. Build a SHP\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_1,fake_randomized_buildings_3,fake_randomized_buildings_3))
-def test_view_currentscore_hse_1fac_adjacent(mock_random_buildings):
+def test_view_current_score_hse_1fac_adjacent():
     """
     Test script to test viewing current score when a single "HSE" and a single "FAC" is on the board and they are adjacent. (TC-07D)
     """
@@ -487,8 +462,7 @@ def test_view_currentscore_hse_1fac_adjacent(mock_random_buildings):
     "1. Build a FAC\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_2,fake_randomized_buildings_2))
-def test_view_currentscore_shp_singleshp(mock_random_buildings):
+def test_view_current_score_shp_single_shp():
     """
     Test script to test viewing current score when a single "SHP" is on the board. (TC-07E)
     """
@@ -512,18 +486,17 @@ def test_view_currentscore_shp_singleshp(mock_random_buildings):
     "",
     "HSE: 0",
     "FAC: 0",
-    "SHP: 0",
+    "SHP: 1",
     "HWY: 0",
     "BCH: 0",
-    "Total Score: 0",
+    "Total Score: 1",
     "",
     "Turn 2",
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     | SHP |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
     "1. Build a SHP\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_2,fake_randomized_buildings_1,fake_randomized_buildings_1))
-def test_view_currentscore_shp_singlebchadjacent_notincenter(mock_random_buildings):
+def test_view_current_score_shp_single_bch_adjacent_not_in_center():
     """
     Test script to test viewing current score when a single "SHP" and a single "BCH" is on the board and they are adjacent. The "BCH" is on the right or left side of the City. (TC-07E)
     """
@@ -563,8 +536,7 @@ def test_view_currentscore_shp_singlebchadjacent_notincenter(mock_random_buildin
     "1. Build a BCH\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-#@mock.patch('classes.game.random_buildings', side_effect = SideEffect(fake_randomized_buildings_2,fake_randomized_buildings_1,fake_randomized_buildings_3,fake_randomized_buildings_3))
-def test_view_currentscore_shp_singlebchadjacent_singlefacadjacent_bchnotincenter(mock_random_buildings):
+def test_view_current_score_shp_single_bch_adjacent_single_fac_adjacent_bch_not_in_center():
     """
     Test script to test viewing current score when a single "SHP", single "BCH" and a single "FAC" is on the board. They are adjacent to the SHP.  The "BCH" is on the Right side of the City. (TC-07E)
     """
@@ -610,7 +582,7 @@ def test_view_currentscore_shp_singlebchadjacent_singlefacadjacent_bchnotincente
     "1. Build a FAC\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-def test_view_currentscore_shp_2bchadjacent_singlefacadjacent_bchnotincenter(mock_random_buildings):
+def test_view_current_score_shp_2_bch_adjacent_single_fac_adjacent_bch_not_in_center():
     """
     Test script to test viewing current score when a single "SHP", 2 "BCH" and a single "FAC" is on the board. They are adjacent.  The "BCH" is on the Right side of the City. (TC-07E)
     """
@@ -662,7 +634,7 @@ def test_view_currentscore_shp_2bchadjacent_singlefacadjacent_bchnotincenter(moc
     "1. Build a FAC\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-def test_view_currentscore_hwy_singlehwy(mock_random_buildings):
+def test_view_current_score_hwy_single_hwy():
     """
     Test script to test viewing current score when a single "HWY" is on the board (TC-07F)
     """
@@ -687,16 +659,16 @@ def test_view_currentscore_hwy_singlehwy(mock_random_buildings):
     "HSE: 0",
     "FAC: 0",
     "SHP: 0",
-    "HWY: 0",
+    "HWY: 1",
     "BCH: 0",
-    "Total Score: 0",
+    "Total Score: 1",
     "",
     "Turn 2",
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2| HWY |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
     "1. Build a BCH\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-def test_view_currentscore_hwy_2hwyadjacentonsinglerow(mock_random_buildings):
+def test_view_current_score_hwy_2_hwy_adjacent_on_single_row():
     """
     Test script to test viewing current score when a 2 "HWY" is on the board all adjacent on the same row. (TC-07F)
     """
@@ -727,16 +699,16 @@ def test_view_currentscore_hwy_2hwyadjacentonsinglerow(mock_random_buildings):
     "HSE: 0",
     "FAC: 0",
     "SHP: 0",
-    "HWY: 1 + 1 = 2",
+    "HWY: 2 + 2 = 4",
     "BCH: 0",
-    "Total Score: 2",
+    "Total Score: 4",
     "",
     "Turn 3",
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2| HWY | HWY |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
     "1. Build a SHP\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-def test_view_currentscore_hwy_4hwyadjacentonsinglerow(mock_random_buildings):
+def test_view_current_score_hwy_4_hwy_adjacent_on_single_row():
     """
     Test script to test viewing current score when a 4 "HWY" is on the board all adjacent on the same row. (TC-07F)
     """
@@ -788,7 +760,7 @@ def test_view_currentscore_hwy_4hwyadjacentonsinglerow(mock_random_buildings):
     "1. Build a SHP\n2. Build a HWY\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-def test_view_currentscore_hwy_2hwyadjacentonsinglerow_1hwyadjacentondifferentrow(mock_random_buildings):
+def test_view_currentscore_hwy_2_hwy_adjacent_on_single_row_1hwy_adjacent_on_different_row():
     """
     Test script to test viewing current score when a 2 "HWY" is on the board all adjacent on the same row. (TC-07F)
     """
@@ -825,9 +797,9 @@ def test_view_currentscore_hwy_2hwyadjacentonsinglerow_1hwyadjacentondifferentro
     "HSE: 0",
     "FAC: 0",
     "SHP: 0",
-    "HWY: 1 + 1 = 2",
+    "HWY: 2 + 2 + 1 = 4",
     "BCH: 0",
-    "Total Score: 2",
+    "Total Score: 4",
     "",
     "Turn 4",
     "    A     B     C     D  \n +-----+-----+-----+-----+\n1| HWY |     |     |     |\n +-----+-----+-----+-----+\n2| HWY | HWY |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
