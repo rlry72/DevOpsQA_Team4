@@ -75,7 +75,7 @@ def test_build_a_building_invalid_input_1character():
     "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
     "Your choice? "]
 
-def test_build_a_building_invalid_input_noinput():
+def test_build_a_building_invalid_input_no_input():
     """
     Test Script to test Invalid input when building from game menu
     """
