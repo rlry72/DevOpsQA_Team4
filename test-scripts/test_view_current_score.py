@@ -538,7 +538,7 @@ def test_view_current_score_shp_single_bch_adjacent_not_in_center():
 
 def test_view_current_score_shp_single_bch_adjacent_single_fac_adjacent_bch_not_in_center():
     """
-    Test script to test viewing current score when a single "SHP", single "BCH" and a single "FAC" is on the board. They are adjacent to the SHP.  The "BCH" is on the Right side of the City. (TC-07E)
+    Test script to test viewing current score when a single "SHP", single "BCH" and a single "FAC" is on the board. They are adjacent to the SHP.  The "BCH" is on the Right or Left side of the City. (TC-07E)
     """
     set_keyboard_input(["1","b2","1","a2","1","c2","4","0"])
 
@@ -584,7 +584,7 @@ def test_view_current_score_shp_single_bch_adjacent_single_fac_adjacent_bch_not_
 
 def test_view_current_score_shp_2_bch_adjacent_single_fac_adjacent_bch_not_in_center():
     """
-    Test script to test viewing current score when a single "SHP", 2 "BCH" and a single "FAC" is on the board. They are adjacent.  The "BCH" is on the Right side of the City. (TC-07E)
+    Test script to test viewing current score when a single "SHP", 2 "BCH" and a single "FAC" is on the board. They are adjacent.  The "BCH" is on the Right or Left side of the City. (TC-07E)
     """
     set_keyboard_input(["1","a2","1","a1","1","a3","1","b2","4","0"])
 
