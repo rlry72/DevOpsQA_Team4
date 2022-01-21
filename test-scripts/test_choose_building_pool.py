@@ -9,15 +9,15 @@ from unittest.mock import Mock
 
 def test_choose_building_pool():
     """
-    Test script to test choosing 5 buildings in the building pool.
+    Test script to test choosing HSE, FAC, SHP, HWY, MON buildings in the building pool.
     """
 
     set_keyboard_input(["3","2","5","2","2","4","0"])
-    buildinglist = choose_building_pool()
+    building_list = choose_building_pool()
     
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "SHP"]}
-    test_game.building_pool = buildinglist
+    test_game.building_pool = building_list
     test_game.start_new_turn()
 
 
@@ -147,7 +147,7 @@ def test_choose_building_pool_invalid_input():
     """
 
     set_keyboard_input(["9","0"])
-    buildinglist = choose_building_pool()
+    building_list = choose_building_pool()
     
 
     result = get_display_output()
@@ -190,13 +190,63 @@ def test_choose_building_pool_invalid_input():
     "Configuring building pool is unsuccessful.",
     "Building pool remains the same as the current building pool."]
 
+def test_choose_building_pool_invalid_input_alphabetical():
+    """
+    Test script to test invalid input when choosing building
+    """
+
+    set_keyboard_input(["haha","0"])
+    building_list = choose_building_pool()
+    
+
+    result = get_display_output()
+    assert result == ["",
+    "--------- CURRENT BUILDING POOL ---------",
+    "[BCH, FAC, HSE, SHP, HWY]",
+    "-----------------------------------------",
+    "",
+    "Choose your new building pool below.",
+    "",
+    "1. Beach (BCH)",
+    "2. Factory (FAC)",
+    "3. House (HSE)",
+    "4. Highway (HWY)",
+    "5. Monument (MON)",
+    "6. Park (PRK)",
+    "7. Shop (SHP)",
+    "",
+    "0. Exit",
+    "Enter input: ",
+    "",
+    "Invalid input has been entered.",
+    "Please enter number for the option (e.g. 1) and it needs to be within the range.",
+    "",
+    "--------- CURRENT BUILDING POOL ---------",
+    "[]",
+    "-----------------------------------------",
+    "",
+    "1. Beach (BCH)",
+    "2. Factory (FAC)",
+    "3. House (HSE)",
+    "4. Highway (HWY)",
+    "5. Monument (MON)",
+    "6. Park (PRK)",
+    "7. Shop (SHP)",
+    "",
+    "0. Exit",
+    "Enter input: ",
+    "",
+    "Configuring building pool is unsuccessful.",
+    "Building pool remains the same as the current building pool."]
+
+
 def test_choose_building_pool_empty_input():
     """
     Test script to test empty input when choosing building
     """
 
     set_keyboard_input(["","0"])
-    buildinglist = choose_building_pool()
+    building_list = choose_building_pool()
     
 
     result = get_display_output()
