@@ -46,7 +46,6 @@ invalidInputArray = ["",
     "Configuring building pool is unsuccessful.",
     "Building pool remains the same as the current building pool."]
 
-
 errorMessage = ["Invalid input has been entered.","Please enter number for the option (e.g. 1) and it needs to be within the range."]
 
 def test_choose_building_pool():
@@ -183,5 +182,6 @@ def test_choose_building_pool_out_of_range(invalidInput, expectedResult):
     check =  all(item in result for item in expectedResult)
 
     assert check == True
+
 
     

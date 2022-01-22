@@ -46,6 +46,9 @@ invalidInputArray = ["",
     "Configuring building pool is unsuccessful.",
     "Building pool remains the same as the current building pool."]
 
+
+errorMessage = ["Invalid input has been entered.","Please enter number for the option (e.g. 1) and it needs to be within the range."]
+
 def test_choose_building_pool():
     """
     Test script to test choosing HSE, FAC, SHP, HWY, MON buildings in the building pool.
@@ -181,7 +184,7 @@ def test_choose_building_pool():
     'Your choice? ']
 
 @pytest.mark.parametrize("invalidInput, expectedResult",
-[(["9", "0"], invalidInputArray), (["haha", invalidInputArray], ""), (["", invalidInputArray], "")])
+[(["9", "0"], invalidInputArray), (["haha", "0"], invalidInputArray), (["", "0"], invalidInputArray)])
 def test_choose_building_pool_invalid_input(invalidInput, expectedResult):
     """
     Test script to test invalid input when choosing building
@@ -193,4 +196,21 @@ def test_choose_building_pool_invalid_input(invalidInput, expectedResult):
 
     result = get_display_output()
     assert result == expectedResult
+
+    
+@pytest.mark.parametrize("invalidInput, expectedResult",
+[(["8", "0"], errorMessage), (["7","7", "0"], errorMessage), (["6","6","6","0"], errorMessage), (["5","5","5","5","0"], errorMessage)
+, (["4","4","4","4","4","0"], errorMessage)])
+def test_choose_building_pool_out_of_range(invalidInput, expectedResult):
+    """
+    Test script to test invalid input when choosing building
+    """
+
+    set_keyboard_input(invalidInput)
+    building_list = choose_building_pool()
+    result = get_display_output()
+
+    check =  all(item in result for item in expectedResult)
+
+    assert check == True
 
