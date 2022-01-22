@@ -172,7 +172,7 @@ def test_choose_building_pool_invalid_input_alphabetical():
     result = get_display_output()
     assert result == ["",
     "--------- CURRENT BUILDING POOL ---------",
-    "[BCH, FAC, HSE, SHP, HWY]",
+    "[HSE, FAC, SHP, HWY, BCH]",
     "-----------------------------------------",
     "",
     "Choose your new building pool below.",

@@ -24,7 +24,7 @@ def test_choose_building_pool():
     result = get_display_output()
     assert result == ["",
     "--------- CURRENT BUILDING POOL ---------",
-    "[BCH, FAC, HSE, SHP, HWY]",
+    "[HSE, FAC, SHP, HWY, BCH]",
     "-----------------------------------------",
     "",
     "Choose your new building pool below.",
