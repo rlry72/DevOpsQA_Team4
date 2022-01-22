@@ -7,6 +7,45 @@ from io import StringIO
 import sys
 from unittest.mock import Mock
 
+invalidInputArray = ["",
+    "--------- CURRENT BUILDING POOL ---------",
+    "[HSE, FAC, SHP, HWY, BCH]",
+    "-----------------------------------------",
+    "",
+    "Choose your new building pool below.",
+    "",
+    "1. Beach (BCH)",
+    "2. Factory (FAC)",
+    "3. House (HSE)",
+    "4. Highway (HWY)",
+    "5. Monument (MON)",
+    "6. Park (PRK)",
+    "7. Shop (SHP)",
+    "",
+    "0. Exit",
+    "Enter input: ",
+    "",
+    "Invalid input has been entered.",
+    "Please enter number for the option (e.g. 1) and it needs to be within the range.",
+    "",
+    "--------- CURRENT BUILDING POOL ---------",
+    "[]",
+    "-----------------------------------------",
+    "",
+    "1. Beach (BCH)",
+    "2. Factory (FAC)",
+    "3. House (HSE)",
+    "4. Highway (HWY)",
+    "5. Monument (MON)",
+    "6. Park (PRK)",
+    "7. Shop (SHP)",
+    "",
+    "0. Exit",
+    "Enter input: ",
+    "",
+    "Configuring building pool is unsuccessful.",
+    "Building pool remains the same as the current building pool."]
+
 def test_choose_building_pool():
     """
     Test script to test choosing HSE, FAC, SHP, HWY, MON buildings in the building pool.
@@ -142,7 +181,7 @@ def test_choose_building_pool():
     'Your choice? ']
 
 @pytest.mark.parametrize("invalidInput, expectedResult",
-[(["9", "0"], ""), (["haha", "0"], ""), (["", "0"], "")])
+[(["9", "0"], invalidInputArray), (["haha", invalidInputArray], ""), (["", invalidInputArray], "")])
 def test_choose_building_pool_invalid_input(invalidInput, expectedResult):
     """
     Test script to test invalid input when choosing building
@@ -153,44 +192,5 @@ def test_choose_building_pool_invalid_input(invalidInput, expectedResult):
     
 
     result = get_display_output()
-    assert result == ["",
-    "--------- CURRENT BUILDING POOL ---------",
-    "[HSE, FAC, SHP, HWY, BCH]",
-    "-----------------------------------------",
-    "",
-    "Choose your new building pool below.",
-    "",
-    "1. Beach (BCH)",
-    "2. Factory (FAC)",
-    "3. House (HSE)",
-    "4. Highway (HWY)",
-    "5. Monument (MON)",
-    "6. Park (PRK)",
-    "7. Shop (SHP)",
-    "",
-    "0. Exit",
-    "Enter input: ",
-    "",
-    "Invalid input has been entered.",
-    "Please enter number for the option (e.g. 1) and it needs to be within the range.",
-    "",
-    "--------- CURRENT BUILDING POOL ---------",
-    "[]",
-    "-----------------------------------------",
-    "",
-    "1. Beach (BCH)",
-    "2. Factory (FAC)",
-    "3. House (HSE)",
-    "4. Highway (HWY)",
-    "5. Monument (MON)",
-    "6. Park (PRK)",
-    "7. Shop (SHP)",
-    "",
-    "0. Exit",
-    "Enter input: ",
-    "",
-    "Configuring building pool is unsuccessful.",
-    "Building pool remains the same as the current building pool."]
+    assert result == expectedResult
 
-
-    
