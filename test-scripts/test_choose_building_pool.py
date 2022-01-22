@@ -197,6 +197,7 @@ def test_choose_building_pool_invalid_input(invalidInput, expectedResult):
     result = get_display_output()
     assert result == expectedResult
 
+    
 @pytest.mark.parametrize("invalidInput, expectedResult",
 [(["8", "0"], errorMessage), (["7","7", "0"], errorMessage), (["6","6","6","0"], errorMessage), (["5","5","5","5","0"], errorMessage)
 , (["4","4","4","4","4","0"], errorMessage)])
