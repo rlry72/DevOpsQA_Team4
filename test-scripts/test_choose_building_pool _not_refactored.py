@@ -162,3 +162,5 @@ def test_choose_building_pool_invalid_input(invalidInput, expectedResult):
     "",
     "Configuring building pool is unsuccessful.",
     "Building pool remains the same as the current building pool."]
+
+    
