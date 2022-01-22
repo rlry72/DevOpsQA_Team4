@@ -141,118 +141,21 @@ def test_choose_building_pool():
     '0. Exit to main menu', 
     'Your choice? ']
 
-def test_choose_building_pool_invalid_input():
+@pytest.mark.parametrize("invalidInput, expectedResult",
+[(["9", "0"], ""), (["haha", "0"], ""), (["", "0"], "")])
+def test_choose_building_pool_invalid_input(invalidInput, expectedResult):
     """
     Test script to test invalid input when choosing building
     """
 
-    set_keyboard_input(["9","0"])
+    set_keyboard_input(invalidInput)
     building_list = choose_building_pool()
     
 
     result = get_display_output()
     assert result == ["",
     "--------- CURRENT BUILDING POOL ---------",
-    "[BCH, FAC, HSE, SHP, HWY]",
-    "-----------------------------------------",
-    "",
-    "Choose your new building pool below.",
-    "",
-    "1. Beach (BCH)",
-    "2. Factory (FAC)",
-    "3. House (HSE)",
-    "4. Highway (HWY)",
-    "5. Monument (MON)",
-    "6. Park (PRK)",
-    "7. Shop (SHP)",
-    "",
-    "0. Exit",
-    "Enter input: ",
-    "",
-    "Invalid input has been entered.",
-    "Please enter number for the option (e.g. 1) and it needs to be within the range.",
-    "",
-    "--------- CURRENT BUILDING POOL ---------",
-    "[]",
-    "-----------------------------------------",
-    "",
-    "1. Beach (BCH)",
-    "2. Factory (FAC)",
-    "3. House (HSE)",
-    "4. Highway (HWY)",
-    "5. Monument (MON)",
-    "6. Park (PRK)",
-    "7. Shop (SHP)",
-    "",
-    "0. Exit",
-    "Enter input: ",
-    "",
-    "Configuring building pool is unsuccessful.",
-    "Building pool remains the same as the current building pool."]
-
-def test_choose_building_pool_invalid_input_alphabetical():
-    """
-    Test script to test invalid input when choosing building
-    """
-
-    set_keyboard_input(["haha","0"])
-    building_list = choose_building_pool()
-    
-
-    result = get_display_output()
-    assert result == ["",
-    "--------- CURRENT BUILDING POOL ---------",
-    "[BCH, FAC, HSE, SHP, HWY]",
-    "-----------------------------------------",
-    "",
-    "Choose your new building pool below.",
-    "",
-    "1. Beach (BCH)",
-    "2. Factory (FAC)",
-    "3. House (HSE)",
-    "4. Highway (HWY)",
-    "5. Monument (MON)",
-    "6. Park (PRK)",
-    "7. Shop (SHP)",
-    "",
-    "0. Exit",
-    "Enter input: ",
-    "",
-    "Invalid input has been entered.",
-    "Please enter number for the option (e.g. 1) and it needs to be within the range.",
-    "",
-    "--------- CURRENT BUILDING POOL ---------",
-    "[]",
-    "-----------------------------------------",
-    "",
-    "1. Beach (BCH)",
-    "2. Factory (FAC)",
-    "3. House (HSE)",
-    "4. Highway (HWY)",
-    "5. Monument (MON)",
-    "6. Park (PRK)",
-    "7. Shop (SHP)",
-    "",
-    "0. Exit",
-    "Enter input: ",
-    "",
-    "Configuring building pool is unsuccessful.",
-    "Building pool remains the same as the current building pool."]
-
-
-def test_choose_building_pool_empty_input():
-    """
-    Test script to test empty input when choosing building
-    """
-
-    set_keyboard_input(["","0"])
-    building_list = choose_building_pool()
-    
-
-    result = get_display_output()
-    assert result == ["",
-    "--------- CURRENT BUILDING POOL ---------",
-    "[BCH, FAC, HSE, SHP, HWY]",
+    "[HSE, FAC, SHP, HWY, BCH]",
     "-----------------------------------------",
     "",
     "Choose your new building pool below.",
