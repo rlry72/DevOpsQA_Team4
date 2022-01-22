@@ -15,6 +15,19 @@ mainMenu = ["Welcome, mayor of Simp City!\n----------------------------\n1. Star
 mainMenuNoWelcome = ["\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
     "Your choice? "]
 
+gameBoardDefault = [
+    "     A     B     C     D  ",
+    "  +-----+-----+-----+-----+",
+    " 1|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 2|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 3|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 4|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+]
+
 gameBoard = [
             "     A     B     C     D     E  ",
             "  +-----+-----+-----+-----+-----+",
@@ -76,6 +89,11 @@ invalidInput = [
     "Invalid input has been entered. Please enter a number."
 ]
 
+invalidSize = [
+    "",
+    "The multiplication of width and height exceeds the limit of 40. Please re-enter your input."
+]
+
 inputCitySizeExit = [
     "",
     "City size will not be updated.",
@@ -131,8 +149,33 @@ def test_change_city_size_main_menu():
 
 def test_change_city_size_game():
     """
-    Tests successful city size change from 4x4 to 5x6 using game variables
+    Tests successful city size change from default 4x4 to 5x6 using game variables
     """
+
+    '''
+    default (4x4) city size expected output:
+
+    Turn 1
+        A     B     C     D   
+     +-----+-----+-----+-----+
+    1|     |     |     |     |
+     +-----+-----+-----+-----+
+    2|     |     |     |     |
+     +-----+-----+-----+-----+
+    3|     |     |     |     |
+     +-----+-----+-----+-----+
+    4|     |     |     |     |
+     +-----+-----+-----+-----+
+
+    1. Build a SHP
+    2. Build a SHP
+    3. See remaining buildings
+    4. See current score
+    
+    5. Save game
+    0. Exit to main menu
+    Your choice? 
+    '''
 
     '''
     5x6 city size expected output:
@@ -163,13 +206,24 @@ def test_change_city_size_game():
     '''
     set_keyboard_input(["0"])
 
-    game = Game(width = 5, height = 6)
-    game.randomized_building_history = {"1": ["SHP", "SHP"]}
-    game.start_new_turn()
+    gameDefault = Game()
+    gameDefault.randomized_building_history = {"1": ["SHP", "SHP"]}
+    gameDefault.start_new_turn()
 
-    result = get_display_output()
+    resultDefault = get_display_output()
 
-    assert result == [""] + turnNumber + gameBoard + gameMenu
+
+
+    set_keyboard_input(["0"])
+
+    game5x6 = Game(width = 5, height = 6)
+    game5x6.randomized_building_history = {"1": ["SHP", "SHP"]}
+    game5x6.start_new_turn()
+
+    result5x6 = get_display_output()
+
+    assert resultDefault == [""] + turnNumber + gameBoardDefault + gameMenu
+    assert result5x6 == [""] + turnNumber + gameBoard + gameMenu
 
 @pytest.mark.parametrize("exitInput, expectedResult",
 [(["5", "0", "0"], exitExpectedResultWidth), (["5", "4", "0", "0"], exitExpectedResultHeight)])
@@ -237,6 +291,41 @@ def test_exit_change_city_size(exitInput, expectedResult):
 
     assert result == expectedResult
 
+def test_change_city_size_invalid_size():
+    """
+    Tests invalid city size change from 4x4 to 8x8 from main menu
+    """
+
+    '''
+    main menu change city size expected output:
+
+    Welcome, mayor of Simp City!
+    ----------------------------
+    1. Start new game
+    2. Load saved game
+    3. Show high scores
+    4. Choose building pool
+    5. Choose city size
+    
+    0. Exit
+    Your choice? 
+
+    Enter value for width: 
+    Enter value for height: 
+
+    The multiplication of width and height exceeds the limit of 40. Please re-enter your input.
+
+    Enter value for width:
+    '''
+    set_keyboard_input(["5", "8", "8", "0"])
+    
+    menu = main_menu()
+    if menu == "5":
+        prompt_city_size([4,4])
+    
+    result = get_display_output()
+    expectedResult = mainMenuToInputSize + inputWidth + inputHeight + invalidSize + inputWidth
+    assert result[:-7] == expectedResult
 
 @pytest.mark.parametrize("invalidInput, expectedResult",
 [(["5", "a", "0"], invalidInputWidthExpectedResult), (["5", "", "0"], invalidInputWidthExpectedResult),
