@@ -3,6 +3,7 @@ import os
 from main import *
 from classes.game import *
 from classes.menu import *
+from classes.building import *
 from tud_test_base import set_keyboard_input, get_display_output
 from io import StringIO 
 import sys
@@ -11,22 +12,29 @@ from unittest.mock import Mock
 mainMenu = ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
     "Your choice? "]
 
-gameBoard = [
-            "     A     B     C     D  ",
-            "  +-----+-----+-----+-----+",
-            " 1|     |     |     |     |",
-            "  +-----+-----+-----+-----+",
-            " 2|     |     |     |     |",
-            "  +-----+-----+-----+-----+",
-            " 3|     |     |     |     |",
-            "  +-----+-----+-----+-----+",
-            " 4|     |     |     |     |",
-            "  +-----+-----+-----+-----+",]
+mainMenuNoWelcome = ["\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
+    "Your choice? "]
 
-gameMenu = ["Turn {turnNumber}",
-            "{gameBoard}",
-            '1. Build a {opt1}',
-            '2. Build a {opt2}', 
+gameBoard = [
+            "     A     B     C     D     E  ",
+            "  +-----+-----+-----+-----+-----+",
+            " 1|     |     |     |     |     |",
+            "  +-----+-----+-----+-----+-----+",
+            " 2|     |     |     |     |     |",
+            "  +-----+-----+-----+-----+-----+",
+            " 3|     |     |     |     |     |",
+            "  +-----+-----+-----+-----+-----+",
+            " 4|     |     |     |     |     |",
+            "  +-----+-----+-----+-----+-----+",
+            " 5|     |     |     |     |     |",
+            "  +-----+-----+-----+-----+-----+",
+            " 6|     |     |     |     |     |",
+            "  +-----+-----+-----+-----+-----+",]
+
+turnNumber = ["Turn 1"]
+            
+gameMenu = ['1. Build a SHP',
+            '2. Build a SHP', 
             '3. See remaining buildings',
             '4. See current score',
             '', 
@@ -40,6 +48,14 @@ currentCitySize = [
     "Width: 4",
     "Height: 4",
     "-------------------------------------",
+]
+
+chosenCitySize = [
+    "",
+    "--------- CHOSEN CITY SIZE ---------",
+    "Width: 5",
+    "Height: 6",
+    "------------------------------------",
 ]
 
 citySize = [
@@ -67,47 +83,93 @@ inputCitySizeExit = [
 
 mainMenuToInputSize = mainMenu + currentCitySize + citySize
 
-invalidInputWidthExpectedResult = mainMenuToInputSize + inputWidth + invalidInput + inputWidth + invalidInput + inputWidth + inputCitySizeExit + currentCitySize
-invalidInputHeightExpectedResult = mainMenuToInputSize + inputWidth + invalidInput + inputWidth + inputHeight + invalidInput + [""] + inputHeight + inputCitySizeExit + currentCitySize
+invalidInputWidthExpectedResult = mainMenuToInputSize + inputWidth + invalidInput + inputWidth + inputCitySizeExit + currentCitySize
+invalidInputHeightExpectedResult = mainMenuToInputSize + inputWidth + inputHeight + invalidInput + [""] + inputHeight + inputCitySizeExit + currentCitySize
 
 exitExpectedResultWidth = mainMenuToInputSize + inputWidth + inputCitySizeExit + currentCitySize
 exitExpectedResultHeight = mainMenuToInputSize + inputWidth + inputHeight + inputCitySizeExit + currentCitySize
 
 
-def test_change_city_size():
+def test_change_city_size_main_menu():
     """
-    Tests successful city size change from 4x4 to 5x6
+    Tests successful city size change from 4x4 to 5x6 from main menu
+    This test only tests the output of main menu, unable to properly test whether city size changes in game, that is tested in the next test.
     """
-    set_keyboard_input(["5", "4", "6", "1", "0", "0"])
 
+    '''
+    main menu change city size expected output:
+
+    Welcome, mayor of Simp City!
+    ----------------------------
+    1. Start new game
+    2. Load saved game
+    3. Show high scores
+    4. Choose building pool
+    5. Choose city size
+    
+    0. Exit
+    Your choice? 
+
+    Enter value for width: 
+    Enter value for height: 
+
+    --------- CHOSEN CITY SIZE ---------
+    Width: 5
+    Height: 6
+    ------------------------------------
+    '''
+    set_keyboard_input(["5", "5", "6"])
+    
     menu = main_menu()
     if menu == "5":
         prompt_city_size([4,4])
     
-    if menu == "1":
-        startGame = start_new_game()
-    # if menu == 4:
+    result = get_display_output()
+    expectedResult = mainMenuToInputSize + inputWidth + inputHeight + chosenCitySize
+    assert result == expectedResult
 
-        
+
+def test_change_city_size_game():
+    """
+    Tests successful city size change from 4x4 to 5x6 using game variables
+    """
+
+    '''
+    5x6 city size expected output:
+
+    Turn 1
+        A     B     C     D     E  
+     +-----+-----+-----+-----+-----+
+    1|     |     |     |     |     |
+     +-----+-----+-----+-----+-----+
+    2|     |     |     |     |     |
+     +-----+-----+-----+-----+-----+
+    3|     |     |     |     |     |
+     +-----+-----+-----+-----+-----+
+    4|     |     |     |     |     |
+     +-----+-----+-----+-----+-----+
+    5|     |     |     |     |     |
+     +-----+-----+-----+-----+-----+
+    6|     |     |     |     |     |
+     +-----+-----+-----+-----+-----+
+    1. Build a SHP
+    2. Build a SHP
+    3. See remaining buildings
+    4. See current score
+    
+    5. Save game
+    0. Exit to main menu
+    Your choice? 
+    '''
+    set_keyboard_input(["0"])
+
+    game = Game(width = 5, height = 6)
+    game.randomized_building_history = {"1": ["SHP", "SHP"]}
+    game.start_new_turn()
+
     result = get_display_output()
 
-    assert result == False
-
-    # assert startGame.width == '5'
-    # assert result[2] == ""
-    # captured, err = capfd.readouterr()
-    # assert captured != ''
-
-
-    # if menu == 1:
-    #     start_new_game()
-    
-
-
-    # assert Game.height == 4
-    # assert Game.width == 4
-
-    # for output in result:
+    assert result == [""] + turnNumber + gameBoard + gameMenu
 
 @pytest.mark.parametrize("exitInput, expectedResult",
 [(["5", "0", "0"], exitExpectedResultWidth), (["5", "4", "0", "0"], exitExpectedResultHeight)])
@@ -115,6 +177,55 @@ def test_exit_change_city_size(exitInput, expectedResult):
     """
     Tests exit from city size change to main menu from input width and input height
     """
+
+    '''
+    exit from width selection expected output:
+
+    Welcome, mayor of Simp City!
+    ----------------------------
+    1. Start new game
+    2. Load saved game
+    3. Show high scores
+    4. Choose building pool
+    5. Choose city size
+    
+    0. Exit
+    Your choice? 
+
+    Enter value for width: 
+    
+    City size will not be updated.
+
+    --------- CURRENT CITY SIZE ---------
+    Width: 4
+    Height: 4
+    -------------------------------------
+    '''
+
+    '''
+    exit from height selection expected output:
+
+    Welcome, mayor of Simp City!
+    ----------------------------
+    1. Start new game
+    2. Load saved game
+    3. Show high scores
+    4. Choose building pool
+    5. Choose city size
+    
+    0. Exit
+    Your choice? 
+
+    Enter value for width: 
+    Enter value for height: 
+    
+    City size will not be updated.
+
+    --------- CURRENT CITY SIZE ---------
+    Width: 4
+    Height: 4
+    -------------------------------------
+    '''
 
     set_keyboard_input(exitInput)
 
@@ -129,12 +240,69 @@ def test_exit_change_city_size(exitInput, expectedResult):
 
 @pytest.mark.parametrize("invalidInput, expectedResult",
 [(["5", "a", "0"], invalidInputWidthExpectedResult), (["5", "", "0"], invalidInputWidthExpectedResult),
-(["5", "5", "b", "0"], invalidInputWidthExpectedResult), (["5", "5", "", "0"], invalidInputWidthExpectedResult),
+(["5", "5", "b", "0"], invalidInputHeightExpectedResult), (["5", "5", "", "0"], invalidInputHeightExpectedResult),
 (["5", "100", "0"], invalidInputWidthExpectedResult)])
 def test_invalid_input_change_city_size(invalidInput, expectedResult):
     """
     Tests invalid input in input width and input height
     """
+
+    '''
+    invalid height expected output:
+
+    Welcome, mayor of Simp City!
+    ----------------------------
+    1. Start new game
+    2. Load saved game
+    3. Show high scores
+    4. Choose building pool
+    5. Choose city size
+    
+    0. Exit
+    Your choice? 
+
+    Enter value for width: 
+
+    Invalid input has been entered. Please enter a number.
+
+    Enter value for width: 
+
+    City size will not be updated.
+
+    --------- CURRENT CITY SIZE ---------
+    Width: 4
+    Height: 4
+    -------------------------------------
+    '''
+
+    '''
+    invalid width expected output:
+
+    Welcome, mayor of Simp City!
+    ----------------------------
+    1. Start new game
+    2. Load saved game
+    3. Show high scores
+    4. Choose building pool
+    5. Choose city size
+    
+    0. Exit
+    Your choice? 
+
+    Enter value for width: 
+    Enter value for height: 
+
+    Invalid input has been entered. Please enter a number.
+
+    Enter value for height: 
+
+    City size will not be updated.
+
+    --------- CURRENT CITY SIZE ---------
+    Width: 4
+    Height: 4
+    -------------------------------------
+    '''
 
     set_keyboard_input(invalidInput)
 
