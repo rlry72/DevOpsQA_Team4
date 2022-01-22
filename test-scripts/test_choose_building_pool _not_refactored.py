@@ -48,6 +48,8 @@ invalidInputArray = ["",
 
 errorMessage = ["Invalid input has been entered.","Please enter number for the option (e.g. 1) and it needs to be within the range."]
 
+
+
 def test_choose_building_pool():
     """
     Test script to test choosing HSE, FAC, SHP, HWY, MON buildings in the building pool.
@@ -157,7 +159,7 @@ def test_choose_building_pool():
 [(["9", "0"], invalidInputArray), (["haha", "0"], invalidInputArray), (["", "0"], invalidInputArray)])
 def test_choose_building_pool_invalid_input(invalidInput, expectedResult):
     """
-    Test script to test invalid input when choosing building
+    Test script to test invalid input when choosing building.
     """
 
     set_keyboard_input(invalidInput)
@@ -172,7 +174,7 @@ def test_choose_building_pool_invalid_input(invalidInput, expectedResult):
 , (["4","4","4","4","4","0"], errorMessage)])
 def test_choose_building_pool_out_of_range(invalidInput, expectedResult):
     """
-    Test script to test invalid input when choosing building
+    Test script to test invalid input when choosing building. 
     """
 
     set_keyboard_input(invalidInput)
@@ -182,5 +184,7 @@ def test_choose_building_pool_out_of_range(invalidInput, expectedResult):
     check =  all(item in result for item in expectedResult)
 
     assert check == True
+
+
 
     
