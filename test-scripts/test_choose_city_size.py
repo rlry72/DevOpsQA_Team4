@@ -221,7 +221,10 @@ def test_change_city_size_game():
     game5x6.start_new_turn()
 
     result5x6 = get_display_output()
-
+    assert gameDefault.width == 4
+    assert gameDefault.height == 4
+    assert game5x6.width == 5
+    assert game5x6.height == 6
     assert resultDefault == [""] + turnNumber + gameBoardDefault + gameMenu
     assert result5x6 == [""] + turnNumber + gameBoard + gameMenu
 
