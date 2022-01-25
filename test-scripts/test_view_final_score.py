@@ -242,6 +242,45 @@ actualBoard6x6 = [
                                  [Factory(0, 4), Factory(1, 4), Factory(2, 4), Factory(3, 4), Factory(4, 4), Factory(5, 4)],
                                  [Factory(0, 5), Factory(1, 5), Factory(2, 5), Factory(3, 5), Factory(4, 5), Factory(5, 5)],
                              ]
+
+caseStudyBoardState = [
+    "     A     B     C     D  ",
+    "  +-----+-----+-----+-----+",
+    " 1| SHP | SHP | HSE |     |",
+    "  +-----+-----+-----+-----+",
+    " 2| BCH | HSE | HSE | BCH |",
+    "  +-----+-----+-----+-----+",
+    " 3| BCH | SHP | HSE | HSE |",
+    "  +-----+-----+-----+-----+",
+    " 4| HWY | HWY | HWY | HWY |",
+    "  +-----+-----+-----+-----+",]
+
+caseStudyBoardStateFilled = [
+    "     A     B     C     D  ",
+    "  +-----+-----+-----+-----+",
+    " 1| SHP | SHP | HSE | FAC |",
+    "  +-----+-----+-----+-----+",
+    " 2| BCH | HSE | HSE | BCH |",
+    "  +-----+-----+-----+-----+",
+    " 3| BCH | SHP | HSE | HSE |",
+    "  +-----+-----+-----+-----+",
+    " 4| HWY | HWY | HWY | HWY |",
+    "  +-----+-----+-----+-----+",]
+
+actualBoardCaseStudy = [
+                                 [Shop(0,0), Shop(1, 0), House(2, 0), Building()],
+                                 [Beach(0, 1), House(1, 1), House(2, 1), Beach(3, 1)],
+                                 [Beach(0, 2), Shop(1, 2), House(2, 2), House(3, 2)],
+                                 [Highway(0, 3), Highway(1, 3), Highway(2, 3), Highway(3, 3)]
+                             ]
+
+scoreCaseStudy = [
+    "HSE: 1 + 5 + 5 + 3 + 3 = 17",
+    "FAC: 1 = 1",
+    "SHP: 2 + 2 + 3 = 7",
+    "HWY: 4 + 4 + 4 + 4 = 16",
+    "BCH: 3 + 3 + 3 = 9",
+    "Total score: 50"]
     
 
 
@@ -249,7 +288,8 @@ actualBoard6x6 = [
 [(["1", "a1", "0"], board1x1, 1, score1x1, [1,1], actualBoard1x1, board1x1Filled), (["1", "a1", "0"], board2x2, 4, score2x2, [2,2], actualBoard2x2, board2x2Filled),
 (["1", "a1", "0"], board3x3, 9, score3x3, [3,3], actualBoard3x3, board3x3Filled),
 (["1", "a1", "0"], board4x4, 16, score4x4, [4,4], actualBoard4x4, board4x4Filled),
-(["1", "a1", "0"], board5x5, 25, score5x5, [5,5], actualBoard5x5, board5x5Filled), (["1", "a1", "0"], board6x6, 36, score6x6, [6,6], actualBoard6x6, board6x6Filled)])
+(["1", "a1", "0"], board5x5, 25, score5x5, [5,5], actualBoard5x5, board5x5Filled), (["1", "a1", "0"], board6x6, 36, score6x6, [6,6], actualBoard6x6, board6x6Filled),
+(["1", "d1", "0"], caseStudyBoardState, 16, scoreCaseStudy, [4,4], actualBoardCaseStudy, caseStudyBoardStateFilled),])
 def test_view_final_score(input, boardState, turnNumber, scoreBoard, heightWidth, actualBoard, boardStateFilled):
     """
     Test script to check viewing final score computation, final total score and whether main menu is displayed after final turn.
