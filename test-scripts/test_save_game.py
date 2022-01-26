@@ -95,6 +95,7 @@ board5x5Placed = [
 " 5|     |     |     |     |     |",
 "  +-----+-----+-----+-----+-----+",]
 
+#boardState is the empty game board while boardStatePlaced is the game board with a building on it.
 @pytest.mark.parametrize("input, citySize, boardState, boardStatePlaced",
 [(["1", "a1", "5", "0"], 4, board, boardPlaced), (["1", "a1", "5", "0"], 5, board5x5, board5x5Placed), (["1", "a1", "5", "0"], 3, board3x3, board3x3Placed), 
 (["1", "a1", "5", "0"], 4, board, boardPlaced)]) #Existing Save File 
