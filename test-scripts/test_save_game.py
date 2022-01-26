@@ -104,15 +104,19 @@ def test_save_game(input, citySize, boardState, boardStatePlaced):
     """
     set_keyboard_input(input)
 
+
+    #Starting a game and setting city size and buildings that will show up each turn. The game will be saved after placing 1 building.
     testGame = Game(width = citySize, height = citySize)
     testGame.randomized_building_history = {"1": ["FAC", "FAC"], "2": ["FAC", "FAC"]}
     testGame.start_new_turn()
 
     result = get_display_output()
 
+    #Opening Save File
     f = open('game_save.json')
     data = json.load(f)
 
+    #Checking Result
     assert result == ["", "Turn 1"] + boardState + gameMenu + ["Build where? ", "", "Turn 2"] + boardStatePlaced + gameMenu + ["","Game saved!", "", "Turn 2"] + boardStatePlaced + gameMenu
     assert data["turn_num"] == 2
     assert data["board"] == { "0,0": "FAC"}
@@ -124,15 +128,19 @@ def test_save_game_empty_board():
     Test script to save game without placing anything on the board.
     """
     set_keyboard_input(["5", "0"])
+
+    #Starting another game without placing a building and saving.
     testGame = Game()
     testGame.randomized_building_history = {"1": ["FAC", "FAC"], "2": ["FAC", "FAC"]}
     testGame.start_new_turn()
     
     result = get_display_output()
 
+    #Opening Save File
     f = open('game_save.json')
     data = json.load(f)
 
+    #Checking Result
     assert result == ["", "Turn 1"] + board + gameMenu + ["","Game saved!", "", "Turn 2"] + board + gameMenu
     assert data["turn_num"] == 2
     assert data["board"] == {}
@@ -144,17 +152,21 @@ def test_save_game_existing_save():
     Test script to save game without placing anything on the board.
     """
     set_keyboard_input([["1", "a1", "5", "0"]])
+
+    #Starting a game and setting buildings that will show up each turn. The game will be saved after placing 1 building.
     testGame = Game()
     testGame.randomized_building_history = {"1": ["FAC", "FAC"], "2": ["FAC", "FAC"]}
     testGame.start_new_turn()
     
     result = get_display_output()
 
+    #Opening save file and retrieving board state.
     f = open('game_save.json')
     tempData = json.load(f)
-    tempHeight = tempData["board"]
+    tempBoard = tempData["board"]
     f.close()
 
+    #Starting another game without placing a building and saving.
     set_keyboard_input([["5", "0"]])
     newGame = Game()
     newGame.randomized_building_history = {"1": ["FAC", "FAC"], "2": ["FAC", "FAC"]}
@@ -163,13 +175,15 @@ def test_save_game_existing_save():
     newResult = get_display_output()
 
 
-
+    #Opening Save file
     fileOpen = open('game_save.json')
     data = json.load(fileOpen)
 
+    #Checking if new save file is the same as old save file
     assert result == ["", "Turn 1"] + board + gameMenu + ["","Game saved!", "", "Turn 2"] + board + gameMenu
     assert data["turn_num"] == 2
     assert data["board"] == {}
-    assert data["board"] != tempHeight
+    assert data["board"] != tempBoard
     assert data["height"] == 4
     assert data["width"] == 4
+
