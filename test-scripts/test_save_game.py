@@ -81,7 +81,7 @@ board5x5 = [
 " 5|     |     |     |     |     |",
 "  +-----+-----+-----+-----+-----+",]
 
-board5x5Filled = [
+board5x5Placed = [
 "     A     B     C     D     E  ",
 "  +-----+-----+-----+-----+-----+",
 " 1| FAC |     |     |     |     |",
@@ -96,7 +96,7 @@ board5x5Filled = [
 "  +-----+-----+-----+-----+-----+",]
 
 @pytest.mark.parametrize("input, citySize, boardState, boardStatePlaced",
-[(["1", "a1", "5", "0"], 4, board, boardPlaced), (["1", "a1", "5", "0"], 5, board5x5, board5x5Filled), (["1", "a1", "5", "0"], 3, board3x3, board3x3Placed), 
+[(["1", "a1", "5", "0"], 4, board, boardPlaced), (["1", "a1", "5", "0"], 5, board5x5, board5x5Placed), (["1", "a1", "5", "0"], 3, board3x3, board3x3Placed), 
 (["1", "a1", "5", "0"], 4, board, boardPlaced)]) #Existing Save File 
 def test_save_game(input, citySize, boardState, boardStatePlaced):
     """
