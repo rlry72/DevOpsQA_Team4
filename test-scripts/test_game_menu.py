@@ -3,6 +3,35 @@ from tud_test_base import set_keyboard_input, get_display_output
 from classes.menu import *
 from classes.game import *
 
+mainMenuNoWelcome = ["\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
+    "Your choice? "]
+
+turnNumber = ["", "Turn 1"]
+
+gameBoard = [
+    "     A     B     C     D  ",
+    "  +-----+-----+-----+-----+",
+    " 1|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 2|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 3|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 4|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+]
+
+gameMenu = ['1. Build a HSE',
+            '2. Build a HSE', 
+            '3. See remaining buildings',
+            '4. See current score',
+            '', 
+            '5. Save game', 
+            '0. Exit to main menu', 
+            'Your choice? ']
+
+invalidInputList = ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]
+
 def test_game_menu_display_board():
     """
     Tests if the game board is displayed properly upon starting a new game
@@ -14,12 +43,14 @@ def test_game_menu_display_board():
     test_game = Game()
     test_game.start_new_turn()
     # get what is printed in the console
-    result = get_display_output()[:3]
+    result = get_display_output()
     
+    expectedResult = turnNumber + gameBoard
+
     # compares what is printed in console with what should be shown. if different, test fails.
-    assert result == ["", "Turn 1",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    ]
+    for line in range(len(expectedResult)):
+        assert result[line] == expectedResult[line]
+
 
 
 def test_game_menu_display_options():
@@ -31,14 +62,13 @@ def test_game_menu_display_options():
     set_keyboard_input(["0"])
     # start new game and turn
     test_game = Game()
+    test_game.randomized_building_history = {"1": ["HSE", "HSE"]}
     test_game.start_new_turn()
     # get what is printed in the console
-    result = get_display_output()[-2:]
+    result = get_display_output()[-8:]
     
     # compares what is printed in console with what should be shown. if different, test fails.
-    assert result == [
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? "    ]
+    assert result == gameMenu
 
 
 def test_game_menu_display_board_options():
@@ -50,21 +80,19 @@ def test_game_menu_display_board_options():
     set_keyboard_input(["0"])
     # start new game and turn
     test_game = Game()
+    test_game.randomized_building_history = {"1": ["HSE", "HSE"]}
     test_game.start_new_turn()
     # get what is printed in the console
     result = get_display_output()
     
     # compares what is printed in console with what should be shown. if different, test fails.
-    assert result == ["", "Turn 1",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? "]
+    assert result == turnNumber + gameBoard + gameMenu
 
 
 
 @pytest.mark.parametrize("invalidInput, expectedResult", 
-[("-1", ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), ("asdf", ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), 
-("13@!$`a", ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), (9, ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]), ("", ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "])])
+[("-1", invalidInputList), ("asdf", invalidInputList), 
+("13@!$`a", invalidInputList), (9, invalidInputList), ("", invalidInputList)])
 def test_game_menu_invalid_input(invalidInput, expectedResult):
     """
     Runs a set of invalid inputs to test the input failure and message in the game menu. Tests to check if output messages are correct.
@@ -89,8 +117,7 @@ def test_game_menu_return_main_menu():
     # set keyboard input to 0, then 0. (ignores 1)
     set_keyboard_input(["0", "0"])
     # set expected output to that of main menu string
-    expectedOutput = ["",  "1. Start new game\n2. Load saved game\n0. Exit",
-    "Your choice? "]
+    expectedOutput = mainMenuNoWelcome
     # starts a new game and new turn and enters game menu
     selection = Game().start_new_turn()
     # if input in game menu is 0,
