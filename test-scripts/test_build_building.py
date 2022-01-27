@@ -8,6 +8,40 @@ import sys
 from unittest.mock import Mock
 
 
+gameBoard = [
+    "     A     B     C     D  ",
+    "  +-----+-----+-----+-----+",
+    " 1|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 2|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 3|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 4|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+]
+
+gameBoardPlaced = [
+    "     A     B     C     D  ",
+    "  +-----+-----+-----+-----+",
+    " 1| SHP |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 2|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 3|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 4|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+]
+
+gameMenu = ['1. Build a SHP',
+            '2. Build a SHP', 
+            '3. See remaining buildings',
+            '4. See current score',
+            '', 
+            '5. Save game', 
+            '0. Exit to main menu', 
+            'Your choice? ']
 
 
 def test_build_a_building():
@@ -17,19 +51,18 @@ def test_build_a_building():
     set_keyboard_input(["1","a1","0"])
 
     test_game = Game()
+    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
     result = get_display_output()
     
     assert result == ["", "Turn 1",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? ",
+    gameBoard,
+    gameMenu,
     "Build where? ",
     "",
     "Turn 2",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1| SHP |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? "]
+    gameBoardPlaced,
+    gameMenu]
 
 
 
@@ -39,20 +72,19 @@ def test_build_a_building_invalid_input():
     """
     set_keyboard_input(["1","2a","0"])
     test_game = Game()
+    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
     result = get_display_output()
 
     assert result == ["","Turn 1",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? ",
+    gameBoard,
+    gameMenu,
     "Build where? ",
     "Your input is invalid, please follow 'letter' + 'digit' format to input for location.",
     "",
     "Turn 1",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? "]
+    gameBoard,
+    gameMenu]
 
 def test_build_a_building_invalid_input_1_character():
     """
@@ -60,20 +92,19 @@ def test_build_a_building_invalid_input_1_character():
     """
     set_keyboard_input(["1","a","0"])
     test_game = Game()
+    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
     result = get_display_output()
 
     assert result == ["","Turn 1",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? ",
+    gameBoard,
+    gameMenu,
     "Build where? ",
     "Your input is invalid, please follow 'letter' + 'digit' format to input for location.",
     "",
     "Turn 1",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? "]
+    gameBoard,
+    gameMenu]
     
 
 def test_build_a_building_invalid_input_no_input():
@@ -82,20 +113,19 @@ def test_build_a_building_invalid_input_no_input():
     """
     set_keyboard_input(["1","","0"])
     test_game = Game()
+    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
     result = get_display_output()
 
     assert result == ["","Turn 1",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? ",
+    gameBoard,
+    gameMenu,
     "Build where? ",
     "Your input is invalid, please follow 'letter' + 'digit' format to input for location.",
     "",
     "Turn 1",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? "]
+    gameBoard,
+    gameMenu]
 
 
 def test_build_a_building_invalid_location():
@@ -104,26 +134,24 @@ def test_build_a_building_invalid_location():
     """
     set_keyboard_input(["1","a1","1","c4","0"])
     test_game = Game()
+    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
     result = get_display_output()
 
     assert result == ["","Turn 1",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? ",
+    gameBoard,
+    gameMenu,
     "Build where? ",
     "",
     "Turn 2",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1| SHP |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? ",
+    gameBoardPlaced,
+    gameMenu,
     "Build where? ",
     "You must build next to an existing building.",
     "",
     "Turn 2",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1| SHP |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? "]
+    gameBoardPlaced,
+    gameMenu]
 
 
 
@@ -133,23 +161,21 @@ def test_build_a_building_build_on_existing_building():
     """
     set_keyboard_input(["1","a1","1","a1","0"])
     test_game = Game()
+    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
     result = get_display_output()
 
     assert result == ["","Turn 1",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? ",
+    gameBoard,
+    gameMenu,
     "Build where? ",
     "",
     "Turn 2",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1| SHP |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? ",
+    gameBoardPlaced,
+    gameMenu,
     "Build where? ",
     "You cannot build on a location that has already had a building",
     "",
     "Turn 2",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1| SHP |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? "]
+    gameBoardPlaced,
+    gameMenu]
