@@ -55,14 +55,7 @@ def test_build_a_building():
     test_game.start_new_turn()
     result = get_display_output()
     
-    assert result == ["", "Turn 1",
-    gameBoard,
-    gameMenu,
-    "Build where? ",
-    "",
-    "Turn 2",
-    gameBoardPlaced,
-    gameMenu]
+    assert result == ["", "Turn 1"] + gameBoard + gameMenu + ["Build where? ", "", "Turn 2"] + gameBoardPlaced + gameMenu
 
 
 
@@ -76,15 +69,9 @@ def test_build_a_building_invalid_input():
     test_game.start_new_turn()
     result = get_display_output()
 
-    assert result == ["","Turn 1",
-    gameBoard,
-    gameMenu,
-    "Build where? ",
+    assert result == ["","Turn 1"] + gameBoard + gameMenu + ["Build where? ",
     "Your input is invalid, please follow 'letter' + 'digit' format to input for location.",
-    "",
-    "Turn 1",
-    gameBoard,
-    gameMenu]
+    "", "Turn 1"] + gameBoard + gameMenu
 
 def test_build_a_building_invalid_input_1_character():
     """
@@ -96,15 +83,9 @@ def test_build_a_building_invalid_input_1_character():
     test_game.start_new_turn()
     result = get_display_output()
 
-    assert result == ["","Turn 1",
-    gameBoard,
-    gameMenu,
-    "Build where? ",
+    assert result == ["","Turn 1"] + gameBoard + gameMenu + ["Build where? ",
     "Your input is invalid, please follow 'letter' + 'digit' format to input for location.",
-    "",
-    "Turn 1",
-    gameBoard,
-    gameMenu]
+    "", "Turn 1"] + gameBoard + gameMenu
     
 
 def test_build_a_building_invalid_input_no_input():
@@ -117,15 +98,9 @@ def test_build_a_building_invalid_input_no_input():
     test_game.start_new_turn()
     result = get_display_output()
 
-    assert result == ["","Turn 1",
-    gameBoard,
-    gameMenu,
-    "Build where? ",
+    assert result == ["","Turn 1"] + gameBoard + gameMenu + ["Build where? ",
     "Your input is invalid, please follow 'letter' + 'digit' format to input for location.",
-    "",
-    "Turn 1",
-    gameBoard,
-    gameMenu]
+    "", "Turn 1"] + gameBoard + gameMenu
 
 
 def test_build_a_building_invalid_location():
@@ -138,20 +113,8 @@ def test_build_a_building_invalid_location():
     test_game.start_new_turn()
     result = get_display_output()
 
-    assert result == ["","Turn 1",
-    gameBoard,
-    gameMenu,
-    "Build where? ",
-    "",
-    "Turn 2",
-    gameBoardPlaced,
-    gameMenu,
-    "Build where? ",
-    "You must build next to an existing building.",
-    "",
-    "Turn 2",
-    gameBoardPlaced,
-    gameMenu]
+    assert result == ["","Turn 1"] + gameBoard +gameMenu + ["Build where? ","","Turn 2"] + gameBoardPlaced + gameMenu + ["Build where? ",
+    "You must build next to an existing building.", "", "Turn 2"] + gameBoardPlaced + gameMenu
 
 
 
@@ -165,17 +128,7 @@ def test_build_a_building_build_on_existing_building():
     test_game.start_new_turn()
     result = get_display_output()
 
-    assert result == ["","Turn 1",
-    gameBoard,
-    gameMenu,
-    "Build where? ",
-    "",
-    "Turn 2",
-    gameBoardPlaced,
-    gameMenu,
-    "Build where? ",
-    "You cannot build on a location that has already had a building",
-    "",
-    "Turn 2",
-    gameBoardPlaced,
-    gameMenu]
+
+    assert result == ["","Turn 1"] + gameBoard +gameMenu + ["Build where? ","","Turn 2"] + gameBoardPlaced + gameMenu + ["Build where? ",
+    "You cannot build on a location that has already had a building", "", "Turn 2"] + gameBoardPlaced + gameMenu
+    
