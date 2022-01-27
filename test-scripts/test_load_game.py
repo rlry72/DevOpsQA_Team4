@@ -72,31 +72,6 @@ printBoard5x5 = [
 " 5|     |     |     |     |     |",
 "  +-----+-----+-----+-----+-----+",]
 
-saveBoard3x3 = [
-[Beach(0, 0), Building(), Building()],
-[Building(), Building(), Building()],
-[Building(), Building(), Building()]]
-
-saveEmptyBoard4x4 = [
-[Building(), Building(), Building(), Building()],
-[Building(), Building(), Building(), Building()],
-[Building(), Building(), Building(), Building()],
-[Building(), Building(), Building(), Building()]]
-
-saveBoard4x4 = [
-[Beach(0, 0), Building(), Building(), Building()],
-[Building(), Building(), Building(), Building()],
-[Building(), Building(), Building(), Building()],
-[Building(), Building(), Building(), Building()]]
-
-saveBoard5x5 = [
-[Beach(0, 0), Building(), Building(), Building(), Building()],
-[Building(), Building(), Building(), Building(), Building()],
-[Building(), Building(), Building(), Building(), Building()],
-[Building(), Building(), Building(), Building(), Building()],
-[Building(), Building(), Building(), Building(), Building()]]
-
-jsonBoard3x3 = {"0,0": "BCH", }
 
 def test_load_game_no_save():
     """
@@ -104,19 +79,24 @@ def test_load_game_no_save():
     """
     set_keyboard_input(["2", "0"])
 
-    mainMenu = main_menu()
-    if mainMenu == "2":
-        load_game()
-        main_menu(True)
+    # calls main menu. if no save file is found, it should return to main menu without welcome message, with error message "No save game found!"
+    menu = main_menu()
+    if menu == "2":
+        loadedGame = load_game()
+        if loadedGame == False:
+            main_menu(True)
     
     result = get_display_output()
 
+    # expected result should be main menu, no save game found error then back to main menu without welcome message.
     assert result == mainMenu + noSaveError + mainMenuNoWelcome
 
 def test_load_game_empty_board():
     """
-    Tests the output in console of load game option in menu with 4x4 board existing save
+    Tests the output in console of load game option in menu with 4x4 empty board existing save
     """
+    # starts a game and saves without building a building, then exits
+    # this is to set up prerequisite 
     set_keyboard_input(["5", "0"])
 
     test_game = Game()
@@ -126,39 +106,45 @@ def test_load_game_empty_board():
 
     set_keyboard_input(["2"])
 
-    mainMenu = main_menu()
-    if mainMenu == "2":
+    # calls main menu and loads game, then starts a turn.
+    menu = main_menu()
+    if menu == "2":
         loadedGame = load_game()
+        loadedGame.start_new_turn()
 
     result = get_display_output()
 
-    assert loadedGame == saveEmptyBoard4x4
+    # expected result should be main menu to game with turn 1 and empty board with game menu
     assert result == mainMenu + ["", "Turn 1"] + printEmptyBoard4x4 + gameMenu
 
 
-@pytest.mark.parametrize("saveBoard, printBoard, boardSize, boardJson",
-(saveBoard3x3, printBoard3x3, 3),
-(saveBoard4x4, printBoard4x4, 4),
-(saveBoard5x5, printBoard5x5, 5))
-def test_load_game_with_save_different_board_sizes(saveBoard, printBoard, boardSize):
+@pytest.mark.parametrize("printBoard, boardSize",
+[(printBoard3x3, 3),
+(printBoard4x4, 4),
+(printBoard5x5, 5)])
+def test_load_game_with_save_different_board_sizes(printBoard, boardSize):
     """
     Tests the output in console of load game option in menu with existing save
     """
-    set_keyboard_input(["1", "5", "0"])
+    set_keyboard_input(["1", "a1", "5", "0"])
 
+    # starts a game with different board sizes (3x3, 4x4, 5x5) to set up prerequisites.
+    # turn number is 2, and BCH is built in a1 spot
     test_game = Game(height = boardSize, width = boardSize)
     test_game.turn_num = turnNumber
     test_game.randomized_building_history = {"1": ["BCH", "BCH"], "2": ["HSE", "HSE"]}
     test_game.start_new_turn()
 
 
-    set_keyboard_input(["2"])
+    set_keyboard_input(["2", "0"])
 
-    mainMenu = main_menu()
-    if mainMenu == "2":
+    # calls main menu to load game.
+    menu = main_menu()
+    if menu == "2":
         loadedGame = load_game()
+        loadedGame.start_new_turn()
 
     result = get_display_output()
 
-    assert loadedGame == saveBoard
+    # expected result should be main menu to game with turn 2, and board with BCH in a1 on all sizes with game menu.
     assert result == mainMenu + turnNumberArr + printBoard + gameMenu
