@@ -2,6 +2,7 @@ import pytest
 import os
 from classes.game import *
 from classes.menu import *
+from classes.building import *
 from tud_test_base import set_keyboard_input, get_display_output
 from io import StringIO 
 import sys
@@ -58,12 +59,13 @@ def test_build_a_building():
     assert result == ["", "Turn 1"] + gameBoard + gameMenu + ["Build where? ", "", "Turn 2"] + gameBoardPlaced + gameMenu
 
 
-
-def test_build_a_building_invalid_input():
+@pytest.mark.parametrize("invalidInput",
+[(["1","2a","0"]), (["1","a","0"]), (["1","","0"])])
+def test_build_a_building_invalid_input(invalidInput):
     """
     Test Script to test Invalid input when building from game menu
     """
-    set_keyboard_input(["1","2a","0"])
+    set_keyboard_input(invalidInput)
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
@@ -73,34 +75,6 @@ def test_build_a_building_invalid_input():
     "Your input is invalid, please follow 'letter' + 'digit' format to input for location.",
     "", "Turn 1"] + gameBoard + gameMenu
 
-def test_build_a_building_invalid_input_1_character():
-    """
-    Test Script to test Invalid input when building from game menu
-    """
-    set_keyboard_input(["1","a","0"])
-    test_game = Game()
-    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
-    test_game.start_new_turn()
-    result = get_display_output()
-
-    assert result == ["","Turn 1"] + gameBoard + gameMenu + ["Build where? ",
-    "Your input is invalid, please follow 'letter' + 'digit' format to input for location.",
-    "", "Turn 1"] + gameBoard + gameMenu
-    
-
-def test_build_a_building_invalid_input_no_input():
-    """
-    Test Script to test Invalid input when building from game menu
-    """
-    set_keyboard_input(["1","","0"])
-    test_game = Game()
-    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
-    test_game.start_new_turn()
-    result = get_display_output()
-
-    assert result == ["","Turn 1"] + gameBoard + gameMenu + ["Build where? ",
-    "Your input is invalid, please follow 'letter' + 'digit' format to input for location.",
-    "", "Turn 1"] + gameBoard + gameMenu
 
 
 def test_build_a_building_invalid_location():
