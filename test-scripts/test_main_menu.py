@@ -2,13 +2,42 @@ import pytest
 import os
 from classes.game import *
 from classes.menu import *
+from main import *
 from tud_test_base import set_keyboard_input, get_display_output
 from io import StringIO 
 import sys
 from unittest.mock import Mock
 
+mainMenu = ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
+    "Your choice? "]
 
+invalidInputList = [
+    "Invalid input, please try again",
+    "Your choice? "]
 
+turnNumber = ["", "Turn 1"]
+
+gameBoard = [
+    "     A     B     C     D  ",
+    "  +-----+-----+-----+-----+",
+    " 1|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 2|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 3|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 4|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+]
+
+gameMenu = ['1. Build a HSE',
+            '2. Build a HSE', 
+            '3. See remaining buildings',
+            '4. See current score',
+            '', 
+            '5. Save game', 
+            '0. Exit to main menu', 
+            'Your choice? ']
 
 
 def test_main_menu_to_game_menu():
@@ -19,17 +48,13 @@ def test_main_menu_to_game_menu():
     selected = main_menu()
 
     if (selected == "1"):
-        start_new_game()
+        test_game = Game()
+        test_game.randomized_building_history = {"1": ["HSE", "HSE"]}
+        test_game.start_new_turn()
 
 
     result = get_display_output()
-    assert result == ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n\n0. Exit",
-    "Your choice? ",
-    "",
-    "Turn 1",
-    "    A     B     C     D  \n +-----+-----+-----+-----+\n1|     |     |     |     |\n +-----+-----+-----+-----+\n2|     |     |     |     |\n +-----+-----+-----+-----+\n3|     |     |     |     |\n +-----+-----+-----+-----+\n4|     |     |     |     |\n +-----+-----+-----+-----+",
-    "1. Build a SHP\n2. Build a SHP\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu",
-    "Your choice? "]
+    assert result == mainMenu + turnNumber + gameBoard + gameMenu
 
 
 
@@ -41,21 +66,19 @@ def test_main_menu():
     main_menu()
     result = get_display_output()
 
-    assert result == ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n\n0. Exit",
-    "Your choice? "]
+    assert result == mainMenu
 
 
 
-
-def test_main_menu_invalid_input():
+@pytest.mark.parametrize("invalidInput", 
+[("-1"), ("asdf"), 
+("13@!$`a"), (9), ("")])
+def test_main_menu_invalid_input(invalidInput):
     """
     Test script to test invalid input in main menu
     """
-    set_keyboard_input(["-1","0"])
+    set_keyboard_input([invalidInput,"0"])
     main_menu()
     result = get_display_output()
 
-    assert result == ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n\n0. Exit",
-    "Your choice? ",
-    "Invalid input, please try again",
-    "Your choice? "]
+    assert result == mainMenu + invalidInputList
