@@ -14,6 +14,12 @@ https://connectnpedu-my.sharepoint.com/:x:/g/personal/s10195732_connect_np_edu_s
 ## Preliminary report for testing for Iteration 1
 https://connectnpedu-my.sharepoint.com/:w:/g/personal/s10195732_connect_np_edu_sg/ES9EiTq0kw1AggA36RO-esgBZv7qZLAW4Fw1rinpFK6N9w?e=IP0E5o
 
+## Simple guide on writing test cases
+https://connectnpedu-my.sharepoint.com/:w:/g/personal/s10195642_connect_np_edu_sg/EV0mb9WeuORAlwjzibUHiXMBN5WpywND8-FgMBku0iOEGA?e=8hReTM
+
+## Simple guide on writing test scripts
+https://connectnpedu-my.sharepoint.com/:w:/g/personal/s10195732_connect_np_edu_sg/EXZ0hjD7KvpMsgyRg7DS3mgBFDUKAa2I-u5t4O8ZAd0gJg?e=ayU9Df
+
 
 ## Flow for working as a QA for new tasks
 1. Get the tasks assigned in the Dev repo Kanban board here (https://github.com/zengzihui/DevOps_Oct2021_Team04/projects/1)  
@@ -28,7 +34,7 @@ https://connectnpedu-my.sharepoint.com/:w:/g/personal/s10195732_connect_np_edu_s
 9. Once review is done and no other changes to be made, Reviewer will close issue and pull request with 'lgtm' or '+1'  
 
 ## Flow for working as a QA for any issues on test scripts
-1. QA lead will create an issue in Dev repo here if there are any issues on test scripts, and assign someone to fix (QA lead included)  
+1. QA lead will create an issue in Dev repo if there are any issues on test scripts, and assign someone to fix (QA lead included)  
 2. Assigned QA will create a new branch in QA repo here  
 3. QA will start working in new branch to solve issue  
 4. Once done, QA will create a pull request here  
