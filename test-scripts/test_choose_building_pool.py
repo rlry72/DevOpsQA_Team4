@@ -7,6 +7,8 @@ from io import StringIO
 import sys
 from unittest.mock import Mock
 
+defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
 invalidInputArray = ["",
     "--------- CURRENT BUILDING POOL ---------",
     "[HSE, FAC, SHP, HWY, BCH]",
@@ -22,15 +24,11 @@ invalidInputArray = ["",
     "6. Park (PRK)",
     "7. Shop (SHP)",
     "",
-    "0. Exit",
+    "0. Exit to main menu",
     "Enter input: ",
     "",
     "Invalid input has been entered.",
     "Please enter number for the option (e.g. 1) and it needs to be within the range.",
-    "",
-    "--------- CURRENT BUILDING POOL ---------",
-    "[]",
-    "-----------------------------------------",
     "",
     "1. Beach (BCH)",
     "2. Factory (FAC)",
@@ -40,7 +38,7 @@ invalidInputArray = ["",
     "6. Park (PRK)",
     "7. Shop (SHP)",
     "",
-    "0. Exit",
+    "0. Exit to main menu",
     "Enter input: ",
     "",
     "Configuring building pool is unsuccessful.",
@@ -55,7 +53,7 @@ def test_choose_building_pool():
     """
 
     set_keyboard_input(["3","2","5","2","2","4","0"])
-    building_list = choose_building_pool()
+    building_list = choose_building_pool(defaultBuildingPool)
     
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "SHP"]}
@@ -79,7 +77,7 @@ def test_choose_building_pool():
     "6. Park (PRK)",
     "7. Shop (SHP)",
     "",
-    "0. Exit",
+    "0. Exit to main menu",
     "Enter input: ",
     "",
     "--------- CURRENT BUILDING POOL ---------",
@@ -93,7 +91,7 @@ def test_choose_building_pool():
     "5. Park (PRK)",
     "6. Shop (SHP)",
     "",
-    "0. Exit",
+    "0. Exit to main menu",
     "Enter input: ",
     "",
     "--------- CURRENT BUILDING POOL ---------",
@@ -106,7 +104,7 @@ def test_choose_building_pool():
     "4. Park (PRK)",
     "5. Shop (SHP)",
     "",
-    "0. Exit",
+    "0. Exit to main menu",
     "Enter input: ",
     "",
     "--------- CURRENT BUILDING POOL ---------",
@@ -118,7 +116,7 @@ def test_choose_building_pool():
     "3. Monument (MON)",
     "4. Park (PRK)",
     "",
-    "0. Exit",
+    "0. Exit to main menu",
     "Enter input: ",
     "",
     "--------- CURRENT BUILDING POOL ---------",
@@ -129,7 +127,7 @@ def test_choose_building_pool():
     "2. Monument (MON)",
     "3. Park (PRK)",
     "",
-    "0. Exit",
+    "0. Exit to main menu",
     "Enter input: ",
     "",
     "--------- CURRENT BUILDING POOL ---------",
@@ -191,7 +189,7 @@ def test_choose_building_pool_invalid_input(invalidInput, expectedResult):
     """
 
     set_keyboard_input(invalidInput)
-    building_list = choose_building_pool()
+    building_list = choose_building_pool(defaultBuildingPool)
     
 
     result = get_display_output()
@@ -207,7 +205,7 @@ def test_choose_building_pool_out_of_range(invalidInput, expectedResult):
     """
 
     set_keyboard_input(invalidInput)
-    building_list = choose_building_pool()
+    building_list = choose_building_pool(defaultBuildingPool)
     result = get_display_output()
 
     check =  all(item in result for item in expectedResult)
