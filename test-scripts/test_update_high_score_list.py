@@ -82,7 +82,7 @@ current_city_size_2x2_1 = [
 def get_position(filename, score):
     position = 0
 
-    fileExist = os.path.exists('./' + filename)
+    fileExist = os.path.exists(filename)
     if fileExist:
         f = open(filename)
         data = json.load(f)
@@ -263,6 +263,7 @@ def test_update_high_scores_never_got_top_10(finalLayoutMsg):
     test_game.board = gameBoard3x1_1
     test_game.turn_num = 4
     test_game.start_new_turn()
+    main_menu(True)
 
     result = get_display_output()
     assert result == [""] + finalLayoutMsg + board3x1Filled_1 + score_computation_3x1_1 + [""] + mainMenuNoWelcome
@@ -270,7 +271,7 @@ def test_update_high_scores_never_got_top_10(finalLayoutMsg):
 
 def test_update_high_scores_only_got_10_players_in_list(finalLayoutMsg):
 
-    position = get_position("high_score_4.json", 7)  
+    position = get_position("high_score_3.json", 9)  
     congratsMsg = ["Congratulations! You made the high score board at position " + str(position) + "!",
                     "Please enter your name (max 20 chars):"]
 
@@ -317,7 +318,96 @@ def test_update_high_scores_only_got_10_players_in_list(finalLayoutMsg):
     test_game.board = gameBoard3x1_2
     test_game.turn_num = 4
     test_game.start_new_turn()
+    main_menu(True)
 
     result = get_display_output()
     assert result == [""] + finalLayoutMsg + board3x1Filled_2 + score_computation_3x1_2 + congratsMsg \
                     + [""] + high_score_list_3x1_2 + [""] + mainMenuNoWelcome
+
+
+
+def test_update_high_scores_display_separately_for_diff_city_area(finalLayoutMsg):
+
+    
+    congratsMsg = ["Congratulations! You made the high score board at position 1!",
+                    "Please enter your name (max 20 chars):"]
+    
+
+    gameBoard1x1_1 = [
+    [Highway(0,0)]
+    ]
+    
+    gameBoard2x1_1 = [
+    [Highway(0,0), Highway(1,0)]
+    ]
+
+    board1x1Filled_1 = [
+        "     A   ",        
+        "  +-----+",        
+        " 1| HWY |",
+        "  +-----+",       
+    ]  
+
+    board2x1Filled_1 = [
+        "     A     B   ",        
+        "  +-----+-----+",        
+        " 1| HWY | HWY |",
+        "  +-----+-----+",       
+    ] 
+
+    score_computation_1x1_1 = [
+        "HSE: 0", 
+        "FAC: 0",
+        "SHP: 0",
+        "HWY: 1",
+        "BCH: 0",
+        "Total score: 1"
+    ]
+
+    score_computation_2x1_1 = [
+        "HSE: 0", 
+        "FAC: 0",
+        "SHP: 0",
+        "HWY: 2 + 2 = 4",
+        "BCH: 0",
+        "Total score: 4"
+    ]
+    
+    high_score_list_1x1_1 = [
+        "--------- HIGH SCORES ---------",
+        "Pos Player                Score",
+        "--- ------                -----",
+        " 1. First Game                1",        
+        "-------------------------------"
+    ]
+
+    high_score_list_2x1_1 = [
+        "--------- HIGH SCORES ---------",
+        "Pos Player                Score",
+        "--- ------                -----",
+        " 1. Second Game               4",        
+        "-------------------------------"
+    ]
+    
+
+
+    set_keyboard_input(["First Game", "0", "Second Game"])
+  
+    test_game = Game(width = 1, height = 1)
+    test_game.board = gameBoard1x1_1 
+    test_game.turn_num = 2
+    test_game.start_new_turn()
+    main_menu(True)
+
+    test_game_2 = Game(width = 2, height = 1)
+    test_game_2.board = gameBoard2x1_1
+    test_game_2.turn_num = 3
+    test_game_2.start_new_turn()
+    main_menu(True)
+
+    result = get_display_output()
+
+    assert result == [""] + finalLayoutMsg + board1x1Filled_1 + score_computation_1x1_1 + congratsMsg \
+                     + [""] + high_score_list_1x1_1 + [""] + mainMenuNoWelcome + [""] \
+                     + finalLayoutMsg + board2x1Filled_1 + score_computation_2x1_1 + congratsMsg \
+                     + [""] + high_score_list_2x1_1 + [""] + mainMenuNoWelcome
