@@ -12,6 +12,8 @@ from classes.menu import *
 mainMenuNoWelcome = ["\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
                      "Your choice? "]
 
+defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
 finalLayoutMsg = ["Final layout of Simp City:"]
 
 
@@ -120,11 +122,13 @@ def test_update_high_scores_diff_citysize_same_cityarea_samename(mainMenuNoWelco
     set_keyboard_input(["HelloWorld\nHeyDevOp", "0", "HelloWorld\nHeyDevOp"])
 
     test_game = Game(width = 2, height = 2)
+    test_game.building_pool = defaultBuildingPool
     test_game.board = gameBoard2x2_1 
     test_game.turn_num = 5
     test_game.start_new_turn()
     main_menu(True)
     test_game_2 = Game(width = 4, height = 1)
+    test_game_2.building_pool = defaultBuildingPool
     test_game_2.board = gameBoard4x1_1
     test_game_2.turn_num = 5
     test_game_2.start_new_turn()
@@ -158,6 +162,7 @@ def test_update_high_scores_invalid_name(mainMenuNoWelcome,finalLayoutMsg, gameB
     set_keyboard_input(["HelloWorld\nHeyDevOps"])
 
     test_game = Game(width = 2, height = 2)
+    test_game.building_pool = defaultBuildingPool
     test_game.board = gameBoard2x2_1
     test_game.turn_num = 5
     test_game.start_new_turn()
@@ -191,6 +196,7 @@ def test_update_high_scores_same_score_lower_position(mainMenuNoWelcome,finalLay
     set_keyboard_input(["Player 2"])
 
     test_game = Game(width = 2, height = 2)
+    test_game.building_pool = defaultBuildingPool
     test_game.board = gameBoard2x2_1
     test_game.turn_num = 5
     test_game.start_new_turn()
@@ -231,6 +237,7 @@ def test_update_high_scores_never_got_top_10(mainMenuNoWelcome,finalLayoutMsg):
     set_keyboard_input([])
 
     test_game = Game(width = 3, height = 1)
+    test_game.building_pool = defaultBuildingPool
     test_game.board = gameBoard3x1_1
     test_game.turn_num = 4
     test_game.start_new_turn()
@@ -290,6 +297,7 @@ def test_update_high_scores_only_got_10_players_in_list(mainMenuNoWelcome,finalL
     set_keyboard_input(["Player"])
 
     test_game = Game(width = 3, height = 1)
+    test_game.building_pool = defaultBuildingPool
     test_game.board = gameBoard3x1_2
     test_game.turn_num = 4
     test_game.start_new_turn()
@@ -300,3 +308,91 @@ def test_update_high_scores_only_got_10_players_in_list(mainMenuNoWelcome,finalL
                     + [""] + high_score_list_3x1_2 + [""] + mainMenuNoWelcome
 
 
+
+def test_update_high_scores_display_separately_for_diff_city_area(mainMenuNoWelcome,finalLayoutMsg):
+    """
+    Test whether the high score list for different city areas will display separately
+    """
+    
+    congratsMsg = ["Congratulations! You made the high score board at position 1!",
+                    "Please enter your name (max 20 chars):"]
+    
+    gameBoard1x1_1 = [
+    [Highway(0,0)]
+    ]
+    
+    gameBoard2x1_1 = [
+    [Highway(0,0), Highway(1,0)]
+    ]
+
+    board1x1Filled_1 = [
+        "     A   ",        
+        "  +-----+",        
+        " 1| HWY |",
+        "  +-----+",       
+    ]  
+
+    board2x1Filled_1 = [
+        "     A     B   ",        
+        "  +-----+-----+",        
+        " 1| HWY | HWY |",
+        "  +-----+-----+",       
+    ] 
+
+    score_computation_1x1_1 = [
+        "HSE: 0", 
+        "FAC: 0",
+        "SHP: 0",
+        "HWY: 1",
+        "BCH: 0",
+        "Total score: 1"
+    ]
+
+    score_computation_2x1_1 = [
+        "HSE: 0", 
+        "FAC: 0",
+        "SHP: 0",
+        "HWY: 2 + 2 = 4",
+        "BCH: 0",
+        "Total score: 4"
+    ]
+    
+    high_score_list_1x1_1 = [
+        "--------- HIGH SCORES ---------",
+        "Pos Player                Score",
+        "--- ------                -----",
+        " 1. First Game                1",        
+        "-------------------------------"
+    ]
+
+    high_score_list_2x1_1 = [
+        "--------- HIGH SCORES ---------",
+        "Pos Player                Score",
+        "--- ------                -----",
+        " 1. Second Game               4",        
+        "-------------------------------"
+    ]    
+
+
+    set_keyboard_input(["First Game", "0", "Second Game"])
+  
+    test_game = Game(width = 1, height = 1)
+    test_game.building_pool = defaultBuildingPool
+    test_game.board = gameBoard1x1_1 
+    test_game.turn_num = 2
+    test_game.start_new_turn()
+    main_menu(True)
+
+    test_game_2 = Game(width = 2, height = 1)
+    test_game_2.building_pool = defaultBuildingPool
+    test_game_2.board = gameBoard2x1_1
+    test_game_2.turn_num = 3
+    test_game_2.start_new_turn()
+    main_menu(True)
+
+    result = get_display_output()
+
+    assert result == [""] + finalLayoutMsg + board1x1Filled_1 + score_computation_1x1_1 + congratsMsg \
+                     + [""] + high_score_list_1x1_1 + [""] + mainMenuNoWelcome + [""] \
+                     + finalLayoutMsg + board2x1Filled_1 + score_computation_2x1_1 + congratsMsg \
+                     + [""] + high_score_list_2x1_1 + [""] + mainMenuNoWelcome
