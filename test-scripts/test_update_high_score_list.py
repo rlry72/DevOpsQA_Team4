@@ -200,3 +200,41 @@ def test_update_high_scores_same_score_lower_position(mainMenuNoWelcome,finalLay
 
     assert result == [""] + finalLayoutMsg + board2x2Filled_1 + score_computation_2x2_1 + congratsMsg \
                     + [""] + high_score_list_2x2_2 + [""] + mainMenuNoWelcome
+
+
+
+def test_update_high_scores_never_got_top_10(mainMenuNoWelcome,finalLayoutMsg):
+    """
+    Test whether the user will return back to the main menu without prompting for name when the user never got into the top 10.
+    """
+    
+    gameBoard3x1_1 = [
+    [House(0,0), Factory(1,0), House(2,0)]
+    ]
+
+    board3x1Filled_1 = [
+        "     A     B     C   ",        
+        "  +-----+-----+-----+",        
+        " 1| HSE | FAC | HSE |",
+        "  +-----+-----+-----+",       
+    ]     
+
+    score_computation_3x1_1 = [
+        "HSE: 1 + 1 = 2", 
+        "FAC: 1 = 1",
+        "SHP: 0",
+        "HWY: 0",
+        "BCH: 0",
+        "Total score: 3"
+    ]
+
+    set_keyboard_input([])
+
+    test_game = Game(width = 3, height = 1)
+    test_game.board = gameBoard3x1_1
+    test_game.turn_num = 4
+    test_game.start_new_turn()
+    main_menu(True)
+
+    result = get_display_output()
+    assert result == [""] + finalLayoutMsg + board3x1Filled_1 + score_computation_3x1_1 + [""] + mainMenuNoWelcome
