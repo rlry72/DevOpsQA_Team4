@@ -233,4 +233,66 @@ def test_update_high_scores_same_score_lower_position(finalLayoutMsg, gameBoard2
     assert result == [""] + finalLayoutMsg + board2x2Filled_1 + score_computation_2x2_1 + congratsMsg \
                     + [""] + high_score_list_2x2_2 + [""] + mainMenuNoWelcome
 
+
+
+gameBoard3x1_1 = [
+    [Highway(0,0), Highway(1,0), Highway(2,0)]
+]
+
+board3x1Filled_1 = [
+    "     A     B     C   ",        
+    "  +-----+-----+-----+",        
+    " 1| HWY | HWY | WHY |",
+    "  +-----+-----+-----+",       
+]     
+
+score_computation_4x1_1 = [
+    "HSE: 0", 
+    "FAC: 0",
+    "SHP: 0",
+    "HWY: 3 + 3 + 3 = 9",
+    "BCH: 0",
+    "Total score: 9"
+]
+
+high_score_list_2x2_1 = [
+    "--------- HIGH SCORES ---------",
+    "Pos Player                Score",
+    "--- ------                -----",
+    " 1. HelloWorld\\nHeyDevOp      7",
+    "-------------------------------"
+]
+
+def test_update_high_scores_never_got_top_10(finalLayoutMsg, gameBoard3x1_1, board3x1Filled_1,score_computation_3x1_1):
+    
+    gameBoard3x1_2 = [
+    [Highway(0,0), Highway(1,0), Highway(2,0)]
+    ]
+
+    board3x1Filled_2 = [
+        "     A     B     C   ",        
+        "  +-----+-----+-----+",        
+        " 1| HSE | FAC | HSE |",
+        "  +-----+-----+-----+",       
+    ]     
+
+    score_computation_3x1_2 = [
+        "HSE: 1 + 1 = 2", 
+        "FAC: 1 = 1",
+        "SHP: 0",
+        "HWY: 0",
+        "BCH: 0",
+        "Total score: 3"
+    ]
+
+    set_keyboard_input(["Player 2"])
+
+    test_game = Game(width = 3, height = 1)
+    test_game.board = gameBoard3x1_2
+    test_game.turn_num = 4
+    test_game.start_new_turn()
+
+    result = get_display_output()
+    assert result == [""] + finalLayoutMsg + board3x1Filled_2 + score_computation_3x1_2 + [""] + mainMenuNoWelcome
+
     
