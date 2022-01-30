@@ -1,3 +1,4 @@
+from email.policy import default
 import pytest
 import os
 from classes.game import *
@@ -44,6 +45,7 @@ gameMenu = ['1. Build a SHP',
             '0. Exit to main menu', 
             'Your choice? ']
 
+defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
 def test_build_a_building():
     """
@@ -53,6 +55,7 @@ def test_build_a_building():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
+    test_game.building_pool = defaultBuildingPool
     test_game.start_new_turn()
     result = get_display_output()
     
@@ -67,6 +70,7 @@ def test_build_a_building_invalid_input(invalidInput):
     """
     set_keyboard_input(invalidInput)
     test_game = Game()
+    test_game.building_pool = defaultBuildingPool
     test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
     result = get_display_output()
@@ -84,6 +88,7 @@ def test_build_a_building_invalid_location():
     set_keyboard_input(["1","a1","1","c4","0"])
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
+    test_game.building_pool = defaultBuildingPool
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -99,6 +104,7 @@ def test_build_a_building_build_on_existing_building():
     set_keyboard_input(["1","a1","1","a1","0"])
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
+    test_game.building_pool = defaultBuildingPool
     test_game.start_new_turn()
     result = get_display_output()
 
