@@ -12,6 +12,8 @@ import math
 import statistics
 import json
 
+defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
 gameMenu = ['1. Build a FAC',
             '2. Build a FAC', 
             '3. See remaining buildings',
@@ -108,6 +110,7 @@ def test_save_game(input, citySize, boardState, boardStatePlaced):
 
     #Starting a game and setting city size and buildings that will show up each turn. The game will be saved after placing 1 building.
     testGame = Game(width = citySize, height = citySize)
+    testGame.building_pool = defaultBuildingPool
     testGame.randomized_building_history = {"1": ["FAC", "FAC"], "2": ["FAC", "FAC"]}
     testGame.start_new_turn()
 
@@ -132,6 +135,7 @@ def test_save_game_empty_board():
 
     #Starting another game without placing a building and saving.
     testGame = Game()
+    testGame.building_pool = defaultBuildingPool
     testGame.randomized_building_history = {"1": ["FAC", "FAC"], "2": ["FAC", "FAC"]}
     testGame.start_new_turn()
     
@@ -156,6 +160,7 @@ def test_save_game_existing_save():
 
     #Starting a game and setting buildings that will show up each turn. The game will be saved after placing 1 building.
     testGame = Game()
+    testGame.building_pool = defaultBuildingPool
     testGame.randomized_building_history = {"1": ["FAC", "FAC"], "2": ["FAC", "FAC"]}
     testGame.start_new_turn()
     
@@ -170,6 +175,7 @@ def test_save_game_existing_save():
     #Starting another game without placing a building and saving.
     set_keyboard_input([["5", "0"]])
     newGame = Game()
+    newGame.building_pool = defaultBuildingPool
     newGame.randomized_building_history = {"1": ["FAC", "FAC"], "2": ["FAC", "FAC"]}
     newGame.start_new_turn()
 
