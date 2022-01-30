@@ -137,3 +137,31 @@ def test_update_high_scores_diff_citysize_same_cityarea_samename(mainMenuNoWelco
                      + finalLayoutMsg + board4x1Filled_1 + score_computation_4x1_1 + congratsMsg \
                      + [""] + high_score_list_4x1_1 + [""] + mainMenuNoWelcome
 
+
+
+def test_update_high_scores_invalid_name(mainMenuNoWelcome,finalLayoutMsg, gameBoard2x2_1, board2x2Filled_1,score_computation_2x2_1):
+    """
+    Test whether the system will display error messages when an invalid input for name is entered.
+    """
+
+    error_message = [
+        "Invalid input for the name has been entered. ",
+        "Please remember only a max of 20 characters are allowed for the name.",
+        "",
+        "Please enter your name (max 20 chars):"
+        ]
+
+    position = get_position("high_score_4.json", 7)  
+    congratsMsg = ["Congratulations! You made the high score board at position " + str(position) + "!",
+                    "Please enter your name (max 20 chars):"]
+
+    set_keyboard_input(["HelloWorld\nHeyDevOps"])
+
+    test_game = Game(width = 2, height = 2)
+    test_game.board = gameBoard2x2_1
+    test_game.turn_num = 5
+    test_game.start_new_turn()
+
+    result = get_display_output()
+    
+    assert result == [""] + finalLayoutMsg + board2x2Filled_1 + score_computation_2x2_1 + congratsMsg +[""] + error_message
