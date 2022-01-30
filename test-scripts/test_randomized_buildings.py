@@ -33,7 +33,6 @@ def test_compare_randomized_building_5_turns():
 
     # check that all are not similar
     assert optList[0] != optList[1] != optList[2] != optList[3] != optList[4]
-    # assert result[3] != result[9] != result[15] != result[21] != result[26]
 
 @pytest.mark.skip(reason="no way of currently testing this, will manually test")
 def test_compare_randomized_building_10_turns():
@@ -53,11 +52,11 @@ def test_compare_randomized_building_10_turns():
 
     for output in result:
         if "1." in output:
-            opt1 = output.split("\n")[0].split(" ")[-1]
-            option1Arr.append(opt1)
+            # opt1 = output.split("\n")[0].split(" ")[-1]
+            option1Arr.append(output)
         if "2." in output:
-            opt2 = output.split("\n")[1].split(" ")[-1]
-            option2Arr.append(opt2)
+            # opt2 = output.split("\n")[1].split(" ")[-1]
+            option2Arr.append(output)
     # assert result[3] != result[9]
 
 def test_check_randomized_building_in_building_pool():
@@ -73,7 +72,6 @@ def test_check_randomized_building_in_building_pool():
     test_game = Game()
     test_game.building_pool = defaultBuildingPool
      # get building pool from game
-    buildingPool = test_game.building_pool
     # start game
     test_game.start_new_turn()
     result = get_display_output()
@@ -81,16 +79,16 @@ def test_check_randomized_building_in_building_pool():
     # get all buildings returned in game menu in output
     for output in result:
         if "1." in output:
-            # split by \n and then by space and get the last item in list and append to options list
-            opt1 = output.split("\n")[0].split(" ")[-1]
+            # split by space and get the last item in list and append to options list
+            opt1 = output.split(" ")[-1]
             optList.append(opt1)
         if "2." in output:
-            # split by \n and then by space and get the last item in list and append to options list
-            opt2 = output.split("\n")[1].split(" ")[-1]
+            # split by space and get the last item in list and append to options list
+            opt2 = output.split(" ")[-1]
             optList.append(opt2)
 
     # convert option list to set (no duplicates) and assert that option list is a subset of building pool.
-    assert set(optList).issubset(buildingPool) is True
+    assert set(optList).issubset(defaultBuildingPool) is True
     # assert result[3] != result[9]
 
 def test_randomized_building_options_1_building_left():
@@ -112,10 +110,10 @@ def test_randomized_building_options_1_building_left():
     for output in result:
         if "1." in output:
             # get options in output
-            opt1 = output.split("\n")[0].split(" ")[-1]
+            opt1 = output.split(" ")[-1]
         if "2." in output:
             # get options in output
-            opt2 = output.split("\n")[1].split(" ")[-1]
+            opt2 = output.split(" ")[-1]
 
     # check that option 1 is the same as option 2
     assert opt1 == opt2
