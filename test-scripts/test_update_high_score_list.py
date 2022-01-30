@@ -71,7 +71,8 @@ def get_position(filename, score):
         position = 1
     return position
 
-
+@pytest.mark.parametrize("mainMenuNoWelcome, finalLayoutMsg, gameBoard2x2_1, board2x2Filled_1,score_computation_2x2_1",
+[(mainMenuNoWelcome, finalLayoutMsg, gameBoard2x2_1, board2x2Filled_1,score_computation_2x2_1)])
 def test_update_high_scores_diff_citysize_same_cityarea_samename(mainMenuNoWelcome, finalLayoutMsg, gameBoard2x2_1, board2x2Filled_1,score_computation_2x2_1):
     """
     Test whether the application will display the high scores of different city sizes that are same city area into the same high score list.
@@ -119,7 +120,7 @@ def test_update_high_scores_diff_citysize_same_cityarea_samename(mainMenuNoWelco
     congratsMsg = ["Congratulations! You made the high score board at position " + str(position) + "!",
                     "Please enter your name (max 20 chars):"]
     
-    set_keyboard_input(["HelloWorld\nHeyDevOp", "0", "HelloWorld\nHeyDevOp"])
+    set_keyboard_input(["HelloWorld\nHeyDevOp", "0", "0", "HelloWorld\nHeyDevOp"])
 
     test_game = Game(width = 2, height = 2)
     test_game.building_pool = defaultBuildingPool
@@ -142,7 +143,8 @@ def test_update_high_scores_diff_citysize_same_cityarea_samename(mainMenuNoWelco
                      + [""] + high_score_list_4x1_1 + [""] + mainMenuNoWelcome
 
 
-
+@pytest.mark.parametrize("mainMenuNoWelcome,finalLayoutMsg, gameBoard2x2_1, board2x2Filled_1,score_computation_2x2_1",
+[(mainMenuNoWelcome,finalLayoutMsg, gameBoard2x2_1, board2x2Filled_1,score_computation_2x2_1)])
 def test_update_high_scores_invalid_name(mainMenuNoWelcome,finalLayoutMsg, gameBoard2x2_1, board2x2Filled_1,score_computation_2x2_1):
     """
     Test whether the system will display error messages when an invalid input for name is entered.
@@ -159,7 +161,7 @@ def test_update_high_scores_invalid_name(mainMenuNoWelcome,finalLayoutMsg, gameB
     congratsMsg = ["Congratulations! You made the high score board at position " + str(position) + "!",
                     "Please enter your name (max 20 chars):"]
 
-    set_keyboard_input(["HelloWorld\nHeyDevOps"])
+    set_keyboard_input(["HelloWorld\nHeyDevOps","0"])
 
     test_game = Game(width = 2, height = 2)
     test_game.building_pool = defaultBuildingPool
@@ -173,7 +175,8 @@ def test_update_high_scores_invalid_name(mainMenuNoWelcome,finalLayoutMsg, gameB
 
 
 
-
+@pytest.mark.parametrize("mainMenuNoWelcome,finalLayoutMsg, gameBoard2x2_1, board2x2Filled_1,score_computation_2x2_1",
+[(mainMenuNoWelcome,finalLayoutMsg, gameBoard2x2_1, board2x2Filled_1,score_computation_2x2_1)])
 def test_update_high_scores_same_score_lower_position(mainMenuNoWelcome,finalLayoutMsg, gameBoard2x2_1, board2x2Filled_1,score_computation_2x2_1):
     """
     Test whether the position of the current player will be lowered than the previous players that have the same scores.
@@ -193,7 +196,7 @@ def test_update_high_scores_same_score_lower_position(mainMenuNoWelcome,finalLay
         "-------------------------------"
     ]
 
-    set_keyboard_input(["Player 2"])
+    set_keyboard_input(["Player 2","0", "0"])
 
     test_game = Game(width = 2, height = 2)
     test_game.building_pool = defaultBuildingPool
@@ -208,7 +211,8 @@ def test_update_high_scores_same_score_lower_position(mainMenuNoWelcome,finalLay
                     + [""] + high_score_list_2x2_2 + [""] + mainMenuNoWelcome
 
 
-
+@pytest.mark.parametrize("mainMenuNoWelcome,finalLayoutMsg",
+[(mainMenuNoWelcome,finalLayoutMsg)])
 def test_update_high_scores_never_got_top_10(mainMenuNoWelcome,finalLayoutMsg):
     """
     Test whether the user will return back to the main menu without prompting for name when the user never got into the top 10.
@@ -234,7 +238,7 @@ def test_update_high_scores_never_got_top_10(mainMenuNoWelcome,finalLayoutMsg):
         "Total score: 3"
     ]
 
-    set_keyboard_input([])
+    set_keyboard_input(["0","0"])
 
     test_game = Game(width = 3, height = 1)
     test_game.building_pool = defaultBuildingPool
@@ -247,7 +251,8 @@ def test_update_high_scores_never_got_top_10(mainMenuNoWelcome,finalLayoutMsg):
     assert result == [""] + finalLayoutMsg + board3x1Filled_1 + score_computation_3x1_1 + [""] + mainMenuNoWelcome
 
 
-
+@pytest.mark.parametrize("mainMenuNoWelcome,finalLayoutMsg",
+[(mainMenuNoWelcome,finalLayoutMsg)])
 def test_update_high_scores_only_got_10_players_in_list(mainMenuNoWelcome,finalLayoutMsg):
     """
     Test whether the high score list will only have the top 10 players.
@@ -294,7 +299,7 @@ def test_update_high_scores_only_got_10_players_in_list(mainMenuNoWelcome,finalL
         "-------------------------------"
     ]
 
-    set_keyboard_input(["Player"])
+    set_keyboard_input(["Player","0","0"])
 
     test_game = Game(width = 3, height = 1)
     test_game.building_pool = defaultBuildingPool
@@ -308,7 +313,8 @@ def test_update_high_scores_only_got_10_players_in_list(mainMenuNoWelcome,finalL
                     + [""] + high_score_list_3x1_2 + [""] + mainMenuNoWelcome
 
 
-
+@pytest.mark.parametrize("mainMenuNoWelcome,finalLayoutMsg",
+[(mainMenuNoWelcome,finalLayoutMsg)])
 def test_update_high_scores_display_separately_for_diff_city_area(mainMenuNoWelcome,finalLayoutMsg):
     """
     Test whether the high score list for different city areas will display separately
@@ -374,7 +380,7 @@ def test_update_high_scores_display_separately_for_diff_city_area(mainMenuNoWelc
     ]    
 
 
-    set_keyboard_input(["First Game", "0", "Second Game"])
+    set_keyboard_input(["First Game", "0", "0", "Second Game","0","0"])
   
     test_game = Game(width = 1, height = 1)
     test_game.building_pool = defaultBuildingPool
