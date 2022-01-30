@@ -29,10 +29,12 @@ def test_compare_randomized_building_5_turns():
     # get all options returned and add to list
     for i in range(len(result)):
         if "1" or "2" in result[i]:
-            optList.append(result[i])
+            # get only the building in option
+            optList.append(result[i].split(" ")[-1])
 
     # check that all are not similar
     assert optList[0] != optList[1] != optList[2] != optList[3] != optList[4]
+    # assert result[3] != result[9] != result[15] != result[21] != result[26]
 
 @pytest.mark.skip(reason="no way of currently testing this, will manually test")
 def test_compare_randomized_building_10_turns():
@@ -79,11 +81,11 @@ def test_check_randomized_building_in_building_pool():
     # get all buildings returned in game menu in output
     for output in result:
         if "1." in output:
-            # split by space and get the last item in list and append to options list
+            # split by space and get the last item (the building name) in list and append to options list
             opt1 = output.split(" ")[-1]
             optList.append(opt1)
         if "2." in output:
-            # split by space and get the last item in list and append to options list
+            # split by space and get the last item (the building name) in list and append to options list
             opt2 = output.split(" ")[-1]
             optList.append(opt2)
 
@@ -109,11 +111,13 @@ def test_randomized_building_options_1_building_left():
 
     for output in result:
         if "1." in output:
-            # get options in output
+            # split by space and get the last item (the building name) in list and append to options list
             opt1 = output.split(" ")[-1]
+            # opt1 = output.split("\n")[0].split(" ")[-1]
         if "2." in output:
-            # get options in output
+            # split by space and get the last item (the building name) in list and append to options list
             opt2 = output.split(" ")[-1]
+            # opt2 = output.split("\n")[1].split(" ")[-1]
 
     # check that option 1 is the same as option 2
     assert opt1 == opt2
