@@ -238,3 +238,65 @@ def test_update_high_scores_never_got_top_10(mainMenuNoWelcome,finalLayoutMsg):
 
     result = get_display_output()
     assert result == [""] + finalLayoutMsg + board3x1Filled_1 + score_computation_3x1_1 + [""] + mainMenuNoWelcome
+
+
+
+def test_update_high_scores_only_got_10_players_in_list(mainMenuNoWelcome,finalLayoutMsg):
+    """
+    Test whether the high score list will only have the top 10 players.
+    """
+
+    position = get_position("high_score_3.json", 9)  
+    congratsMsg = ["Congratulations! You made the high score board at position " + str(position) + "!",
+                    "Please enter your name (max 20 chars):"]
+
+    gameBoard3x1_2 = [
+    [Highway(0,0), Highway(1,0), Highway(2,0)]
+    ]
+
+    board3x1Filled_2 = [
+        "     A     B     C   ",        
+        "  +-----+-----+-----+",        
+        " 1| HWY | HWY | HWY |",
+        "  +-----+-----+-----+",       
+    ]  
+
+    score_computation_3x1_2 = [
+        "HSE: 0", 
+        "FAC: 0",
+        "SHP: 0",
+        "HWY: 3 + 3 + 3 = 9",
+        "BCH: 0",
+        "Total score: 9"
+    ]
+    
+    high_score_list_3x1_2 = [
+        "--------- HIGH SCORES ---------",
+        "Pos Player                Score",
+        "--- ------                -----",
+        " 1. Player1                   9",
+        " 2. Player2                   9",
+        " 3. Player3                   9",
+        " 4. Player                    9",
+        " 5. Player4                   5",
+        " 6. Player5                   5",
+        " 7. Player6                   5",
+        " 8. Player7                   5",
+        " 9. Player8                   5",
+        "10. Player9                   5",
+        "-------------------------------"
+    ]
+
+    set_keyboard_input(["Player"])
+
+    test_game = Game(width = 3, height = 1)
+    test_game.board = gameBoard3x1_2
+    test_game.turn_num = 4
+    test_game.start_new_turn()
+    main_menu(True)
+
+    result = get_display_output()
+    assert result == [""] + finalLayoutMsg + board3x1Filled_2 + score_computation_3x1_2 + congratsMsg \
+                    + [""] + high_score_list_3x1_2 + [""] + mainMenuNoWelcome
+
+
