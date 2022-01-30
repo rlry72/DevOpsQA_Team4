@@ -163,5 +163,40 @@ def test_update_high_scores_invalid_name(mainMenuNoWelcome,finalLayoutMsg, gameB
     test_game.start_new_turn()
 
     result = get_display_output()
-    
+
     assert result == [""] + finalLayoutMsg + board2x2Filled_1 + score_computation_2x2_1 + congratsMsg +[""] + error_message
+
+
+
+
+def test_update_high_scores_same_score_lower_position(mainMenuNoWelcome,finalLayoutMsg, gameBoard2x2_1, board2x2Filled_1,score_computation_2x2_1):
+    """
+    Test whether the position of the current player will be lowered than the previous players that have the same scores.
+    """
+    
+    position = get_position("high_score_4.json", 7)  
+    congratsMsg = ["Congratulations! You made the high score board at position " + str(position) + "!",
+                    "Please enter your name (max 20 chars):"]
+
+    high_score_list_2x2_2 = [
+        "--------- HIGH SCORES ---------",
+        "Pos Player                Score",
+        "--- ------                -----",
+        " 1. HelloWorld\\nHeyDevOp     16",
+        " 2. HelloWorld\\nHeyDevOp      7",
+        " 3. Player 2                  7",
+        "-------------------------------"
+    ]
+
+    set_keyboard_input(["Player 2"])
+
+    test_game = Game(width = 2, height = 2)
+    test_game.board = gameBoard2x2_1
+    test_game.turn_num = 5
+    test_game.start_new_turn()
+    main_menu(True)
+
+    result = get_display_output()
+
+    assert result == [""] + finalLayoutMsg + board2x2Filled_1 + score_computation_2x2_1 + congratsMsg \
+                    + [""] + high_score_list_2x2_2 + [""] + mainMenuNoWelcome
