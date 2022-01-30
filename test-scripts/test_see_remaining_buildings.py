@@ -7,6 +7,8 @@ from io import StringIO
 from classes.game import *
 from classes.menu import *
 
+defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
 def test_see_remaining_building_initial_state():
     """
     Test script to test see remaining buildings during turn 1 from the game menu
@@ -15,6 +17,7 @@ def test_see_remaining_building_initial_state():
     set_keyboard_input(["3","0"])
 
     test_game = Game()
+    test_game.building_pool = defaultBuildingPool
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -37,6 +40,7 @@ def test_see_remaining_building_after_play():
     set_keyboard_input(["3","1","a1","3","0"])
 
     test_game = Game()
+    test_game.building_pool = defaultBuildingPool
     test_game.start_new_turn()
     result = get_display_output()
 
