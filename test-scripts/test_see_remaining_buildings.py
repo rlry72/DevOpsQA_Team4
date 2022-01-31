@@ -42,6 +42,31 @@ boardPlaced = [
         " 4|     |     |     |     |",
         "  +-----+-----+-----+-----+"]
 
+board5x5 = [
+"     A     B     C     D     E           Building   Remaining",
+"  +-----+-----+-----+-----+-----+        --------------------",
+" 1|     |     |     |     |     |        HSE      | 8",
+"  +-----+-----+-----+-----+-----+        FAC      | 8",
+" 2|     |     |     |     |     |        SHP      | 8",
+"  +-----+-----+-----+-----+-----+        HWY      | 8",
+" 3|     |     |     |     |     |        BCH      | 8",
+"  +-----+-----+-----+-----+-----+",
+" 4|     |     |     |     |     |",
+"  +-----+-----+-----+-----+-----+",
+" 5|     |     |     |     |     |",
+"  +-----+-----+-----+-----+-----+",]
+
+board3x3 = [
+"     A     B     C           Building   Remaining",
+"  +-----+-----+-----+        --------------------",
+" 1|     |     |     |        HSE      | 8",
+"  +-----+-----+-----+        FAC      | 8",
+" 2|     |     |     |        SHP      | 8",
+"  +-----+-----+-----+        HWY      | 8",
+" 3|     |     |     |        BCH      | 8",
+"  +-----+-----+-----+",
+]
+
 remainingBuildings = ["Building         Remaining\n--------         --------\nHSE              8\nFAC              8\nSHP              8\nHWY              8\nBCH              8\n"]
 
 remainingBuildingsPlaced = ["Building         Remaining\n--------         --------\nHSE              8\nFAC              8\nSHP              7\nHWY              8\nBCH              8\n"]
@@ -79,5 +104,35 @@ def test_see_remaining_building_after_play():
     assert result == ["","Turn 1"] + board + gameMenu + remainingBuildings + ["", "Turn 1"] + board + gameMenu + ["Build where? ","", "Turn 2"] + boardPlaced + gameMenu + remainingBuildingsPlaced + ["",
     "Turn 2"] + boardPlaced + gameMenu
 
+def test_see_remaining_building_3x3():
+    """
+    Test script to test see remaining buildings on right side of game board when city is 3x3
+    """
+
+    set_keyboard_input(["0"])
+
+    test_game = Game(width = 3, height = 3)
+    test_game.building_pool = defaultBuildingPool
+    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
+    test_game.start_new_turn()
+    result = get_display_output()
+
+    assert result == ["","Turn 1"] + board3x3 + gameMenu
+
+
+def test_see_remaining_building_5x5():
+    """
+    Test script to test see remaining buildings on right side of game board when city is 5x5
+    """
+
+    set_keyboard_input(["0"])
+
+    test_game = Game(width = 3, height = 3)
+    test_game.building_pool = defaultBuildingPool
+    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
+    test_game.start_new_turn()
+    result = get_display_output()
+
+    assert result == ["","Turn 1"] + board5x5 + gameMenu
 
    
