@@ -135,4 +135,27 @@ def test_see_remaining_building_5x5():
 
     assert result == ["","Turn 1"] + board5x5 + gameMenu
 
+
+def test_see_remaining_building_after_ending_game_and_starting_new():
+    """
+    Test script to test see remaining buildings after starting a new game after ending a game.
+    """
+
+    set_keyboard_input(["1","a1","0"])
+    previous_game = Game()
+    previous_game.building_pool = defaultBuildingPool
+    previous_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
+    previous_game.start_new_turn()
+    previous_result = get_display_output()
+
+
+    set_keyboard_input(["0"])
+    test_game = Game()
+    test_game.building_pool = defaultBuildingPool
+    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
+    test_game.start_new_turn()
+    result = get_display_output()
+
+    assert previous_result == ["", "Turn 1"] + board + gameMenu + ["Build where? ","", "Turn 2"] + boardPlaced + gameMenu
+    assert result == ["","Turn 1"] + board + gameMenu
    
