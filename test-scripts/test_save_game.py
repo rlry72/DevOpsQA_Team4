@@ -187,7 +187,7 @@ def test_save_game_existing_save():
     data = json.load(fileOpen)
 
     #Checking if new save file is the same as old save file
-    assert result == ["", "Turn 1"] + board + gameMenu + ["","Game saved!", "", "Turn 1"] + board + gameMenu
+    assert newResult == ["", "Turn 1"] + board + gameMenu + ["","Game saved!", "", "Turn 1"] + board + gameMenu
     assert data["turn_num"] == 1
     assert data["board"] == {}
     assert data["board"] != tempBoard
