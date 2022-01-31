@@ -9,6 +9,8 @@ from classes.menu import *
 
 defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
+nonDefaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "MON":8}
+
 gameMenu = ['1. Build a SHP',
             '2. Build a SHP', 
             '3. See remaining buildings',
@@ -26,6 +28,18 @@ board = [
         " 2|     |     |     |     |        SHP      | 8",
         "  +-----+-----+-----+-----+        HWY      | 8",
         " 3|     |     |     |     |        BCH      | 8",
+        "  +-----+-----+-----+-----+",
+        " 4|     |     |     |     |",
+        "  +-----+-----+-----+-----+"]
+
+boardMON = [
+        "     A     B     C     D           Building   Remaining",
+        "  +-----+-----+-----+-----+        --------------------",
+        " 1|     |     |     |     |        HSE      | 8",
+        "  +-----+-----+-----+-----+        FAC      | 8",
+        " 2|     |     |     |     |        SHP      | 8",
+        "  +-----+-----+-----+-----+        HWY      | 8",
+        " 3|     |     |     |     |        MON      | 8",
         "  +-----+-----+-----+-----+",
         " 4|     |     |     |     |",
         "  +-----+-----+-----+-----+"]
@@ -159,3 +173,17 @@ def test_see_remaining_building_after_ending_game_and_starting_new():
     assert previous_result == ["", "Turn 1"] + board + gameMenu + ["Build where? ","", "Turn 2"] + boardPlaced + gameMenu
     assert result == ["","Turn 1"] + board + gameMenu
    
+def test_see_remaining_building_non_default_pool():
+    """
+    Test script to test see remaining buildings on right side of game board when building pool is not default
+    """
+
+    set_keyboard_input(["0"])
+
+    test_game = Game()
+    test_game.building_pool = nonDefaultBuildingPool
+    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
+    test_game.start_new_turn()
+    result = get_display_output()
+
+    assert result == ["","Turn 1"] + boardMON + gameMenu
