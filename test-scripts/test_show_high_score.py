@@ -18,9 +18,7 @@ mainMenuNoWelcome = ["\n1. Start new game\n2. Load saved game\n3. Show high scor
                      "Your choice? "]
 
 
-@pytest.mark.parametrize("mainMenu",
-[(mainMenu)])
-def test_show_high_scores_options_in_main_menu(mainMenu):
+def test_show_high_scores_options_in_main_menu():
     """
     Test whether the "3. Show high scores" option is added to main menu
     """
@@ -31,9 +29,8 @@ def test_show_high_scores_options_in_main_menu(mainMenu):
     result = get_display_output()
     assert result == mainMenu
 
-@pytest.mark.parametrize("mainMenu, mainMenuNoWelcome",
-[(mainMenu, mainMenuNoWelcome)])
-def test_show_high_scores_choice_chosen(mainMenu, mainMenuNoWelcome):
+
+def test_show_high_scores_choice_chosen():
     """
     Test whether "Show high scores" option can display the desired output when chosen in main menu
     """
@@ -55,9 +52,8 @@ def test_show_high_scores_choice_chosen(mainMenu, mainMenuNoWelcome):
     result = get_display_output()
     assert result == mainMenu + [""] + high_score_list_4x4_1 + [""] + mainMenuNoWelcome
 
-@pytest.mark.parametrize("mainMenu, mainMenuNoWelcome",
-[(mainMenu, mainMenuNoWelcome)])
-def test_show_high_scores_on_two_diff_city_area(mainMenu, mainMenuNoWelcome):
+
+def test_show_high_scores_on_two_diff_city_area():
     """
     Test whether the high score lists for different city areas are separated. 
     """
