@@ -127,7 +127,7 @@ def test_see_remaining_building_5x5():
 
     set_keyboard_input(["0"])
 
-    test_game = Game(width = 3, height = 3)
+    test_game = Game(width = 5, height = 5)
     test_game.building_pool = defaultBuildingPool
     test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
