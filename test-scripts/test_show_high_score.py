@@ -9,7 +9,7 @@ from unittest.mock import Mock
 from tud_test_base import set_keyboard_input, get_display_output
 from classes.game import *
 from classes.menu import *
-from main import *
+import main
 
 
 mainMenu = ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
@@ -22,9 +22,16 @@ def test_show_high_scores_options_in_main_menu():
     """
     Test whether the "3. Show high scores" option is added to main menu
     """
+
+    # main.main() function is a while true loop. 
+    # Thus, test script needs to use "0" input value in main menu to close the while loop after checking the output.
+    # Or else, test script will return index error.
     set_keyboard_input(["0"])
     
-    test_application = main_menu()
+    # When using "0" to close the while loop, Dev Code will use exit() to exit the application, which will cause SystemExit error to the test script.
+    # To solve this issue, pytest.raises(SystemExit) is used to check the SystemExit error in Test script that returns by the exit() used in the Dev Code.
+    with pytest.raises(SystemExit) as e:
+        test_application = main.main()  
 
     result = get_display_output()
     assert result == mainMenu
@@ -45,12 +52,23 @@ def test_show_high_scores_choice_chosen():
         " 4. Johnson                  34",
         "-------------------------------"
     ]
-    set_keyboard_input(["3"])
 
-    test_application = main_menu()
+    # main.main() function is a while true loop. 
+    # Thus, test script needs to use "0" input value in main menu to close the while loop after checking the output.
+    # Or else, test script will return index error.
+    set_keyboard_input(["3","0"])
+
+    # When using "0" to close the while loop, Dev Code will use exit() to exit the application, which will cause SystemExit error to the test script.
+    # To solve this issue, pytest.raises(SystemExit) is used to check the SystemExit error in Test script that returns by the exit() used in the Dev Code.
+    with pytest.raises(SystemExit) as e:         
+        test_application = main.main()  
+           
 
     result = get_display_output()
     assert result == mainMenu + [""] + high_score_list_4x4_1 + [""] + mainMenuNoWelcome
+     
+    
+   
 
 
 def test_show_high_scores_on_two_diff_city_area():
@@ -105,8 +123,18 @@ def test_show_high_scores_on_two_diff_city_area():
         "Height: 3",
         "------------------------------------"
     ]
-    set_keyboard_input(["3", "5", "3", "3", "3"])
-    test_application = main_menu()
+
+
+    # main.main() function is a while true loop. 
+    # Thus, test script needs to use "0" input value in main menu to close the while loop after checking the output.
+    # Or else, test script will return index error.
+    set_keyboard_input(["3", "5", "3", "3", "3","0"])
+
+    # When using "0" to close the while loop, Dev Code will use exit() to exit the application, which will cause SystemExit error to the test script.
+    # To solve this issue, pytest.raises(SystemExit) is used to check the SystemExit error in Test script that returns by the exit() used in the Dev Code.
+    with pytest.raises(SystemExit) as e:         
+        test_application = main.main()  
+           
 
     result = get_display_output()
     assert result == mainMenu + [""] + high_score_list_4x4_1 + [""] + mainMenuNoWelcome + [""] + current_city_size_4x4 + ["0"] + choose_city_size_msg + [""] \
