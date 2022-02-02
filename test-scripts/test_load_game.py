@@ -1,5 +1,6 @@
 import pytest
 import classes
+from main import *
 from classes.game import *
 from classes.menu import *
 from tud_test_base import set_keyboard_input, get_display_output
@@ -117,9 +118,11 @@ def test_load_game_empty_board():
         main()
 
     result = get_display_output()
-    expectedResult = mainMenu + ["", "Turn 1"] + printEmptyBoard4x4 + gameMenu
+    expectedResult = mainMenu + ["", "Turn 1"] + printEmptyBoard4x4 + gameMenu + mainMenuNoWelcome
 
     # expected result should be main menu to game with turn 1 and empty board with game menu
+    assert result == expectedResult
+
     check = all(item in result for item in expectedResult)
 
     assert check == True
@@ -150,8 +153,9 @@ def test_load_game_with_save_different_board_sizes(printBoard, boardSize):
         main()
 
     result = get_display_output()
-    expectedResult = mainMenu + turnNumberArr + printBoard + gameMenu
+    expectedResult = mainMenu + turnNumberArr + printBoard + gameMenu + mainMenuNoWelcome
     # expected result should be main menu to game with turn 2, and board with BCH in a1 on all sizes with game menu.
-    check = all(item in result for item in expectedResult)
 
+    assert result == expectedResult
+    check = all(item in result for item in expectedResult)
     assert check == True
