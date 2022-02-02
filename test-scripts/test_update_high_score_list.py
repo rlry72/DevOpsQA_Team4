@@ -102,7 +102,7 @@ def test_update_high_scores_diff_citysize_same_cityarea_samename():
         "--------- HIGH SCORES ---------",
         "Pos Player                Score",
         "--- ------                -----",
-        " 1. HelloWorld\\nHeyDevOp      7",
+        " 1. HelloWorldHeyDevOps       7",
         "-------------------------------"
     ]
 
@@ -110,8 +110,8 @@ def test_update_high_scores_diff_citysize_same_cityarea_samename():
         "--------- HIGH SCORES ---------",
         "Pos Player                Score",
         "--- ------                -----",
-        " 1. HelloWorld\\nHeyDevOp     16",
-        " 2. HelloWorld\\nHeyDevOp      7",
+        " 1. HelloWorldHeyDevOps      16",
+        " 2. HelloWorldHeyDevOps       7",
         "-------------------------------"
     ]    
    
@@ -119,7 +119,7 @@ def test_update_high_scores_diff_citysize_same_cityarea_samename():
     congratsMsg = ["Congratulations! You made the high score board at position " + str(position) + "!",
                     "Please enter your name (max 20 chars):"]
     
-    set_keyboard_input(["HelloWorld\nHeyDevOp", "0", "0", "HelloWorld\nHeyDevOp"])
+    set_keyboard_input(["HelloWorldHeyDevOps", "0", "0", "HelloWorldHeyDevOps"])
 
     test_game = Game(width = 2, height = 2)
     test_game.building_pool = defaultBuildingPool
@@ -159,7 +159,7 @@ def test_update_high_scores_invalid_name():
     congratsMsg = ["Congratulations! You made the high score board at position " + str(position) + "!",
                     "Please enter your name (max 20 chars):"]
 
-    set_keyboard_input(["HelloWorld\nHeyDevOps","0"])
+    set_keyboard_input(["HelloWorldHeyHeyDevOps","0"])
 
     test_game = Game(width = 2, height = 2)
     test_game.building_pool = defaultBuildingPool
@@ -186,8 +186,8 @@ def test_update_high_scores_same_score_lower_position():
         "--------- HIGH SCORES ---------",
         "Pos Player                Score",
         "--- ------                -----",
-        " 1. HelloWorld\\nHeyDevOp     16",
-        " 2. HelloWorld\\nHeyDevOp      7",
+        " 1. HelloWorldHeyDevOps      16",
+        " 2. HelloWorldHeyDevOps       7",
         " 3. Player 2                  7",
         "-------------------------------"
     ]
@@ -394,3 +394,57 @@ def test_update_high_scores_display_separately_for_diff_city_area():
                      + [""] + high_score_list_1x1_1 + [""] + mainMenuNoWelcome + [""] \
                      + finalLayoutMsg + board2x1Filled_1 + score_computation_2x1_1 + congratsMsg \
                      + [""] + high_score_list_2x1_1 + [""] + mainMenuNoWelcome
+
+
+@xfail(reason = "It will fail as setkeyboard does not work as expected, it will convert string input \ n to new line character")
+def test_update_high_scores_special_character_in_input():
+    """
+    Test whether the system will escape and display special characters for name 
+    """
+
+    gameBoard5x1_1 = [
+    [Factory(0,0), Factory(1,0), Factory(2,0), Factory(3,0), Factory(4,0)]
+    ]   
+
+
+    board5x1Filled_1 = [
+        "     A     B     C     D     E   ",
+        "  +-----+-----+-----+-----+-----+",
+        " 1| FAC | FAC | FAC | FAC | FAC |",
+        "  +-----+-----+-----+-----+-----+",       
+    ]
+    score_computation_5x1_1 = [
+        "HSE: 0", 
+        "FAC: 4 + 4 + 4 + 4 + 1 = 17",
+        "SHP: 0",
+        "HWY: 0",
+        "BCH: 0",
+        "Total score: 17"
+    ]
+
+    high_score_list_5x1_1 = [
+        "--------- HIGH SCORES ---------",
+        "Pos Player                Score",
+        "--- ------                -----",
+        " 1. HelloWorld\\nHeyDevOp     17",
+        "-------------------------------"
+    ]
+
+
+    congratsMsg = ["Congratulations! You made the high score board at position 1!",
+                    "Please enter your name (max 20 chars):"]
+
+    set_keyboard_input(["HelloWorld\nHeyDevOp","0"])
+
+    test_game = Game(width = 5, height = 1)
+    test_game.building_pool = defaultBuildingPool
+    test_game.board = gameBoard5x1_1
+    test_game.turn_num = 6
+    test_game.start_new_turn()
+
+    result = get_display_output()
+
+    assert result == [""] + finalLayoutMsg + board5x1Filled_1 + score_computation_5x1_1 + congratsMsg +[""] + high_score_list_5x1_1\
+                    + [""] + mainMenuNoWelcome 
+
+    
