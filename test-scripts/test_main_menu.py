@@ -44,17 +44,33 @@ def test_main_menu_to_game_menu():
     """
     Test script test going to main menu from game menu
     """
-    set_keyboard_input(["1","0"])
-    selected = main_menu()
+    set_keyboard_input(["1","0","0"])
 
-    if (selected == "1"):
-        test_game = Game()
-        test_game.randomized_building_history = {"1": ["HSE", "HSE"]}
-        test_game.start_new_turn()
+    expectedResult = [
+    "     A     B     C     D           Building   Remaining",
+    "  +-----+-----+-----+-----+        --------------------",
+    " 1|     |     |     |     |        HSE      | 8",
+    "  +-----+-----+-----+-----+        FAC      | 8",
+    " 2|     |     |     |     |        SHP      | 8",
+    "  +-----+-----+-----+-----+        HWY      | 8",
+    " 3|     |     |     |     |        BCH      | 8",
+    "  +-----+-----+-----+-----+",
+    " 4|     |     |     |     |",
+    "  +-----+-----+-----+-----+", 
+    '3. See remaining buildings',
+    '4. See current score',
+    '', 
+    '5. Save game', 
+    '0. Exit to main menu', 
+    'Your choice? ']
 
+    with pytest.raises(SystemExit) as e:
+        main()
 
     result = get_display_output()
-    assert result == mainMenu + turnNumber + gameBoard + gameMenu
+    check =  all(item in result for item in expectedResult)
+
+    assert check == True
 
 
 

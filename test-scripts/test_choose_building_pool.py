@@ -52,17 +52,15 @@ def test_choose_building_pool():
     Test script to test choosing HSE, FAC, SHP, HWY, MON buildings in the building pool.
     """
 
-    set_keyboard_input(["3","2","5","2","2","4","0"])
-    building_list = choose_building_pool(defaultBuildingPool)
-    
-    test_game = Game()
-    test_game.randomized_building_history = {"1": ["SHP", "SHP"]}
-    test_game.building_pool = building_list
-    test_game.start_new_turn()
-
+    set_keyboard_input(["4","3","2","5","2","2","1","0","0"])
+    with pytest.raises(SystemExit) as e:
+        main()
 
     result = get_display_output()
-    assert result == ["",
+
+    expectedOutput = ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
+    "Your choice? "
+    "", 
     "--------- CURRENT BUILDING POOL ---------",
     "[HSE, FAC, SHP, HWY, BCH]",
     "-----------------------------------------",
@@ -145,8 +143,6 @@ def test_choose_building_pool():
     "  +-----+-----+-----+-----+",
     " 4|     |     |     |     |",
     "  +-----+-----+-----+-----+",
-    '1. Build a SHP',
-    '2. Build a SHP', 
     '3. See remaining buildings',
     '4. See current score',
     '', 
@@ -154,32 +150,12 @@ def test_choose_building_pool():
     '0. Exit to main menu', 
     'Your choice? ',
     "",
-    "HSE: 0",
-    "FAC: 0",
-    "SHP: 0",
-    "HWY: 0",
-    "MON: 0",
-    "Total score: 0",
-    "",
-    "Turn 1",
-    "     A     B     C     D           Building   Remaining",
-    "  +-----+-----+-----+-----+        --------------------",
-    " 1|     |     |     |     |        HSE      | 8",
-    "  +-----+-----+-----+-----+        FAC      | 8",
-    " 2|     |     |     |     |        SHP      | 8",
-    "  +-----+-----+-----+-----+        HWY      | 8",
-    " 3|     |     |     |     |        MON      | 8",
-    "  +-----+-----+-----+-----+",
-    " 4|     |     |     |     |",
-    "  +-----+-----+-----+-----+",
-    '1. Build a SHP',
-    '2. Build a SHP', 
-    '3. See remaining buildings',
-    '4. See current score',
-    '', 
-    '5. Save game', 
-    '0. Exit to main menu', 
-    'Your choice? ']
+    "\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
+    "Your choice? "]
+
+
+    check =  all(item in result for item in expectedOutput)
+    assert check == True
 
 @pytest.mark.parametrize("invalidInput, expectedResult",
 [(["9", "0"], invalidInputArray), (["haha", "0"], invalidInputArray), (["", "0"], invalidInputArray)])
