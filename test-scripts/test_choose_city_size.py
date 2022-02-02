@@ -30,6 +30,19 @@ gameBoardDefault = [
     "  +-----+-----+-----+-----+"
 ]
 
+gameBoardDefaultNoRemainingBuildings = [
+    "     A     B     C     D  ",
+    "  +-----+-----+-----+-----+",
+    " 1|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 2|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 3|     |     |     |     |",
+    "  +-----+-----+-----+-----+",
+    " 4|     |     |     |     |",
+    "  +-----+-----+-----+-----+"
+]
+
 gameBoard = [
     "     A     B     C     D     E           Building   Remaining",
     "  +-----+-----+-----+-----+-----+        --------------------",
@@ -38,6 +51,23 @@ gameBoard = [
     " 2|     |     |     |     |     |        SHP      | 8",
     "  +-----+-----+-----+-----+-----+        HWY      | 8",
     " 3|     |     |     |     |     |        BCH      | 8",
+    "  +-----+-----+-----+-----+-----+",
+    " 4|     |     |     |     |     |",
+    "  +-----+-----+-----+-----+-----+",
+    " 5|     |     |     |     |     |",
+    "  +-----+-----+-----+-----+-----+",
+    " 6|     |     |     |     |     |",
+    "  +-----+-----+-----+-----+-----+"
+]
+
+gameBoardNoRemainingBuildings = [
+    "     A     B     C     D     E  ",
+    "  +-----+-----+-----+-----+-----+",
+    " 1|     |     |     |     |     |",
+    "  +-----+-----+-----+-----+-----+",
+    " 2|     |     |     |     |     |",
+    "  +-----+-----+-----+-----+-----+",
+    " 3|     |     |     |     |     |",
     "  +-----+-----+-----+-----+-----+",
     " 4|     |     |     |     |     |",
     "  +-----+-----+-----+-----+-----+",
@@ -104,11 +134,11 @@ inputCitySizeExit = [
 
 mainMenuToInputSize = mainMenu + currentCitySize + citySize
 
-invalidInputWidthExpectedResult = mainMenuToInputSize + inputWidth + invalidInput + inputWidth + inputCitySizeExit + currentCitySize
-invalidInputHeightExpectedResult = mainMenuToInputSize + inputWidth + inputHeight + invalidInput + [""] + inputHeight + inputCitySizeExit + currentCitySize
+invalidInputWidthExpectedResult = mainMenuToInputSize + inputWidth + invalidInput + inputWidth + inputCitySizeExit + currentCitySize + mainMenuNoWelcome
+invalidInputHeightExpectedResult = mainMenuToInputSize + inputWidth + inputHeight + invalidInput + [""] + inputHeight + inputCitySizeExit + currentCitySize + mainMenuNoWelcome
 
-exitExpectedResultWidth = mainMenuToInputSize + inputWidth + inputCitySizeExit + currentCitySize
-exitExpectedResultHeight = mainMenuToInputSize + inputWidth + inputHeight + inputCitySizeExit + currentCitySize
+exitExpectedResultWidth = mainMenuToInputSize + inputWidth + inputCitySizeExit + currentCitySize + mainMenuNoWelcome
+exitExpectedResultHeight = mainMenuToInputSize + inputWidth + inputHeight + inputCitySizeExit + currentCitySize + mainMenuNoWelcome
 
 
 def test_change_city_size_main_menu():
@@ -138,16 +168,28 @@ def test_change_city_size_main_menu():
     Width: 5
     Height: 6
     ------------------------------------
-    '''
-    set_keyboard_input(["5", "5", "6"])
+
+    1. Start new game
+    2. Load saved game
+    3. Show high scores
+    4. Choose building pool
+    5. Choose city size
     
-    menu = main_menu()
-    if menu == "5":
-        prompt_city_size([4,4])
+    0. Exit
+    Your choice? 
+    '''
+    set_keyboard_input(["5", "5", "6", "1", "0", "0"])
+    
+    with pytest.raises(SystemExit) as e:
+        main()
     
     result = get_display_output()
-    expectedResult = mainMenuToInputSize + inputWidth + inputHeight + chosenCitySize
-    assert result == expectedResult
+    expectedResult = mainMenuToInputSize + inputWidth + inputHeight + chosenCitySize + mainMenuNoWelcome + [""] + turnNumber + gameBoard
+
+    check = all(item in result for item in expectedResult)
+
+    # assert result == False
+    assert check == True
 
 
 def test_change_city_size_game():
@@ -287,13 +329,21 @@ def test_exit_change_city_size(exitInput, expectedResult):
     Width: 4
     Height: 4
     -------------------------------------
+
+    1. Start new game
+    2. Load saved game
+    3. Show high scores
+    4. Choose building pool
+    5. Choose city size
+    
+    0. Exit
+    Your choice? 
     '''
 
     set_keyboard_input(exitInput)
 
-    menu = main_menu()
-    if menu == "5":
-        prompt_city_size([4,4])
+    with pytest.raises(SystemExit) as e:
+        main()
 
     result = get_display_output()
 
@@ -325,20 +375,21 @@ def test_change_city_size_invalid_size():
 
     Enter value for width:
     '''
-    set_keyboard_input(["5", "8", "8", "0"])
+    set_keyboard_input(["5", "8", "8", "0", "0"])
     
-    menu = main_menu()
-    if menu == "5":
-        prompt_city_size([4,4])
+    with pytest.raises(SystemExit) as e:
+        main()
     
     result = get_display_output()
     expectedResult = mainMenuToInputSize + inputWidth + inputHeight + invalidSize + inputWidth
-    assert result[:-7] == expectedResult
+    check = all(item in result for item in expectedResult)
 
+    # assert result == False
+    assert check == True
 @pytest.mark.parametrize("invalidInput, expectedResult",
-[(["5", "a", "0"], invalidInputWidthExpectedResult), (["5", "", "0"], invalidInputWidthExpectedResult),
-(["5", "5", "b", "0"], invalidInputHeightExpectedResult), (["5", "5", "", "0"], invalidInputHeightExpectedResult),
-(["5", "100", "0"], invalidInputWidthExpectedResult)])
+[(["5", "a", "0", "0"], invalidInputWidthExpectedResult), (["5", "", "0", "0"], invalidInputWidthExpectedResult),
+(["5", "5", "b", "0", "0"], invalidInputHeightExpectedResult), (["5", "5", "", "0", "0"], invalidInputHeightExpectedResult),
+(["5", "100", "0", "0"], invalidInputWidthExpectedResult)])
 def test_invalid_input_change_city_size(invalidInput, expectedResult):
     """
     Tests invalid input in input width and input height
@@ -403,13 +454,12 @@ def test_invalid_input_change_city_size(invalidInput, expectedResult):
 
     set_keyboard_input(invalidInput)
 
-    menu = main_menu()
-    if menu == "5":
-        prompt_city_size([4,4])
+    with pytest.raises(SystemExit) as e:
+        main()
 
     result = get_display_output()
-
-    assert result == expectedResult
-
-
     
+    check = all(item in result for item in expectedResult)
+
+    # assert result == False
+    assert check == True
