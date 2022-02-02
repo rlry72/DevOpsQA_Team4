@@ -79,7 +79,8 @@ def test_main_menu():
     Test script to test main menu output
     """
     set_keyboard_input(["0"])
-    main_menu()
+    with pytest.raises(SystemExit) as e:
+        main()
     result = get_display_output()
 
     assert result == mainMenu
@@ -94,7 +95,8 @@ def test_main_menu_invalid_input(invalidInput):
     Test script to test invalid input in main menu
     """
     set_keyboard_input([invalidInput,"0"])
-    main_menu()
+    with pytest.raises(SystemExit) as e:
+        main()
     result = get_display_output()
 
     assert result == mainMenu + invalidInputList
