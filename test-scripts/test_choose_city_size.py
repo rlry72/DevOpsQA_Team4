@@ -184,7 +184,7 @@ def test_change_city_size_main_menu():
         main()
     
     result = get_display_output()
-    expectedResult = mainMenuToInputSize + inputWidth + inputHeight + chosenCitySize + mainMenuNoWelcome + [""] + turnNumber + gameBoard
+    expectedResult = mainMenuToInputSize + inputWidth + inputHeight + chosenCitySize + mainMenuNoWelcome + [""] + turnNumber + gameBoardNoRemainingBuildings
 
     check = all(item in result for item in expectedResult)
 
@@ -272,8 +272,8 @@ def test_change_city_size_game():
     assert gameDefault.height == 4
     assert game5x6.width == 5
     assert game5x6.height == 6
-    assert resultDefault == [""] + turnNumber + gameBoardDefault + gameMenu
-    assert result5x6 == [""] + turnNumber + gameBoard + gameMenu
+    assert resultDefault == [""] + turnNumber + gameBoardDefaultNoRemainingBuildings + gameMenu
+    assert result5x6 == [""] + turnNumber + gameBoardNoRemainingBuildings + gameMenu
 
 @pytest.mark.parametrize("exitInput, expectedResult",
 [(["5", "0", "0"], exitExpectedResultWidth), (["5", "4", "0", "0"], exitExpectedResultHeight)])
