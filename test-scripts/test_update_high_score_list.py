@@ -119,7 +119,7 @@ def test_update_high_scores_diff_citysize_same_cityarea_samename():
     congratsMsg = ["Congratulations! You made the high score board at position " + str(position) + "!",
                     "Please enter your name (max 20 chars):"]
     
-    set_keyboard_input(["HelloWorldHeyDevOps", "0", "0", "HelloWorldHeyDevOps"])
+    set_keyboard_input(["HelloWorldHeyDevOps", "0", "HelloWorldHeyDevOps","0"])
 
     test_game = Game(width = 2, height = 2)
     test_game.building_pool = defaultBuildingPool
@@ -396,7 +396,7 @@ def test_update_high_scores_display_separately_for_diff_city_area():
                      + [""] + high_score_list_2x1_1 + [""] + mainMenuNoWelcome
 
 
-@xfail(reason = "It will fail as setkeyboard does not work as expected, it will convert string input \ n to new line character")
+@pytest.mark.xfail(reason = "It will fail as setkeyboard does not work as expected, it will convert string input \ n to new line character")
 def test_update_high_scores_special_character_in_input():
     """
     Test whether the system will escape and display special characters for name 
