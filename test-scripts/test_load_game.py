@@ -1,5 +1,6 @@
 import pytest
 import classes
+from main import *
 from classes.game import *
 from classes.menu import *
 from tud_test_base import set_keyboard_input, get_display_output
@@ -66,7 +67,7 @@ printBoard4x4 = [
 ]
    
 printBoard5x5 = [
-    "     A     B     C     D     E    ",
+    "     A     B     C     D     E  ",
     "  +-----+-----+-----+-----+-----+",
     " 1| BCH |     |     |     |     |",
     "  +-----+-----+-----+-----+-----+",
@@ -80,7 +81,7 @@ printBoard5x5 = [
     "  +-----+-----+-----+-----+-----+",
 ]
 
-
+@pytest.mark.order(1)
 def test_load_game_no_save():
     """
     Tests the output in console of load game option in menu when there is no save file
@@ -96,6 +97,7 @@ def test_load_game_no_save():
     # expected result should be main menu, no save game found error then back to main menu without welcome message.
     assert result == mainMenu + noSaveError + mainMenuNoWelcome
 
+@pytest.mark.order(2)
 def test_load_game_empty_board():
     """
     Tests the output in console of load game option in menu with 4x4 empty board existing save
@@ -124,6 +126,7 @@ def test_load_game_empty_board():
     check = all(item in result for item in expectedResult)
     assert check == True
 
+@pytest.mark.order(3)
 @pytest.mark.parametrize("printBoard, boardSize",
 [(printBoard3x3, 3),
 (printBoard4x4, 4),
@@ -138,10 +141,9 @@ def test_load_game_with_save_different_board_sizes(printBoard, boardSize):
     # turn number is 2, and BCH is built in a1 spot
     test_game = Game(height = boardSize, width = boardSize)
     test_game.building_pool = defaultBuildingPool
-    test_game.turn_num = turnNumber
+    test_game.turn_num = 1
     test_game.randomized_building_history = {"1": ["BCH", "BCH"], "2": ["HSE", "HSE"]}
     test_game.start_new_turn()
-
 
     set_keyboard_input(["2", "0", "0"])
 
