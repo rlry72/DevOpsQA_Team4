@@ -13,7 +13,7 @@ import statistics
 import json
 import classes
 
-pytestmark = pytest.mark.skipif("save_game" not in dir(classes.game), reason="save game not implemented")
+pytestmark = pytest.mark.skipif("save_game" not in dir(classes.game.Game), reason="save game not implemented")
 
 defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
