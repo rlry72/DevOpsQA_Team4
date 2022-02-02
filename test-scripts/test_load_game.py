@@ -1,7 +1,11 @@
 import pytest
+import classes
+from main import *
 from classes.game import *
 from classes.menu import *
 from tud_test_base import set_keyboard_input, get_display_output
+
+pytestmark = pytest.mark.skipif("load_game" not in dir(classes.menu), reason="load game not implemented")
 
 defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
@@ -85,14 +89,11 @@ def test_load_game_no_save():
     set_keyboard_input(["2", "0"])
 
     # calls main menu. if no save file is found, it should return to main menu without welcome message, with error message "No save game found!"
-    menu = main_menu()
-    if menu == "2":
-        loadedGame = load_game()
-        if loadedGame == False:
-            main_menu(True)
-    
-    result = get_display_output()
+    with pytest.raises(SystemExit) as e:
+        main()
 
+    result = get_display_output()
+    
     # expected result should be main menu, no save game found error then back to main menu without welcome message.
     assert result == mainMenu + noSaveError + mainMenuNoWelcome
 
@@ -110,19 +111,21 @@ def test_load_game_empty_board():
     test_game.start_new_turn()
 
 
-    set_keyboard_input(["2"])
+    set_keyboard_input(["2", "0", "0"])
 
     # calls main menu and loads game, then starts a turn.
-    menu = main_menu()
-    if menu == "2":
-        loadedGame = load_game()
-        loadedGame.start_new_turn()
+    with pytest.raises(SystemExit) as e:
+        main()
 
     result = get_display_output()
+    expectedResult = mainMenu + ["", "Turn 1"] + printEmptyBoard4x4 + gameMenu + mainMenuNoWelcome
 
     # expected result should be main menu to game with turn 1 and empty board with game menu
-    assert result == mainMenu + ["", "Turn 1"] + printEmptyBoard4x4 + gameMenu
+    assert result == expectedResult
 
+    check = all(item in result for item in expectedResult)
+
+    assert check == True
 
 @pytest.mark.parametrize("printBoard, boardSize",
 [(printBoard3x3, 3),
@@ -143,15 +146,16 @@ def test_load_game_with_save_different_board_sizes(printBoard, boardSize):
     test_game.start_new_turn()
 
 
-    set_keyboard_input(["2", "0"])
+    set_keyboard_input(["2", "0", "0"])
 
     # calls main menu to load game.
-    menu = main_menu()
-    if menu == "2":
-        loadedGame = load_game()
-        loadedGame.start_new_turn()
+    with pytest.raises(SystemExit) as e:
+        main()
 
     result = get_display_output()
-
+    expectedResult = mainMenu + turnNumberArr + printBoard + gameMenu + mainMenuNoWelcome
     # expected result should be main menu to game with turn 2, and board with BCH in a1 on all sizes with game menu.
-    assert result == mainMenu + turnNumberArr + printBoard + gameMenu
+
+    assert result == expectedResult
+    check = all(item in result for item in expectedResult)
+    assert check == True
