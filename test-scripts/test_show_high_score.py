@@ -13,7 +13,7 @@ import main
 import classes
 
 
-pytestmark = pytest.mark.skipif("display_high_score" not in dir(classes.game), reason="display high score not implemented")
+pytestmark = pytest.mark.skipif("display_high_score" not in dir(classes.game.Game), reason="display high score not implemented")
 
 mainMenu = ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
     "Your choice? "]
