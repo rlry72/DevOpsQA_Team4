@@ -1,0 +1,21 @@
+{   
+    "board_size": 16,
+    "high_scores" : [
+        {
+            "name": "Jerry",
+            "score": 48
+        },
+        {
+            "name": "Mary",
+            "score": 40
+        },
+        {
+            "name": "Henry",
+            "score": 36
+        },
+        {
+            "name": "Johnson",
+            "score": 34
+        }
+    ]
+}
