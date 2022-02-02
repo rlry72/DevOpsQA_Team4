@@ -1,0 +1,25 @@
+{   
+    "board_size": 9,
+    "high_scores" : [
+        {
+            "name": "Shi Qing",
+            "score": 20
+        },
+        {
+            "name": "Zaidan",
+            "score": 17
+        },
+        {
+            "name": "Ken Liu",
+            "score": 17
+        },
+        {
+            "name": "Ting Ru",
+            "score": 15
+        },
+	{
+            "name": "Ya Ru",
+            "score": 15
+        }
+    ]
+}
