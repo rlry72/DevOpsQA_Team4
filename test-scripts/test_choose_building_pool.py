@@ -10,7 +10,9 @@ from unittest.mock import Mock
 
 defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
-invalidInputArray = ["",
+invalidInputArray = ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
+    "Your choice? "
+    "",
     "--------- CURRENT BUILDING POOL ---------",
     "[HSE, FAC, SHP, HWY, BCH]",
     "-----------------------------------------",
@@ -43,7 +45,9 @@ invalidInputArray = ["",
     "Enter input: ",
     "",
     "Configuring building pool is unsuccessful.",
-    "Building pool remains the same as the current building pool."]
+    "Building pool remains the same as the current building pool.",
+    "\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
+    "Your choice? "]
 
 
 errorMessage = ["Invalid input has been entered.","Please enter number for the option (e.g. 1) and it needs to be within the range."]
@@ -159,30 +163,36 @@ def test_choose_building_pool():
     assert check == True
 
 @pytest.mark.parametrize("invalidInput, expectedResult",
-[(["9", "0"], invalidInputArray), (["haha", "0"], invalidInputArray), (["", "0"], invalidInputArray)])
+[(["4","9", "0","0"], invalidInputArray), (["4","haha", "0","0"], invalidInputArray), (["4","", "0","0"], invalidInputArray)])
 def test_choose_building_pool_invalid_input(invalidInput, expectedResult):
     """
     Test script to test invalid input when choosing building
     """
 
     set_keyboard_input(invalidInput)
-    building_list = choose_building_pool(defaultBuildingPool)
-    
 
+    with pytest.raises(SystemExit) as e:
+        main()
+    
     result = get_display_output()
-    assert result == expectedResult
+    
+    check =  all(item in result for item in expectedResult)
+    assert check == True
+    
 
     
 @pytest.mark.parametrize("invalidInput, expectedResult",
-[(["8", "0"], errorMessage), (["7","7", "0"], errorMessage), (["6","6","6","0"], errorMessage), (["5","5","5","5","0"], errorMessage)
-, (["4","4","4","4","4","0"], errorMessage)])
+[(["4","8", "0","0"], errorMessage), (["4","7","7", "0","0"], errorMessage), (["4","6","6","6","0","0"], errorMessage), (["4","5","5","5","5","0","0"], errorMessage)
+, (["4","4","4","4","4","4","0","0"], errorMessage)])
 def test_choose_building_pool_out_of_range(invalidInput, expectedResult):
     """
     Test script to test invalid input when choosing building
     """
 
     set_keyboard_input(invalidInput)
-    building_list = choose_building_pool(defaultBuildingPool)
+    with pytest.raises(SystemExit) as e:
+        main()
+
     result = get_display_output()
 
     check =  all(item in result for item in expectedResult)
