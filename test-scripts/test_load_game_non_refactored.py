@@ -118,12 +118,10 @@ def test_load_game_empty_board():
 
     result = get_display_output()
     expectedResult = mainMenu + ["", "Turn 1"] + printEmptyBoard4x4 + gameMenu + mainMenuNoWelcome
-
     # expected result should be main menu to game with turn 1 and empty board with game menu
     assert result == expectedResult
 
     check = all(item in result for item in expectedResult)
-
     assert check == True
 
 @pytest.mark.parametrize("printBoard, boardSize",
@@ -154,8 +152,7 @@ def test_load_game_with_save_different_board_sizes(printBoard, boardSize):
     result = get_display_output()
     expectedResult = mainMenu + turnNumberArr + printBoard + gameMenu + mainMenuNoWelcome
     # expected result should be main menu to game with turn 2, and board with BCH in a1 on all sizes with game menu.
-
     assert result == expectedResult
+    
     check = all(item in result for item in expectedResult)
     assert check == True
-
