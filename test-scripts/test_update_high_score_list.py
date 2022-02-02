@@ -9,6 +9,8 @@ from classes.game import *
 from classes.menu import *
 
 
+pytestmark = pytest.mark.skipif("update_high_score" not in dir(classes.game), reason="update high score not implemented")
+
 mainMenuNoWelcome = ["\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
                      "Your choice? "]
 
