@@ -141,3 +141,55 @@ def test_show_high_scores_on_two_diff_city_area():
         + prompt_width + prompt_height + [""] + chosen_city_size_3x3 + [""] + mainMenuNoWelcome + [""] + high_score_list_3x3_1 + [""] + mainMenuNoWelcome
 
 
+
+def test_show_high_scores_empty_list():
+    """
+    Test whether the system will display high score list's header and footer with empty content 
+    when the high score list is empty
+    """
+
+    high_score_list_empty = [
+        "--------- HIGH SCORES ---------",
+        "Pos Player                Score",
+        "--- ------                -----",       
+        "-------------------------------"
+    ]
+
+    choose_city_size_msg = [
+        "Choose your city size below. Please take note that the multiplication of width and height cannot be more than 40.",
+        "Enter 0 to exit this configuration."
+    ]
+
+    prompt_width = ["Enter value for width: "]
+    prompt_height = ["Enter value for height: "]
+
+   
+    current_city_size_4x4 = [
+        "--------- CURRENT CITY SIZE ---------",
+        "Width: 4",
+        "Height: 4",
+        "-------------------------------------"
+    ] 
+    
+    chosen_city_size_6x1 = [
+        "--------- CHOSEN CITY SIZE ---------",
+        "Width: 6",
+        "Height: 1",
+        "------------------------------------"
+    ]
+
+    # main.main() function is a while true loop. 
+    # Thus, test script needs to use "0" input value in main menu to close the while loop after checking the output.
+    # Or else, test script will return index error.
+    set_keyboard_input(["5", "6", "1", "3","0"])
+
+    # When using "0" to close the while loop, Dev Code will use exit() to exit the application, which will cause SystemExit error to the test script.
+    # To solve this issue, pytest.raises(SystemExit) is used to check the SystemExit error in Test script that returns by the exit() used in the Dev Code.
+    with pytest.raises(SystemExit) as e:         
+        test_application = main.main()  
+           
+
+    result = get_display_output()
+    assert result == mainMenu + [""] + current_city_size_4x4 + [""] + choose_city_size_msg + [""] \
+                    + prompt_width + prompt_height + [""] + chosen_city_size_6x1 + [""] + mainMenuNoWelcome \
+                    + [""] + high_score_list_empty + [""] + mainMenuNoWelcome
