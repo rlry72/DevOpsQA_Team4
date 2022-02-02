@@ -7,6 +7,7 @@ from unittest.mock import Mock
 from tud_test_base import set_keyboard_input, get_display_output
 from classes.game import *
 from classes.menu import *
+import classes
 
 pytestmark = pytest.mark.skipif("update_high_score" not in dir(classes.game), reason="update high score not implemented")
 

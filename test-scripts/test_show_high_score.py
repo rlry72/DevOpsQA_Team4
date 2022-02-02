@@ -10,6 +10,7 @@ from tud_test_base import set_keyboard_input, get_display_output
 from classes.game import *
 from classes.menu import *
 import main
+import classes
 
 
 pytestmark = pytest.mark.skipif("display_high_score" not in dir(classes.game), reason="display high score not implemented")
