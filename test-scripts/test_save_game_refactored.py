@@ -166,7 +166,7 @@ def test_save_game_existing_save():
     """
     Test script to save game without placing anything on the board.
     """
-    set_keyboard_input([["1", "a1", "5", "0"]])
+    set_keyboard_input(["1", "a1", "5", "0"])
 
     defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
@@ -187,7 +187,7 @@ def test_save_game_existing_save():
     defaultBuildingPool2 = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
     #Starting another game without placing a building and saving.
-    set_keyboard_input([["5", "0"]])
+    set_keyboard_input(["5", "0"])
     newGame = Game()
     newGame.building_pool = defaultBuildingPool2
     newGame.randomized_building_history = {"1": ["FAC", "FAC"], "2": ["FAC", "FAC"]}
