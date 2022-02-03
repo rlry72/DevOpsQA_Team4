@@ -380,7 +380,7 @@ def test_view_current_score_empty():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["BCH", "HSE"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
     
@@ -420,7 +420,7 @@ def test_view_current_score_bch_center_of_city():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["BCH", "HSE"], "2": ["BCH", "HSE"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -490,7 +490,7 @@ def test_view_current_score_bch_right_or_left_of_city():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["BCH", "HSE"], "2": ["BCH", "HSE"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -560,7 +560,7 @@ def test_view_current_score_fac_single_fac():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["FAC", "HWY"], "2": ["FAC", "HWY"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -630,7 +630,7 @@ def test_view_current_score_fac_4fac():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["FAC", "HWY"], "2": ["FAC", "HWY"], "3": ["FAC", "HWY"], "4": ["FAC", "HWY"], "5": ["FAC", "HWY"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -763,7 +763,7 @@ def test_view_current_score_fac_5fac():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["FAC", "HWY"], "2": ["FAC", "HWY"], "3": ["FAC", "HWY"], "4": ["FAC", "HWY"], "5": ["FAC", "HWY"], "6": ["FAC", "HWY"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
     
@@ -930,7 +930,7 @@ def test_view_current_score_hse_single_hse():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["BCH", "HSE"], "2": ["BCH", "HSE"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -1011,7 +1011,7 @@ def test_view_current_score_hse_2hse_adjacent():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["BCH", "HSE"], "2": ["BCH", "HSE"], "3": ["BCH", "HSE"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -1112,7 +1112,7 @@ def test_view_current_score_hse_2bch_center():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["BCH", "HSE"], "2": ["BCH", "HSE"], "3": ["BCH", "HSE"], "4": ["BCH", "HSE"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -1234,7 +1234,7 @@ def test_view_current_score_hse_2shp_adjacent_to_hse_but_not_to_each_other():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["BCH", "HSE"], "2": ["SHP", "HWY"], "3": ["SHP", "HWY"], "4": ["SHP", "HWY"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -1356,7 +1356,7 @@ def test_view_current_score_hse_1fac_adjacent():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["BCH", "HSE"], "2": ["FAC", "HWY"], "3": ["FAC", "HWY"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -1457,7 +1457,7 @@ def test_view_current_score_shp_single_shp():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "HWY"], "2": ["SHP", "HWY"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -1537,7 +1537,7 @@ def test_view_current_score_shp_single_bch_adjacent_not_in_center():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "HWY"], "2": ["BCH", "HSE"], "3": ["BCH", "HSE"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -1639,7 +1639,7 @@ def test_view_current_score_shp_single_bch_adjacent_single_fac_adjacent_bch_not_
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "HWY"], "2": ["BCH", "HSE"], "3": ["FAC", "HWY"], "4": ["FAC", "HWY"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -1762,7 +1762,7 @@ def test_view_current_score_shp_2_bch_adjacent_single_fac_adjacent_bch_not_in_ce
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "HWY"], "2": ["BCH", "HSE"], "3": ["BCH", "HSE"], "4": ["FAC", "HWY"], "5": ["FAC", "HWY"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -1905,7 +1905,7 @@ def test_view_current_score_hwy_single_hwy():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "HWY"], "2": ["BCH", "HSE"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -1985,7 +1985,7 @@ def test_view_current_score_hwy_2_hwy_adjacent_on_single_row():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "HWY"], "2": ["SHP", "HWY"], "3": ["SHP", "HWY"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -2087,7 +2087,7 @@ def test_view_current_score_hwy_4_hwy_adjacent_on_single_row():
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "HWY"], "2": ["SHP", "HWY"], "3": ["SHP", "HWY"], "4": ["SHP", "HWY"], "5": ["SHP", "HWY"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
@@ -2230,7 +2230,7 @@ def test_view_currentscore_hwy_2_hwy_adjacent_on_single_row_1hwy_adjacent_on_dif
 
     test_game = Game()
     test_game.randomized_building_history = {"1": ["SHP", "HWY"], "2": ["SHP", "HWY"], "3": ["SHP", "HWY"], "4": ["SHP", "HWY"]}
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.start_new_turn()
     result = get_display_output()
 
