@@ -12,12 +12,9 @@ import math
 import statistics
 import json
 import classes
-import classes
 
 pytestmark = pytest.mark.skipif("save_game" not in dir(classes.game.Game), reason="save game not implemented")
-pytestmarl2 = pytest.mark.skipif("generate_remaining_building_string" in dir(classes.game.Game), reason="view remaining buildings on side implemented")
-
-defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+pytestmark2 = pytest.mark.skipif("generate_remaining_building_string" in dir(classes.game.Game), reason="view remaining buildings on side implemented")
 
 gameMenu = ['1. Build a FAC',
             '2. Build a FAC', 
@@ -112,6 +109,7 @@ def test_save_game(input, citySize, boardState, boardStatePlaced):
     """
     set_keyboard_input(input)
 
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
     #Starting a game and setting city size and buildings that will show up each turn. The game will be saved after placing 1 building.
     testGame = Game(width = citySize, height = citySize)
@@ -138,6 +136,8 @@ def test_save_game_empty_board():
     """
     set_keyboard_input(["5", "0"])
 
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     #Starting another game without placing a building and saving.
     testGame = Game()
     testGame.building_pool = defaultBuildingPool
@@ -163,6 +163,8 @@ def test_save_game_existing_save():
     """
     set_keyboard_input(["1", "a1", "5", "0"])
 
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     #Starting a game and setting buildings that will show up each turn. The game will be saved after placing 1 building.
     testGame = Game()
     testGame.building_pool = defaultBuildingPool
@@ -177,10 +179,12 @@ def test_save_game_existing_save():
     tempBoard = tempData["board"]
     f.close()
 
+    defaultBuildingPool2 = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     #Starting another game without placing a building and saving.
     set_keyboard_input(["5", "0"])
     newGame = Game()
-    newGame.building_pool = defaultBuildingPool
+    newGame.building_pool = defaultBuildingPool2
     newGame.randomized_building_history = {"1": ["FAC", "FAC"], "2": ["FAC", "FAC"]}
     newGame.start_new_turn()
 

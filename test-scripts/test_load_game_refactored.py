@@ -8,8 +8,6 @@ from tud_test_base import set_keyboard_input, get_display_output
 pytestmark = pytest.mark.skipif("load_game" not in dir(classes.menu), reason="load game not implemented")
 pytestmark2 = pytest.mark.skipif("generate_remaining_building_string" not in dir(classes.game.Game), reason="view remaining buildings on side not implemented")
 
-defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
-
 mainMenu = ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
     "Your choice? "]
 
@@ -106,6 +104,8 @@ def test_load_game_empty_board():
     # this is to set up prerequisite 
     set_keyboard_input(["5", "0"])
 
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     test_game = Game()
     test_game.building_pool = defaultBuildingPool
     test_game.randomized_building_history = {"1": ["HSE", "HSE"]}
@@ -137,6 +137,8 @@ def test_load_game_with_save_different_board_sizes(printBoard, boardSize):
     Tests the output in console of load game option in menu with existing save
     """
     set_keyboard_input(["1", "a1", "5", "0"])
+    
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
     # starts a game with different board sizes (3x3, 4x4, 5x5) to set up prerequisites.
     # turn number is 2, and BCH is built in a1 spot
