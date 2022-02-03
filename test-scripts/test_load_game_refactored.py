@@ -80,7 +80,7 @@ printBoard5x5 = [
     "  +-----+-----+-----+-----+-----+",
 ]
 
-
+@pytest.mark.order(1)
 def test_load_game_no_save():
     """
     Tests the output in console of load game option in menu when there is no save file
@@ -96,6 +96,7 @@ def test_load_game_no_save():
     # expected result should be main menu, no save game found error then back to main menu without welcome message.
     assert result == mainMenu + noSaveError + mainMenuNoWelcome
 
+@pytest.mark.order(2)
 def test_load_game_empty_board():
     """
     Tests the output in console of load game option in menu with 4x4 empty board existing save
@@ -128,6 +129,7 @@ def test_load_game_empty_board():
 
     assert check == True
 
+@pytest.mark.order(3)
 @pytest.mark.parametrize("printBoard, boardSize",
 [(printBoard3x3, 3),
 (printBoard4x4, 4),
