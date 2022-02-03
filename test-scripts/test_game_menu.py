@@ -42,6 +42,9 @@ def test_game_menu_display_board():
     """
     # set input 0, but first input will be ignored.
     set_keyboard_input(["0"])
+    
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     # start new game and turn
     test_game = Game()
     test_game.building_pool = defaultBuildingPool

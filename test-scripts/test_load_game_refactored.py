@@ -6,7 +6,7 @@ from classes.menu import *
 from tud_test_base import set_keyboard_input, get_display_output
 
 pytestmark = [pytest.mark.skipif("load_game" not in dir(classes.menu), reason="load game not implemented"), 
-              pytest.mark.skipif("generate_remaining_building_string" in dir(classes.game.Game), reason="view remaining buildings on side implemented")]
+              pytest.mark.skipif("generate_remaining_building_string" not in dir(classes.game.Game), reason="view remaining buildings on side implemented")]
 
 mainMenu = ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
     "Your choice? "]
