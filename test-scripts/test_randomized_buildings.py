@@ -36,30 +36,6 @@ def test_compare_randomized_building_5_turns():
     assert optList[0] != optList[1] != optList[2] != optList[3] != optList[4]
     # assert result[3] != result[9] != result[15] != result[21] != result[26]
 
-@pytest.mark.skip(reason="no way of currently testing this, will manually test")
-def test_compare_randomized_building_10_turns():
-    """
-    Test script to check randomized building output over 10 turns whether the randomizer is good enough
-    """
-
-    option1Arr = []
-    option2Arr = []
-
-    set_keyboard_input(["1","a1","1","a2","1","a3","1","a4","1","b1","1","b2","1","b3","1","b4","1","c1","1","c2","0"])
-
-    test_game = Game()
-    test_game.building_pool = defaultBuildingPool
-    test_game.start_new_turn()
-    result = get_display_output()
-
-    for output in result:
-        if "1." in output:
-            # opt1 = output.split("\n")[0].split(" ")[-1]
-            option1Arr.append(output)
-        if "2." in output:
-            # opt2 = output.split("\n")[1].split(" ")[-1]
-            option2Arr.append(output)
-    # assert result[3] != result[9]
 
 def test_check_randomized_building_in_building_pool():
     """
