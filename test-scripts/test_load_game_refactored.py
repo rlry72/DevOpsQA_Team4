@@ -86,14 +86,15 @@ def test_load_game_no_save():
     """
     Tests the output in console of load game option in menu when there is no save file
     """
-    set_keyboard_input(["2", "0", "0"])
-
     savePath = './game_save.json'
 
     if os.path.exists(savePath):
         os.remove(savePath)
     else:
         print('no save found')
+
+    set_keyboard_input(["2", "0", "0"])
+
 
     # calls main menu. if no save file is found, it should return to main menu without welcome message, with error message "No save game found!"
     with pytest.raises(SystemExit) as e:
