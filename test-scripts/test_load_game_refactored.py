@@ -1,5 +1,6 @@
 import pytest
 import classes
+import os
 from main import *
 from classes.game import *
 from classes.menu import *
@@ -66,7 +67,7 @@ printBoard4x4 = [
 ]
    
 printBoard5x5 = [
-    "     A     B     C     D     E           Building   Remaining  ",
+    "     A     B     C     D     E           Building   Remaining",
     "  +-----+-----+-----+-----+-----+        --------------------",
     " 1| BCH |     |     |     |     |        HSE      | 8",
     "  +-----+-----+-----+-----+-----+        FAC      | 8",
@@ -85,7 +86,14 @@ def test_load_game_no_save():
     """
     Tests the output in console of load game option in menu when there is no save file
     """
-    set_keyboard_input(["2", "0"])
+    set_keyboard_input(["2", "0", "0"])
+
+    savePath = './game_save.json'
+
+    if os.path.exists(savePath):
+        os.remove(savePath)
+    else:
+        print('no save found')
 
     # calls main menu. if no save file is found, it should return to main menu without welcome message, with error message "No save game found!"
     with pytest.raises(SystemExit) as e:
@@ -101,6 +109,12 @@ def test_load_game_empty_board():
     """
     Tests the output in console of load game option in menu with 4x4 empty board existing save
     """
+    savePath = './game_save.json'
+
+    if os.path.exists(savePath):
+        os.remove(savePath)
+    else:
+        print('no save found')
     # starts a game and saves without building a building, then exits
     # this is to set up prerequisite 
     set_keyboard_input(["5", "0"])
@@ -138,6 +152,13 @@ def test_load_game_with_save_different_board_sizes(printBoard, boardSize):
     """
     Tests the output in console of load game option in menu with existing save
     """
+    savePath = './game_save.json'
+
+    if os.path.exists(savePath):
+        os.remove(savePath)
+    else:
+        print('no save found')
+
     set_keyboard_input(["1", "a1", "5", "0"])
     
     defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
@@ -146,11 +167,12 @@ def test_load_game_with_save_different_board_sizes(printBoard, boardSize):
     # turn number is 2, and BCH is built in a1 spot
     test_game = Game(height = boardSize, width = boardSize)
     test_game.building_pool = defaultBuildingPool
-    test_game.turn_num = turnNumber
+    test_game.turn_num = 1
     test_game.randomized_building_history = {"1": ["BCH", "BCH"], "2": ["HSE", "HSE"]}
     test_game.start_new_turn()
 
-
+    # checkResult = get_display_output()
+    # assert checkResult == [""]
     set_keyboard_input(["2", "0", "0"])
 
     # calls main menu to load game.
