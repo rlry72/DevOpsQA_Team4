@@ -312,5 +312,7 @@ def test_view_final_score(input, boardState, turnNumber, scoreBoard, heightWidth
 
     result = get_display_output()
 
-    assert result == [""] + turnNumberArray + boardState + gameMenu + ["Build where? ", "", "Final layout of Simp City:"] + boardStateFilled + scoreBoard+  mainMenuNoWelcome
+    expectedOutputArray = [""] + turnNumberArray + boardState + gameMenu + ["Build where? ", "", "Final layout of Simp City:"] + boardStateFilled + scoreBoard+  mainMenuNoWelcome
+    check =  all(item in result for item in expectedOutputArray)
 
+    assert check == True

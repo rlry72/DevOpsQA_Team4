@@ -97,7 +97,7 @@ def test_see_remaining_building_initial_state():
     set_keyboard_input(["3","0"])
 
     test_game = Game()
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
     result = get_display_output()
@@ -113,7 +113,7 @@ def test_see_remaining_building_after_play():
     set_keyboard_input(["3","1","a1","3","0"])
 
     test_game = Game()
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
     result = get_display_output()
@@ -129,7 +129,7 @@ def test_see_remaining_building_3x3():
     set_keyboard_input(["0"])
 
     test_game = Game(width = 3, height = 3)
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
     result = get_display_output()
@@ -145,7 +145,7 @@ def test_see_remaining_building_5x5():
     set_keyboard_input(["0"])
 
     test_game = Game(width = 5, height = 5)
-    test_game.building_pool = defaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
     test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
     result = get_display_output()
@@ -158,23 +158,24 @@ def test_see_remaining_building_after_ending_game_and_starting_new():
     Test script to test see remaining buildings after starting a new game after ending a game.
     """
 
-    set_keyboard_input(["1","a1","0"])
-    previous_game = Game()
-    previous_game.building_pool = defaultBuildingPool
-    previous_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
-    previous_game.start_new_turn()
-    previous_result = get_display_output()
-
-
-    set_keyboard_input(["0"])
-    test_game = Game()
-    test_game.building_pool = defaultBuildingPool
-    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
-    test_game.start_new_turn()
+    set_keyboard_input(["1","1","a1","0","0"])
+    with pytest.raises(SystemExit) as e:
+        main()
     result = get_display_output()
 
-    assert previous_result == ["", "Turn 1"] + board + gameMenu + ["Build where? ","", "Turn 2"] + boardPlaced + gameMenu
-    assert result == ["","Turn 1"] + board + gameMenu
+    expectedResult = ["", "Turn 1"] + board + gameMenu + ["Build where? ","", "Turn 2"] + gameMenu
+    check =  all(item in result for item in expectedResult)
+    assert check == True
+
+    set_keyboard_input(["1","0","0"])
+    with pytest.raises(SystemExit) as e:
+        main()
+    result2 = get_display_output()
+
+    expectedResult2 = ["","Turn 1"] + board + gameMenu
+    check2 =  all(item in result2 for item in expectedResult2)
+    assert check2 == True
+
    
 def test_see_remaining_building_non_default_pool():
     """
@@ -184,7 +185,7 @@ def test_see_remaining_building_non_default_pool():
     set_keyboard_input(["0"])
 
     test_game = Game()
-    test_game.building_pool = nonDefaultBuildingPool
+    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "MON":8}
     test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
     test_game.start_new_turn()
     result = get_display_output()
