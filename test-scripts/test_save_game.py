@@ -13,8 +13,8 @@ import statistics
 import json
 import classes
 
-pytestmark = pytest.mark.skipif("save_game" not in dir(classes.game.Game), reason="save game not implemented")
-pytestmark2 = pytest.mark.skipif("generate_remaining_building_string" in dir(classes.game.Game), reason="view remaining buildings on side implemented")
+pytestmark = [pytest.mark.skipif("save_game" not in dir(classes.game), reason="save game not implemented"), 
+              pytest.mark.skipif("generate_remaining_building_string" not in dir(classes.game.Game), reason="view remaining buildings on side not implemented")]
 
 gameMenu = ['1. Build a FAC',
             '2. Build a FAC', 
