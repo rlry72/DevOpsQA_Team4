@@ -170,10 +170,10 @@ def test_see_remaining_building_after_ending_game_and_starting_new():
     set_keyboard_input(["1","0","0"])
     with pytest.raises(SystemExit) as e:
         main()
-    result = get_display_output()
+    result2 = get_display_output()
 
     expectedResult2 = ["","Turn 1"] + board + gameMenu
-    check2 =  all(item in result for item in expectedResult2)
+    check2 =  all(item in result2 for item in expectedResult2)
     assert check2 == True
 
    
