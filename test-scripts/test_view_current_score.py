@@ -14,6 +14,7 @@ import statistics
 defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 newBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "PRK":8, "MON":8}
 
+pytestmark = pytest.mark.skipif("generate_remaining_building_string" in dir(classes.game.Game), reason="view remaining buildings on side implemented")
 
 gamemenuoptions = "1. Build a BCH\n2. Build a HSE\n3. See remaining buildings\n4. See current score\n\n5. Save game\n0. Exit to main menu"
 

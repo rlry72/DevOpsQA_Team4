@@ -9,6 +9,7 @@ from io import StringIO
 import sys
 from unittest.mock import Mock
 
+pytestmark = pytest.mark.skipif("generate_remaining_building_string" in dir(classes.game.Game), reason="view remaining buildings on side implemented")
 
 gameBoard = [
     "     A     B     C     D  ",
