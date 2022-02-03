@@ -35,8 +35,6 @@ gameMenu = ['1. Build a HSE',
 
 invalidInputList = ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]
 
-defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
-
 
 def test_game_menu_display_board():
     """
@@ -45,6 +43,9 @@ def test_game_menu_display_board():
     """
     # set input 0, but first input will be ignored.
     set_keyboard_input(["0"])
+
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     # start new game and turn
     test_game = Game()
     test_game.building_pool = defaultBuildingPool
@@ -68,6 +69,9 @@ def test_game_menu_display_options():
     # set input 0, but first input will be ignored.
     set_keyboard_input(["0"])
     # start new game and turn
+
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     test_game = Game()
     test_game.building_pool = defaultBuildingPool
     test_game.randomized_building_history = {"1": ["HSE", "HSE"]}
@@ -86,6 +90,9 @@ def test_game_menu_display_board_options():
     """
     # set input 0, but first input will be ignored.
     set_keyboard_input(["0"])
+
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     # start new game and turn
     test_game = Game()
     test_game.randomized_building_history = {"1": ["HSE", "HSE"]}
@@ -110,8 +117,13 @@ def test_game_menu_invalid_input(invalidInput, expectedResult):
     """
     # set input to start new game, then set invalid input and exit
     set_keyboard_input([invalidInput, "0"])
+
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     # start game and new turn
-    testGame = Game().start_new_turn()
+    testGame = Game()
+    testGame.building_pool = defaultBuildingPool
+    testGame.start_new_turn()
     # get the LAST TWO items printed in console. These last two items must be "Invalid input, please try again" and "Your choice? "
     result = get_display_output()[-2:]
     # compares console output to expected result set in pytest mark parametrize. if different, test fails

@@ -15,7 +15,6 @@ pytestmark = pytest.mark.skipif("update_high_score" not in dir(classes.game.Game
 mainMenuNoWelcome = ["\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
                      "Your choice? "]
 
-defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
 finalLayoutMsg = ["Final layout of Simp City:"]
 
@@ -123,6 +122,8 @@ def test_update_high_scores_diff_citysize_same_cityarea_samename():
                     "Please enter your name (max 20 chars): "]
     
     set_keyboard_input(["HelloWorldHeyDevOps", "0", "HelloWorldHeyDevOps","0"])
+    
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
     test_game = Game(width = 2, height = 2)
     test_game.building_pool = defaultBuildingPool
@@ -131,8 +132,11 @@ def test_update_high_scores_diff_citysize_same_cityarea_samename():
     test_game.start_new_turn()
     main_menu(True)
     position = get_position("high_score_4.json", 7)  
+
+    defaultBuildingPool2 = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     test_game_2 = Game(width = 4, height = 1)
-    test_game_2.building_pool = defaultBuildingPool
+    test_game_2.building_pool = defaultBuildingPool2
     test_game_2.board = gameBoard4x1_1
     test_game_2.turn_num = 5
     test_game_2.start_new_turn()
@@ -160,6 +164,8 @@ def test_update_high_scores_invalid_name():
         ]
 
     set_keyboard_input(["HelloWorldHeyHeyDevOps","0"])
+    
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
     test_game = Game(width = 2, height = 2)
     test_game.building_pool = defaultBuildingPool
@@ -197,6 +203,8 @@ def test_update_high_scores_same_score_lower_position():
     ]
 
     set_keyboard_input(["Player 2","0", "0"])
+    
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
     test_game = Game(width = 2, height = 2)
     test_game.building_pool = defaultBuildingPool
@@ -240,6 +248,8 @@ def test_update_high_scores_never_got_top_10():
     ]
 
     set_keyboard_input(["0","0"])
+
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
     test_game = Game(width = 3, height = 1)
     test_game.building_pool = defaultBuildingPool
@@ -300,6 +310,8 @@ def test_update_high_scores_only_got_10_players_in_list():
     ]
 
     set_keyboard_input(["Player","0","0"])
+
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
     test_game = Game(width = 3, height = 1)
     test_game.building_pool = defaultBuildingPool
@@ -380,7 +392,9 @@ def test_update_high_scores_display_separately_for_diff_city_area():
 
 
     set_keyboard_input(["First Game", "0", "Second Game","0"])
-  
+    
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     test_game = Game(width = 1, height = 1)
     test_game.building_pool = defaultBuildingPool
     test_game.board = gameBoard1x1_1 
@@ -388,8 +402,10 @@ def test_update_high_scores_display_separately_for_diff_city_area():
     test_game.start_new_turn()
     main_menu(True)
 
+    defaultBuildingPool2 = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     test_game_2 = Game(width = 2, height = 1)
-    test_game_2.building_pool = defaultBuildingPool
+    test_game_2.building_pool = defaultBuildingPool2
     test_game_2.board = gameBoard2x1_1
     test_game_2.turn_num = 3
     test_game_2.start_new_turn()
@@ -442,6 +458,8 @@ def test_update_high_scores_special_character_in_input():
                     "Please enter your name (max 20 chars): "]
 
     set_keyboard_input(["HelloWorld\nHeyDevOp"])
+    
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
     test_game = Game(width = 5, height = 1)
     test_game.building_pool = defaultBuildingPool

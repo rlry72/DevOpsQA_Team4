@@ -35,9 +35,6 @@ gameMenu = ['1. Build a HSE',
 
 invalidInputList = ['Invalid Input. Please enter a valid input ("1" / "2" / "3" / "4" / "5" / "0").', "Your choice? "]
 
-defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
-
-
 def test_game_menu_display_board():
     """
     Tests if the game board is displayed properly upon starting a new game
@@ -67,6 +64,9 @@ def test_game_menu_display_options():
     """
     # set input 0, but first input will be ignored.
     set_keyboard_input(["0"])
+
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     # start new game and turn
     test_game = Game()
     test_game.building_pool = defaultBuildingPool
@@ -86,6 +86,9 @@ def test_game_menu_display_board_options():
     """
     # set input 0, but first input will be ignored.
     set_keyboard_input(["0"])
+
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     # start new game and turn
     test_game = Game()
     test_game.randomized_building_history = {"1": ["HSE", "HSE"]}

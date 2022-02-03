@@ -12,8 +12,6 @@ from unittest.mock import Mock
 
 pytestmark = pytest.mark.skipif("generate_remaining_building_string" not in dir(classes.game.Game), reason="view remaining buildings on side not implemented")
 
-defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
-
 mainMenu = ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
     "Your choice? "]
 
@@ -254,6 +252,8 @@ def test_change_city_size_game():
     '''
     set_keyboard_input(["0"])
 
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     gameDefault = Game()
     gameDefault.building_pool = defaultBuildingPool
     gameDefault.randomized_building_history = {"1": ["SHP", "SHP"]}
@@ -265,8 +265,10 @@ def test_change_city_size_game():
 
     set_keyboard_input(["0"])
 
+    defaultBuildingPool2 = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     game5x6 = Game(width = 5, height = 6)
-    game5x6.building_pool = defaultBuildingPool
+    game5x6.building_pool = defaultBuildingPool2
     game5x6.randomized_building_history = {"1": ["SHP", "SHP"]}
     game5x6.start_new_turn()
 

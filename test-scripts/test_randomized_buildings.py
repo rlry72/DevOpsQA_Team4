@@ -10,7 +10,6 @@ import random
 import math
 import statistics
 
-defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
 def test_compare_randomized_building_5_turns():
     """
@@ -19,6 +18,7 @@ def test_compare_randomized_building_5_turns():
     set_keyboard_input(["1","a1","1", "b1", "1", "c1", "1", "d1", "1", "a2","0"])
 
     optList = []
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
     # start game and input options and buildings
     test_game = Game()
@@ -44,7 +44,8 @@ def test_check_randomized_building_in_building_pool():
 
     # empty option list
     optList = []
-   
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
     set_keyboard_input(["1","a1","1","a2","1","a3","1","a4","1","b1","1","b2","1","b3","1","b4","0"])
 
     test_game = Game()
@@ -74,7 +75,7 @@ def test_randomized_building_options_1_building_left():
     Test script to test options when only 1 building is left
     """
     set_keyboard_input(["0"])
-
+    
     test_game = Game()
     # set building pool to only have 1 SHP left and no other buildings
     test_game.building_pool = {"HSE": 0, "FAC": 0, "SHP": 1, "HWY": 0, "BCH": 0}
