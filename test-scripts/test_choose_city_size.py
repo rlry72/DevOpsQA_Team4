@@ -8,6 +8,7 @@ from tud_test_base import set_keyboard_input, get_display_output
 from io import StringIO 
 import sys
 from unittest.mock import Mock
+import classes
 
 defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 

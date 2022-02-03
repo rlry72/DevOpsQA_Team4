@@ -10,6 +10,7 @@ import os
 import random
 import math
 import statistics
+import classes
 
 pytestmark = pytest.mark.skipif("generate_remaining_building_string" in dir(classes.game.Game), reason="view remaining buildings on side implemented")
 

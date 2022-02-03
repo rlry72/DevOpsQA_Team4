@@ -4,6 +4,7 @@ from main import *
 from classes.game import *
 from classes.menu import *
 from tud_test_base import set_keyboard_input, get_display_output
+import classes
 
 pytestmark = pytest.mark.skipif("load_game" not in dir(classes.menu), reason="load game not implemented")
 pytestmark2 = pytest.mark.skipif("generate_remaining_building_string" in dir(classes.game.Game), reason="view remaining buildings on side implemented")

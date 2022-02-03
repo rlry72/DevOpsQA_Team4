@@ -10,6 +10,7 @@ import os
 import random
 import math
 import statistics
+import classes
 
 defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 newBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "PRK":8, "MON":8}

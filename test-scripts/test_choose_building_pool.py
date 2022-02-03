@@ -7,6 +7,7 @@ from io import StringIO
 import sys
 from main import *
 from unittest.mock import Mock
+import classes
 
 defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 

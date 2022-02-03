@@ -8,6 +8,7 @@ from tud_test_base import set_keyboard_input, get_display_output
 from io import StringIO 
 import sys
 from unittest.mock import Mock
+import classes
 
 pytestmark = pytest.mark.skipif("generate_remaining_building_string" in dir(classes.game.Game), reason="view remaining buildings on side implemented")
 
