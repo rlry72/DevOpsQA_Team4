@@ -7,6 +7,7 @@ from tud_test_base import set_keyboard_input, get_display_output
 from io import StringIO 
 from classes.game import *
 from classes.menu import *
+from main import *
 
 pytestmark = pytest.mark.skipif("generate_remaining_building_string" not in dir(classes.game.Game), reason="view remaining buildings on side not implemented")
 
