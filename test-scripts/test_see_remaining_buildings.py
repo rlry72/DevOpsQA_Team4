@@ -7,6 +7,7 @@ from tud_test_base import set_keyboard_input, get_display_output
 from io import StringIO 
 from classes.game import *
 from classes.menu import *
+from main import *
 
 pytestmark = pytest.mark.skipif("generate_remaining_building_string" not in dir(classes.game.Game), reason="view remaining buildings on side not implemented")
 
@@ -16,6 +17,14 @@ nonDefaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "MON":8}
 
 gameMenu = ['1. Build a SHP',
             '2. Build a SHP', 
+            '3. See remaining buildings',
+            '4. See current score',
+            '', 
+            '5. Save game', 
+            '0. Exit to main menu', 
+            'Your choice? ']
+
+gameMenuNoOptions = [
             '3. See remaining buildings',
             '4. See current score',
             '', 
@@ -163,7 +172,7 @@ def test_see_remaining_building_after_ending_game_and_starting_new():
         main()
     result = get_display_output()
 
-    expectedResult = ["", "Turn 1"] + board + gameMenu + ["Build where? ","", "Turn 2"] + gameMenu
+    expectedResult = ["", "Turn 1"] + board + gameMenuNoOptions + ["Build where? ","", "Turn 2"] + gameMenuNoOptions
     check =  all(item in result for item in expectedResult)
     assert check == True
 
@@ -172,7 +181,7 @@ def test_see_remaining_building_after_ending_game_and_starting_new():
         main()
     result2 = get_display_output()
 
-    expectedResult2 = ["","Turn 1"] + board + gameMenu
+    expectedResult2 = ["","Turn 1"] + board + gameMenuNoOptions
     check2 =  all(item in result2 for item in expectedResult2)
     assert check2 == True
 
