@@ -47,7 +47,7 @@ board2x2 = [
 " 1|     | FAC |        HSE      | 0",
 "  +-----+-----+        FAC      | 36",
 " 2| FAC | FAC |        SHP      | 0",
-"  +-----+-----+        HWY      | 2"
+"  +-----+-----+        HWY      | 2",
 "                       BCH      | 0",
 ]
 
@@ -289,11 +289,11 @@ actualBoardCaseStudy = [
 
 
 @pytest.mark.parametrize("input, boardState, turnNumber, scoreBoard, heightWidth, actualBoard, boardStateFilled",
-[(["1", "a1", "0"], board1x1, 1, score1x1, [1,1], actualBoard1x1, board1x1Filled), (["1", "a1", "0"], board2x2, 4, score2x2, [2,2], actualBoard2x2, board2x2Filled),
-(["1", "a1", "0"], board3x3, 9, score3x3, [3,3], actualBoard3x3, board3x3Filled),
-(["1", "a1", "0"], board4x4, 16, score4x4, [4,4], actualBoard4x4, board4x4Filled),
-(["1", "a1", "0"], board5x5, 25, score5x5, [5,5], actualBoard5x5, board5x5Filled), (["1", "a1", "0"], board6x6, 36, score6x6, [6,6], actualBoard6x6, board6x6Filled),
-(["1", "d1", "0"], caseStudyBoardState, 16, scoreCaseStudy, [4,4], actualBoardCaseStudy, caseStudyBoardStateFilled),])
+[(["1", "a1", "0","0"], board1x1, 1, score1x1, [1,1], actualBoard1x1, board1x1Filled), (["1", "a1", "0","0"], board2x2, 4, score2x2, [2,2], actualBoard2x2, board2x2Filled),
+(["1", "a1", "0","0"], board3x3, 9, score3x3, [3,3], actualBoard3x3, board3x3Filled),
+(["1", "a1", "0","0"], board4x4, 16, score4x4, [4,4], actualBoard4x4, board4x4Filled),
+(["1", "a1", "0","0"], board5x5, 25, score5x5, [5,5], actualBoard5x5, board5x5Filled), (["1", "a1", "0","0"], board6x6, 36, score6x6, [6,6], actualBoard6x6, board6x6Filled),
+(["1", "d1", "0","0"], caseStudyBoardState, 16, scoreCaseStudy, [4,4], actualBoardCaseStudy, caseStudyBoardStateFilled),])
 def test_view_final_score(input, boardState, turnNumber, scoreBoard, heightWidth, actualBoard, boardStateFilled):
     """
     Test script to check viewing final score computation, final total score and whether main menu is displayed after final turn.
