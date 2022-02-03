@@ -13,7 +13,7 @@ import statistics
 import json
 import classes
 
-pytestmark = [pytest.mark.skipif("save_game" not in dir(classes.game), reason="save game not implemented"), 
+pytestmark = [pytest.mark.skipif("save_game" not in dir(classes.game.Game), reason="save game not implemented"), 
               pytest.mark.skipif("generate_remaining_building_string" not in dir(classes.game.Game), reason="view remaining buildings on side not implemented")]
 
 
