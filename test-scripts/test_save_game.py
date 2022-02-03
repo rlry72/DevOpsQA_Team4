@@ -12,8 +12,10 @@ import math
 import statistics
 import json
 import classes
+import classes
 
 pytestmark = pytest.mark.skipif("save_game" not in dir(classes.game.Game), reason="save game not implemented")
+pytestmarl2 = pytest.mark.skipif("generate_remaining_building_string" in dir(classes.game.Game), reason="view remaining buildings on side implemented")
 
 defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 

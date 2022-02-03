@@ -7,6 +7,9 @@ from tud_test_base import set_keyboard_input, get_display_output
 from io import StringIO 
 import sys
 from unittest.mock import Mock
+import classes
+
+pytestmark = pytest.mark.skipif("generate_remaining_building_string" in dir(classes.game.Game), reason="view remaining buildings on side implemented")
 
 mainMenu = ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
     "Your choice? "]

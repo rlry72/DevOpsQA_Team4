@@ -7,8 +7,11 @@ from io import StringIO
 import sys
 from main import *
 from unittest.mock import Mock
+import classes
 
 defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
+pytestmark = pytest.mark.skipif("generate_remaining_building_string" in dir(classes.game.Game), reason="view remaining buildings on side implemented")
 
 invalidInputArray = ["Welcome, mayor of Simp City!\n----------------------------\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
     "Your choice? "

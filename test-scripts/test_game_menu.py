@@ -2,6 +2,9 @@ import pytest
 from tud_test_base import set_keyboard_input, get_display_output
 from classes.menu import *
 from classes.game import *
+import classes
+
+pytestmark = pytest.mark.skipif("generate_remaining_building_string" in dir(classes.game.Game), reason="view remaining buildings on side implemented")
 
 mainMenuNoWelcome = ["\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
     "Your choice? "]
