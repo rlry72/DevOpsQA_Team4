@@ -140,7 +140,7 @@ def test_show_high_scores_on_two_diff_city_area():
            
 
     result = get_display_output()
-    assert result == mainMenu + [""] + high_score_list_4x4_1 +  mainMenuNoWelcome + [""] + current_city_size_4x4 + ["0"] + choose_city_size_msg + [""] \
+    assert result == mainMenu + [""] + high_score_list_4x4_1 +  mainMenuNoWelcome + [""] + current_city_size_4x4 + [""] + choose_city_size_msg + [""] \
         + prompt_width + prompt_height + [""] + chosen_city_size_3x3 + mainMenuNoWelcome + [""] + high_score_list_3x3_1 +  mainMenuNoWelcome
 
 
