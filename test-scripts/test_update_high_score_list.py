@@ -621,7 +621,7 @@ def test_update_high_scores_special_character_in_input():
 
 
 @pytest.mark.order(8)
-def test_update_high_score_corrputed_file():
+def test_update_high_score_corrupted_file():
     """
     Test whether the system will display error message when existing high score file is corrupted and display the new high score list with only 1 player
     """
@@ -666,7 +666,7 @@ def test_update_high_score_corrputed_file():
         ],
         "hell": 'well'        
     }   
-    errorMsg = ["The current file is corrupt and will therefore be deleted."]
+    errorMsg = ["The current high score file is corrupt and a new high score list will be generated."]
  
 
     high_score_Exist = os.path.exists('high_score_1.json')

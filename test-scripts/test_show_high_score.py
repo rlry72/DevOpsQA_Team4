@@ -330,6 +330,6 @@ def test_show_high_score_file_corrupted():
        
        
     result = get_display_output()
-    assert result == mainMenu + + [""] + current_city_size_4x4 + [""] + choose_city_size_msg + [""] \
+    assert result == mainMenu + [""] + current_city_size_4x4 + [""] + choose_city_size_msg + [""] \
                     + prompt_width + prompt_height + [""] + chosen_city_size_7x1 +  mainMenuNoWelcome \
                     + [""] + errorMsg + [""] + high_score_list_empty +  mainMenuNoWelcome
