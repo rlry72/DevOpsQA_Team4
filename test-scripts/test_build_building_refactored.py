@@ -217,10 +217,10 @@ def test_build_a_building_BCH():
     """
     set_keyboard_input(["1","a1","0"])
 
-    test_game = Game()
-    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
-    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
-    test_game.start_new_turn()
+    test_game2 = Game()
+    test_game2.randomized_building_history = {"1": ["BCH", "BCH"], "2": ["BCH", "BCH"]}
+    test_game2.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+    test_game2.start_new_turn()
     result = get_display_output()
     
     assert result == ["", "Turn 1"] + gameBoard + gameMenuBCH + ["Build where? ", "", "Turn 2"] + gameBoardPlacedBCH + gameMenuBCH
@@ -231,10 +231,10 @@ def test_build_a_building_HWY():
     """
     set_keyboard_input(["1","a1","0"])
 
-    test_game = Game()
-    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
-    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
-    test_game.start_new_turn()
+    test_game3 = Game()
+    test_game3.randomized_building_history = {"1": ["HWY", "HWY"], "2": ["HWY", "HWY"]}
+    test_game3.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+    test_game3.start_new_turn()
     result = get_display_output()
     
     assert result == ["", "Turn 1"] + gameBoard + gameMenuHWY + ["Build where? ", "", "Turn 2"] + gameBoardPlacedHWY + gameMenuHWY
@@ -245,10 +245,10 @@ def test_build_a_building_FAC():
     """
     set_keyboard_input(["1","a1","0"])
 
-    test_game = Game()
-    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
-    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
-    test_game.start_new_turn()
+    test_game4 = Game()
+    test_game4.randomized_building_history = {"1": ["FAC", "FAC"], "2": ["FAC", "FAC"]}
+    test_game4.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+    test_game4.start_new_turn()
     result = get_display_output()
     
     assert result == ["", "Turn 1"] + gameBoard + gameMenuFAC + ["Build where? ", "", "Turn 2"] + gameBoardPlacedFAC + gameMenuFAC
@@ -259,10 +259,10 @@ def test_build_a_building_HSE():
     """
     set_keyboard_input(["1","a1","0"])
 
-    test_game = Game()
-    test_game.randomized_building_history = {"1": ["SHP", "SHP"], "2": ["SHP", "SHP"]}
-    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
-    test_game.start_new_turn()
+    test_game5 = Game()
+    test_game5.randomized_building_history = {"1": ["HSE", "HSE"], "2": ["HSE", "HSE"]}
+    test_game5.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+    test_game5.start_new_turn()
     result = get_display_output()
     
     assert result == ["", "Turn 1"] + gameBoard + gameMenuHSE + ["Build where? ", "", "Turn 2"] + gameBoardPlacedHSE + gameMenuHSE
@@ -273,10 +273,10 @@ def test_build_a_building_MON():
     """
     set_keyboard_input(["1","a1","0"])
 
-    test_game = Game()
-    test_game.randomized_building_history = {"1": ["MON", "MON"], "2": ["MON", "MON"]}
-    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "MON":8, "PRK":8}
-    test_game.start_new_turn()
+    test_game6 = Game()
+    test_game6.randomized_building_history = {"1": ["MON", "MON"], "2": ["MON", "MON"]}
+    test_game6.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "MON":8, "PRK":8}
+    test_game6.start_new_turn()
     result = get_display_output()
     
     assert result == ["", "Turn 1"] + gameBoardMONPRK + gameMenuMON + ["Build where? ", "", "Turn 2"] + gameBoardPlacedMON + gameMenuMON
@@ -287,10 +287,10 @@ def test_build_a_building_PRK():
     """
     set_keyboard_input(["1","a1","0"])
 
-    test_game = Game()
-    test_game.randomized_building_history = {"1": ["PRK", "PRK"], "2": ["PRK", "PRK"]}
-    test_game.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "MON":8, "PRK":8}
-    test_game.start_new_turn()
+    test_game7 = Game()
+    test_game7.randomized_building_history = {"1": ["PRK", "PRK"], "2": ["PRK", "PRK"]}
+    test_game7.building_pool = {"HSE":8, "FAC":8, "SHP": 8, "MON":8, "PRK":8}
+    test_game7.start_new_turn()
     result = get_display_output()
     
     assert result == ["", "Turn 1"] + gameBoardMONPRK + gameMenuPRK + ["Build where? ", "", "Turn 2"] + gameBoardPlacedPRK + gameMenuPRK
