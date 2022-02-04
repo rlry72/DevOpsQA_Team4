@@ -301,15 +301,19 @@ def test_load_game_with_all_buildings(board, testPrintBoard, buildingPool, build
     assert loadedGame.randomized_building_history == buildingHistory
 
 @pytest.mark.order(5)
-def test_load_game_corrupted_save():
+@pytest.mark.parametrize("corruptStr", [
+    ("asdf"), ("1234"), (""), ('{"board": {"1,1": "PRK"}, "turn_num": 2, "width": 4, "height": 4}'),
+    ('{"boardasdf": {"0,0": "SHP"}, "turn_num": 2, "width": 4, "height": 4, "randomized_history": {"1": ["SHP", "SHP"], "2": ["BCH", "HWY"]}, "building_pool": {"HSE": 8, "FAC": 8, "SHP": 7, "HWY": 8, "BCH": 8}}')
+])
+def test_load_game_corrupted_save(corruptStr):
     savePath = './game_save.json'
     with open(savePath, "w") as save:
-            save.write("asdf")
+            save.write(corruptStr)
 
     set_keyboard_input(["2", "0", "0"])
 
 
-    # calls main menu. if no save file is found, it should return to main menu without welcome message, with error message "No save game found!"
+    # calls main menu. if save file is corrupted, it should return to main menu without welcome message, with error message "Failed to load game!"
     with pytest.raises(SystemExit) as e:
         main()
 
