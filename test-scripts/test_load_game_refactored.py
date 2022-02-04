@@ -1,3 +1,5 @@
+from cmath import exp
+from attr import Factory
 import pytest
 import classes
 import os
@@ -25,6 +27,8 @@ gameMenu = ['1. Build a HSE',
             'Your choice? ']
 
 noSaveError = ["", "No save game found!"]
+
+corruptedSaveError = ["", "Failed to load game!"]
 
 turnNumberArr = ["", "Turn 2"]
 
@@ -79,6 +83,50 @@ printBoard5x5 = [
     "  +-----+-----+-----+-----+-----+",
     " 5|     |     |     |     |     |",
     "  +-----+-----+-----+-----+-----+",
+]
+
+defaultBuildingPoolBoard = {"HSE":7, "FAC":7, "SHP": 8, "HWY":7, "BCH":7}
+nonDefaultBuildingPoolBoard = {"MON":8, "PRK":7, "SHP": 7, "HWY":7, "BCH":7}
+
+defaultBuildingHistory = {"1": ["SHP", "SHP"], "2": ["HSE", "HSE"], "3": ["FAC", "FAC"], "4": ["HWY", "HWY"], "5": ["SHP", "SHP"], "6": ["HSE", "HSE"]}
+nonDefaultBuildingHistory = {"1": ["PRK", "PRK"], "2": ["HSE", "HSE"], "3": ["FAC", "FAC"], "4": ["MON", "MON"], "5": ["MON", "MON"], "6": ["HSE", "HSE"]}
+
+defaultBuildingsAllBoard = [
+[Building(), House(1, 0), Factory(2, 0), Highway(3, 0)],
+[Beach(0, 1), Building(), Building(), Building()],
+[Building(), Building(), Building(), Building()],
+[Building(), Building(), Building(), Building()]]
+
+nonDefaultBuildingsAllBoard = [
+[Building(), Highway(1, 0), Park(2, 0), Shop(3, 0)],
+[Beach(0, 1), Building(), Building(), Building()],
+[Building(), Building(), Building(), Building()],
+[Building(), Building(), Building(), Building()]]
+
+defaultPrintBoard = [
+    "     A     B     C     D           Building   Remaining",
+    "  +-----+-----+-----+-----+        --------------------",
+    " 1| SHP | HSE | FAC | HWY |        HSE      | 7",
+    "  +-----+-----+-----+-----+        FAC      | 7",
+    " 2| BCH |     |     |     |        SHP      | 7",
+    "  +-----+-----+-----+-----+        HWY      | 7",
+    " 3|     |     |     |     |        BCH      | 7",
+    "  +-----+-----+-----+-----+",
+    " 4|     |     |     |     |",
+    "  +-----+-----+-----+-----+"
+]
+
+nonDefaultPrintBoard = [
+    "     A     B     C     D           Building   Remaining",
+    "  +-----+-----+-----+-----+        --------------------",
+    " 1| MON | HWY | PRK | SHP |        MON      | 7",
+    "  +-----+-----+-----+-----+        PRK      | 7",
+    " 2| BCH |     |     |     |        SHP      | 7",
+    "  +-----+-----+-----+-----+        HWY      | 7",
+    " 3|     |     |     |     |        BCH      | 7",
+    "  +-----+-----+-----+-----+",
+    " 4|     |     |     |     |",
+    "  +-----+-----+-----+-----+"
 ]
 
 @pytest.mark.order(1)
@@ -144,6 +192,13 @@ def test_load_game_empty_board():
 
     assert check == True
 
+    # tests whether the returned game object has the correct values for the variables inside
+    # unable to test for game obj
+    loadedGame = load_game()
+    assert loadedGame.building_pool == defaultBuildingPool
+    assert loadedGame.turn_num == 1
+    assert loadedGame.randomized_building_history == {"1": ["HSE", "HSE"]}
+
 @pytest.mark.order(3)
 @pytest.mark.parametrize("printBoard, boardSize",
 [(printBoard3x3, 3),
@@ -187,3 +242,82 @@ def test_load_game_with_save_different_board_sizes(printBoard, boardSize):
     assert result == expectedResult
     check = all(item in result for item in expectedResult)
     assert check == True
+
+    # tests whether the returned game object has the correct values for the variables inside
+    # unable to test for game board obj as errors will be thrown not due to the dev code
+    loadedGame = load_game()
+    assert loadedGame.building_pool == {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":7}
+    assert loadedGame.turn_num == 2
+    assert loadedGame.randomized_building_history == {"1": ["BCH", "BCH"], "2": ["HSE", "HSE"]}
+
+@pytest.mark.order(4)
+@pytest.mark.parametrize("board, testPrintBoard, buildingPool, buildingHistory", [
+(defaultBuildingsAllBoard, defaultPrintBoard, defaultBuildingPoolBoard, defaultBuildingHistory),
+(nonDefaultBuildingsAllBoard, nonDefaultPrintBoard, nonDefaultBuildingPoolBoard, nonDefaultBuildingHistory)])
+def test_load_game_with_all_buildings(board, testPrintBoard, buildingPool, buildingHistory):
+    """
+    Tests the output in console of load game option in menu with existing save with all buildings on board
+    """
+    savePath = './game_save.json'
+
+    if os.path.exists(savePath):
+        os.remove(savePath)
+    else:
+        print('no save found')
+
+    set_keyboard_input(["1", "a1", "5", "0"])
+    
+
+
+    # turn number is 2, and BCH is built in a1 spot
+    test_game = Game(height = 4, width = 4, building_pool = buildingPool)
+    # test_game.building_pool = buildingPool
+    test_game.board = board
+    test_game.turn_num = 5
+    test_game.randomized_building_history = buildingHistory
+    test_game.start_new_turn()
+
+    # checkResult = get_display_output()
+    # assert checkResult == [""]
+    set_keyboard_input(["2", "0", "0"])
+
+    # calls main menu to load game.
+    with pytest.raises(SystemExit) as e:
+        main()
+
+    result = get_display_output()
+    expectedResult = mainMenu + ["", "Turn 6"] + testPrintBoard + gameMenu + mainMenuNoWelcome
+    # expected result should be main menu to game with turn 2, and board with BCH in a1 on all sizes with game menu.
+
+    assert result == expectedResult
+    check = all(item in result for item in expectedResult)
+    assert check == True
+
+    # tests whether the returned game object has the correct values for the variables inside
+    # unable to test for game board obj as errors will be thrown not due to the dev code
+    loadedGame = load_game()
+    assert loadedGame.building_pool == buildingPool
+    assert loadedGame.turn_num == 6
+    assert loadedGame.randomized_building_history == buildingHistory
+
+@pytest.mark.order(5)
+@pytest.mark.parametrize("corruptStr", [
+    ("asdf"), ("1234"), (""), ('{"board": {"1,1": "PRK"}, "turn_num": 2, "width": 4, "height": 4}'),
+    ('{"boardasdf": {"0,0": "SHP"}, "turn_num": 2, "width": 4, "height": 4, "randomized_history": {"1": ["SHP", "SHP"], "2": ["BCH", "HWY"]}, "building_pool": {"HSE": 8, "FAC": 8, "SHP": 7, "HWY": 8, "BCH": 8}}')
+])
+def test_load_game_corrupted_save(corruptStr):
+    savePath = './game_save.json'
+    with open(savePath, "w") as save:
+            save.write(corruptStr)
+
+    set_keyboard_input(["2", "0", "0"])
+
+
+    # calls main menu. if save file is corrupted, it should return to main menu without welcome message, with error message "Failed to load game!"
+    with pytest.raises(SystemExit) as e:
+        main()
+
+    result = get_display_output()
+    
+    # expected result should be main menu, no save game found error then back to main menu without welcome message.
+    assert result == mainMenu + corruptedSaveError + mainMenuNoWelcome

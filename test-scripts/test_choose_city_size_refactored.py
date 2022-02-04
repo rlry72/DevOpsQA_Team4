@@ -391,6 +391,7 @@ def test_change_city_size_invalid_size():
 
     # assert result == False
     assert check == True
+    
 @pytest.mark.parametrize("invalidInput, expectedResult",
 [(["5", "a", "0", "0"], invalidInputWidthExpectedResult), (["5", "", "0", "0"], invalidInputWidthExpectedResult),
 (["5", "5", "b", "0", "0"], invalidInputHeightExpectedResult), (["5", "5", "", "0", "0"], invalidInputHeightExpectedResult),
