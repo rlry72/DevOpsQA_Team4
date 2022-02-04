@@ -3,6 +3,7 @@ from classes.menu import *
 from tud_test_base import set_keyboard_input, get_display_output
 from io import StringIO 
 from unittest.mock import Mock, patch
+from collections import Counter
 import sys
 import pytest
 import os
@@ -13,7 +14,8 @@ import statistics
 
 def test_compare_randomized_building_5_turns():
     """
-    Test script to compare randomized building output over 5 turns
+    Test script to compare randomized building output over 5 turns. There should be 12 options collected
+    Checks the percentage of most commonly appeared option and checks that it is below 70% appearance rate
     """
     set_keyboard_input(["1","a1","1", "b1", "1", "c1", "1", "d1", "1", "a2","0"])
 
@@ -32,10 +34,14 @@ def test_compare_randomized_building_5_turns():
             # get only the building in option
             optList.append(result[i].split(" ")[-1])
 
-    # check that all are not similar
-    assert optList[0] != optList[1] != optList[2] != optList[3] != optList[4]
-    # assert result[3] != result[9] != result[15] != result[21] != result[26]
+    mostCommon, count = Counter(optList).most_common(1)[0]
 
+    mostCommonPercent = count / len(optList)
+
+    # check that appearance rate of most commonly appearing option is less than 0.7
+    assert mostCommonPercent < 0.7
+    # assert optList[0] != optList[1] != optList[2] != optList[3] != optList[4] != optList[5] != optList[6] != optList[7] != optList[8] != optList[9]
+    # assert result[3] != result[9] != result[15] != result[21] != result[26]
 
 def test_check_randomized_building_in_building_pool():
     """
@@ -73,6 +79,7 @@ def test_check_randomized_building_in_building_pool():
 def test_randomized_building_options_1_building_left():
     """
     Test script to test options when only 1 building is left
+    There should only be SHP in both options 1 and 2
     """
     set_keyboard_input(["0"])
     

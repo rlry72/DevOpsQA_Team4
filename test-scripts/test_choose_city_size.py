@@ -373,8 +373,8 @@ def test_change_city_size_invalid_size():
     0. Exit
     Your choice? 
 
-    Enter value for width: 
-    Enter value for height: 
+    Enter value for width: 8
+    Enter value for height: 8
 
     The multiplication of width and height exceeds the limit of 40. Please re-enter your input.
 
@@ -418,7 +418,7 @@ def test_invalid_input_change_city_size(invalidInput, expectedResult):
 
     Invalid input has been entered. Please enter a number.
 
-    Enter value for width: 
+    Enter value for width: 0
 
     City size will not be updated.
 
@@ -442,8 +442,8 @@ def test_invalid_input_change_city_size(invalidInput, expectedResult):
     0. Exit
     Your choice? 
 
-    Enter value for width: 
-    Enter value for height: 
+    Enter value for width: 5
+    Enter value for height: 0
 
     Invalid input has been entered. Please enter a number.
 
