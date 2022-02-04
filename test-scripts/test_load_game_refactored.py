@@ -28,7 +28,7 @@ gameMenu = ['1. Build a HSE',
 
 noSaveError = ["", "No save game found!"]
 
-corruptedSaveError = ["", "Failed to load game!"]
+corruptedSaveError = ["", "The current file is corrupt and will therefore be deleted."]
 
 turnNumberArr = ["", "Turn 2"]
 
@@ -310,7 +310,7 @@ def test_load_game_corrupted_save(corruptStr):
     with open(savePath, "w") as save:
             save.write(corruptStr)
 
-    set_keyboard_input(["2", "0", "0"])
+    set_keyboard_input(["2", "2", "0", "0"])
 
 
     # calls main menu. if save file is corrupted, it should return to main menu without welcome message, with error message "Failed to load game!"
@@ -320,4 +320,4 @@ def test_load_game_corrupted_save(corruptStr):
     result = get_display_output()
     
     # expected result should be main menu, no save game found error then back to main menu without welcome message.
-    assert result == mainMenu + corruptedSaveError + mainMenuNoWelcome
+    assert result == mainMenu + corruptedSaveError + mainMenuNoWelcome + noSaveError + mainMenuNoWelcome
