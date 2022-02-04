@@ -619,4 +619,77 @@ def test_update_high_scores_special_character_in_input():
     assert result == [""] + finalLayoutMsg + board5x1Filled_1 + score_computation_5x1_1 + congratsMsg +[""] + high_score_list_5x1_1\
                     + mainMenuNoWelcome 
 
+
+@pytest.mark.order(8)
+def test_update_high_score_corrupted_file():
+    """
+    Test whether the system will display error message when existing high score file is corrupted and display the new high score list with only 1 player
+    """
+    high_score_list_1x1_2 = [
+        "--------- HIGH SCORES ---------",
+        "Pos Player                Score",
+        "--- ------                -----",  
+        " 1. Never                     1",
+        "-------------------------------"
+    ]
+    gameBoard1x1_1 = [
+        [Factory(0,0)]
+    ]   
+
+     
+    board1x1Filled_1 = [
+        "     A  ",
+        "  +-----+",
+        " 1| FAC |",
+        "  +-----+",       
+    ]
+
+    score_computation1x1_1 = [
+        "HSE: 0", 
+        "FAC: 1 = 1",
+        "SHP: 0",
+        "HWY: 0",
+        "BCH: 0",
+        "Total score: 1"
+    ]
+
+    congratsMsg = ["Congratulations! You made the high score board at position 1!",
+                    "Please enter your name (max 20 chars): "]
+
+    high_score_json_1 = {   
+        "board_size": 1,
+        "high" : [
+            {
+                "name": "HelloWorldHeyDevOps",
+                "score": 16
+            }
+        ],
+        "hell": 'well'        
+    }   
+    errorMsg = ["The current high score file is corrupt and a new high score list will be generated."]
+ 
+
+    high_score_Exist = os.path.exists('high_score_1.json')
+    if high_score_Exist:
+        os.remove('high_score_1.json')
+
+    jsonString = json.dumps(high_score_json_1)
+    jsonFile = open("high_score_1.json", "w")
+    jsonFile.write(jsonString)
+    jsonFile.close()
+
+
+    set_keyboard_input(["Never"])
     
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
+    test_game = Game(width = 1, height = 1)
+    test_game.building_pool = defaultBuildingPool
+    test_game.board = gameBoard1x1_1
+    test_game.turn_num = 2
+    test_game.start_new_turn()
+
+    result = get_display_output()
+
+    assert result == [""] + finalLayoutMsg + board1x1Filled_1 + score_computation1x1_1 + congratsMsg + [""] + errorMsg \
+                + [""] + high_score_list_1x1_2 + mainMenuNoWelcome 

@@ -20,6 +20,29 @@ mainMenu = ["Welcome, mayor of Simp City!\n----------------------------\n1. Star
 mainMenuNoWelcome = ["\n1. Start new game\n2. Load saved game\n3. Show high scores\n4. Choose building pool\n5. Choose city size\n\n0. Exit",
                      "Your choice? "]
 
+high_score_list_empty = [
+    "--------- HIGH SCORES ---------",
+    "Pos Player                Score",
+    "--- ------                -----",       
+    "-------------------------------"
+]
+
+choose_city_size_msg = [
+    "Choose your city size below. Please take note that the multiplication of width and height cannot be more than 40.",
+    "Enter 0 to exit this configuration."
+]
+
+prompt_width = ["Enter value for width: "]
+prompt_height = ["Enter value for height: "]
+
+
+current_city_size_4x4 = [
+    "--------- CURRENT CITY SIZE ---------",
+    "Width: 4",
+    "Height: 4",
+    "-------------------------------------"
+] 
+
 
 def test_show_high_scores_options_in_main_menu():
     """
@@ -135,24 +158,8 @@ def test_show_high_scores_on_two_diff_city_area():
         " 5. Ya Ru                    15",
         "-------------------------------"
     ]
-
     
-    choose_city_size_msg = [
-        "Choose your city size below. Please take note that the multiplication of width and height cannot be more than 40.",
-        "Enter 0 to exit this configuration."
-    ]
-
-    prompt_width = ["Enter value for width: "]
-    prompt_height = ["Enter value for height: "]
-
-   
-    current_city_size_4x4 = [
-        "--------- CURRENT CITY SIZE ---------",
-        "Width: 4",
-        "Height: 4",
-        "-------------------------------------"
-    ] 
-    
+       
     chosen_city_size_3x3 = [
         "--------- CHOSEN CITY SIZE ---------",
         "Width: 3",
@@ -253,28 +260,7 @@ def test_show_high_scores_empty_list():
     when the high score list is empty
     """
 
-    high_score_list_empty = [
-        "--------- HIGH SCORES ---------",
-        "Pos Player                Score",
-        "--- ------                -----",       
-        "-------------------------------"
-    ]
 
-    choose_city_size_msg = [
-        "Choose your city size below. Please take note that the multiplication of width and height cannot be more than 40.",
-        "Enter 0 to exit this configuration."
-    ]
-
-    prompt_width = ["Enter value for width: "]
-    prompt_height = ["Enter value for height: "]
-
-   
-    current_city_size_4x4 = [
-        "--------- CURRENT CITY SIZE ---------",
-        "Width: 4",
-        "Height: 4",
-        "-------------------------------------"
-    ] 
     
     chosen_city_size_6x1 = [
         "--------- CHOSEN CITY SIZE ---------",
@@ -301,3 +287,49 @@ def test_show_high_scores_empty_list():
     assert result == mainMenu + [""] + current_city_size_4x4 + [""] + choose_city_size_msg + [""] \
                     + prompt_width + prompt_height + [""] + chosen_city_size_6x1 +  mainMenuNoWelcome \
                     + [""] + high_score_list_empty +  mainMenuNoWelcome
+
+
+def test_show_high_score_file_corrupted():
+    """
+    Test whether the system will display error msg and continue working when reading the corrupted saved file.
+    """ 
+        
+    chosen_city_size_7x1 = [
+        "--------- CHOSEN CITY SIZE ---------",
+        "Width: 7",
+        "Height: 1",
+        "------------------------------------"
+    ]
+    high_score_json_7 = {   
+        "board_size": 1,
+        "high" : [
+            {
+                "name": "HelloWorldHeyDevOps",
+                "score": 16
+            }
+        ],
+        "hell": 'well'        
+    }   
+
+    errorMsg = ["The current file is corrupt and will therefore be deleted."]
+ 
+
+    high_score_Exist = os.path.exists('high_score_7.json')
+    if high_score_Exist:
+        os.remove('high_score_7.json')
+
+    jsonString = json.dumps(high_score_json_7)
+    jsonFile = open("high_score_7.json", "w")
+    jsonFile.write(jsonString)
+    jsonFile.close()
+
+
+    set_keyboard_input(["5","1","1","3","0"])
+    with pytest.raises(SystemExit) as e:        
+        test_application = main.main()  
+       
+       
+    result = get_display_output()
+    assert result == mainMenu + [""] + current_city_size_4x4 + [""] + choose_city_size_msg + [""] \
+                    + prompt_width + prompt_height + [""] + chosen_city_size_7x1 +  mainMenuNoWelcome \
+                    + [""] + errorMsg + [""] + high_score_list_empty +  mainMenuNoWelcome
