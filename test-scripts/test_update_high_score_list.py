@@ -116,6 +116,11 @@ def test_update_high_scores_diff_citysize_same_cityarea_samename():
         " 2. HelloWorldHeyDevOps       7",
         "-------------------------------"
     ]    
+  
+    
+    high_score_Exist = os.path.exists('high_score_4.json')
+    if high_score_Exist:
+        os.remove('high_score_4.json')
    
     position = get_position("high_score_4.json", 7)  
     congratsMsg = ["Congratulations! You made the high score board at position " + str(position) + "!",
@@ -149,47 +154,35 @@ def test_update_high_scores_diff_citysize_same_cityarea_samename():
                      + finalLayoutMsg + board4x1Filled_1 + score_computation_4x1_1 + congratsMsg \
                      + [""] + high_score_list_4x1_1  + mainMenuNoWelcome
 
-
-@pytest.mark.order(3)
-def test_update_high_scores_invalid_name():
-    """
-    Test whether the system will display error messages when an invalid input for name is entered.
-    """
-
-    error_message = [
-        "Invalid input for the name has been entered.",
-        "Please remember only a max of 20 characters are allowed for the name.",
-        "",
-        "Please enter your name (max 20 chars): "
-        ]
-
-    set_keyboard_input(["HelloWorldHeyHeyDevOps","0"])
-    
-    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
-
-    test_game = Game(width = 2, height = 2)
-    test_game.building_pool = defaultBuildingPool
-    test_game.board = gameBoard2x2_1
-    test_game.turn_num = 5
-    test_game.start_new_turn()
-    position = get_position("high_score_4.json", 7)  
-    congratsMsg = ["Congratulations! You made the high score board at position " + str(position) + "!",
-                    "Please enter your name (max 20 chars): "]
-    result = get_display_output()
-    
-    #assert result ==[""] + finalLayoutMsg + board2x2Filled_1 + score_computation_2x2_1 + congratsMsg +[""] + error_message
-    expectedResult= [""] + finalLayoutMsg + board2x2Filled_1 + score_computation_2x2_1 + congratsMsg +[""] + error_message
-
-    check = all(item in result for item in expectedResult)
-    assert check == True
-
 @pytest.mark.order(2)
 def test_update_high_scores_same_score_lower_position():
     """
     Test whether the position of the current player will be lowered than the previous players that have the same scores.
     """
-    
-    
+
+    high_score_json_4 = {   
+        "board_size": 4,
+        "high_scores" : [
+            {
+                "name": "HelloWorldHeyDevOps",
+                "score": 16
+            },
+            {
+                "name": "HelloWorldHeyDevOps",
+                "score": 7
+            }
+        ]
+    }   
+
+    high_score_Exist = os.path.exists('high_score_4.json')
+    if high_score_Exist:
+        os.remove('high_score_4.json')
+
+    jsonString = json.dumps(high_score_json_4)
+    jsonFile = open("high_score_4.json", "w")
+    jsonFile.write(jsonString)
+    jsonFile.close()
+
 
 
     high_score_list_2x2_2 = [
@@ -221,6 +214,40 @@ def test_update_high_scores_same_score_lower_position():
                     + [""] + high_score_list_2x2_2 + mainMenuNoWelcome
 
 
+@pytest.mark.order(3)
+def test_update_high_scores_invalid_name():
+    """
+    Test whether the system will display error messages when an invalid input for name is entered.
+    """
+
+    error_message = [
+        "Invalid input for the name has been entered.",
+        "Please remember only a max of 20 characters are allowed for the name.",
+        "",
+        "Please enter your name (max 20 chars): "
+        ]
+
+    set_keyboard_input(["HelloWorldHeyHeyDevOps","0"])
+    
+    defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
+
+    test_game = Game(width = 2, height = 2)
+    test_game.building_pool = defaultBuildingPool
+    test_game.board = gameBoard2x2_1
+    test_game.turn_num = 5
+    test_game.start_new_turn()
+    position = get_position("high_score_4.json", 7)  
+    congratsMsg = ["Congratulations! You made the high score board at position " + str(position) + "!",
+                    "Please enter your name (max 20 chars): "]
+    result = get_display_output()
+    
+    expectedResult= [""] + finalLayoutMsg + board2x2Filled_1 + score_computation_2x2_1 + congratsMsg +[""] + error_message
+
+    check = all(item in result for item in expectedResult)
+    assert check == True
+
+
+
 @pytest.mark.order(4)
 def test_update_high_scores_never_got_top_10():
     """
@@ -246,6 +273,60 @@ def test_update_high_scores_never_got_top_10():
         "BCH: 0",
         "Total score: 3"
     ]
+    high_score_json_3 = {   
+        "board_size": 3,
+        "high_scores" : [
+            {
+                "name": "Player1",
+                "score": 9
+            },
+            {
+                "name": "Player2",
+                "score": 9
+            },
+            {
+                "name": "Player3",
+                "score": 9
+            },
+            {
+                "name": "Player4",
+                "score": 5
+            },
+            {
+                "name": "Player5",
+                "score": 5
+            },
+            {
+                "name": "Player6",
+                "score": 5
+            },
+            {
+                "name": "Player7",
+                "score": 5
+            },
+            {
+                "name": "Player8",
+                "score": 5
+            },
+            {
+                "name": "Player9",
+                "score": 5
+            },
+            {
+                "name": "Player10",
+                "score": 5
+            }
+        ]
+    }   
+
+    high_score_Exist = os.path.exists('high_score_3.json')
+    if high_score_Exist:
+        os.remove('high_score_3.json')
+
+    jsonString = json.dumps(high_score_json_3)
+    jsonFile = open("high_score_3.json", "w")
+    jsonFile.write(jsonString)
+    jsonFile.close()
 
     set_keyboard_input(["0","0"])
 
@@ -308,6 +389,61 @@ def test_update_high_scores_only_got_10_players_in_list():
         "10. Player9                   5",
         "-------------------------------"
     ]
+    high_score_json_3 = {   
+        "board_size": 3,
+        "high_scores" : [
+            {
+                "name": "Player1",
+                "score": 9
+            },
+            {
+                "name": "Player2",
+                "score": 9
+            },
+            {
+                "name": "Player3",
+                "score": 9
+            },
+            {
+                "name": "Player4",
+                "score": 5
+            },
+            {
+                "name": "Player5",
+                "score": 5
+            },
+            {
+                "name": "Player6",
+                "score": 5
+            },
+            {
+                "name": "Player7",
+                "score": 5
+            },
+            {
+                "name": "Player8",
+                "score": 5
+            },
+            {
+                "name": "Player9",
+                "score": 5
+            },
+            {
+                "name": "Player10",
+                "score": 5
+            }
+        ]
+    }   
+
+    high_score_Exist = os.path.exists('high_score_3.json')
+    if high_score_Exist:
+        os.remove('high_score_3.json')
+
+    jsonString = json.dumps(high_score_json_3)
+    jsonFile = open("high_score_3.json", "w")
+    jsonFile.write(jsonString)
+    jsonFile.close()
+
 
     set_keyboard_input(["Player","0","0"])
 
@@ -390,6 +526,14 @@ def test_update_high_scores_display_separately_for_diff_city_area():
         "-------------------------------"
     ]    
 
+    high_score_Exist = os.path.exists('high_score_1.json')
+    if high_score_Exist:
+        os.remove('high_score_1.json')
+    
+    high_score_Exist = os.path.exists('high_score_2.json')
+    if high_score_Exist:
+        os.remove('high_score_2.json')
+
 
     set_keyboard_input(["First Game", "0", "Second Game","0"])
     
@@ -452,7 +596,10 @@ def test_update_high_scores_special_character_in_input():
         " 1. HelloWorld\\nHeyDevOp     17",
         "-------------------------------"
     ]
-
+    
+    high_score_Exist = os.path.exists('high_score_5.json')
+    if high_score_Exist:
+        os.remove('high_score_5.json')
 
     congratsMsg = ["Congratulations! You made the high score board at position 1!",
                     "Please enter your name (max 20 chars): "]

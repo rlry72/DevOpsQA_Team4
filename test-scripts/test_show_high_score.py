@@ -56,6 +56,39 @@ def test_show_high_scores_choice_chosen():
         "-------------------------------"
     ]
 
+    high_score_json_16 = {   
+        "board_size": 3,
+        "high_scores" : [
+            {
+                "name": "Jerry",
+                "score": 48
+            },
+            {
+                "name": "Mary",
+                "score": 40
+            },
+            {
+                "name": "Henry",
+                "score": 36
+            },
+            {
+                "name": "Johnson",
+                "score": 34
+            }
+        ]
+    }   
+
+    high_score_Exist = os.path.exists('high_score_16.json')
+    if high_score_Exist:
+        os.remove('high_score_16.json')
+
+    jsonString = json.dumps(high_score_json_16)
+    jsonFile = open("high_score_16.json", "w")
+    jsonFile.write(jsonString)
+    jsonFile.close()
+
+
+
     # main.main() function is a while true loop. 
     # Thus, test script needs to use "0" input value in main menu to close the while loop after checking the output.
     # Or else, test script will return index error.
@@ -127,6 +160,75 @@ def test_show_high_scores_on_two_diff_city_area():
         "------------------------------------"
     ]
 
+    
+    high_score_json_16 = {   
+        "board_size": 16,
+        "high_scores" : [
+            {
+                "name": "Jerry",
+                "score": 48
+            },
+            {
+                "name": "Mary",
+                "score": 40
+            },
+            {
+                "name": "Henry",
+                "score": 36
+            },
+            {
+                "name": "Johnson",
+                "score": 34
+            }
+        ]
+    }   
+
+
+    
+    high_score_json_9 = {   
+        "board_size": 9,
+        "high_scores" : [
+            {
+                "name": "Shi Qing",
+                "score": 20
+            },
+            {
+                "name": "Zaidan",
+                "score": 17
+            },
+            {
+                "name": "Ken Liu",
+                "score": 17
+            },
+            {
+                "name": "Ting Ru",
+                "score": 15
+            },
+            {
+                "name": "Ya Ru",
+                "score": 15
+            }
+        ]
+    }   
+
+    high_score_Exist = os.path.exists('high_score_16.json')
+    if high_score_Exist:
+        os.remove('high_score_16.json')
+
+    jsonString = json.dumps(high_score_json_16)
+    jsonFile = open("high_score_16.json", "w")
+    jsonFile.write(jsonString)
+    jsonFile.close()
+
+    high_score_Exist = os.path.exists('high_score_9.json')
+    if high_score_Exist:
+        os.remove('high_score_9.json')
+
+    jsonString = json.dumps(high_score_json_9)
+    jsonFile = open("high_score_9.json", "w")
+    jsonFile.write(jsonString)
+    jsonFile.close()
+
 
     # main.main() function is a while true loop. 
     # Thus, test script needs to use "0" input value in main menu to close the while loop after checking the output.
@@ -180,6 +282,9 @@ def test_show_high_scores_empty_list():
         "Height: 1",
         "------------------------------------"
     ]
+    high_score_Exist = os.path.exists('high_score_6.json')
+    if high_score_Exist:
+        os.remove('high_score_6.json')
 
     # main.main() function is a while true loop. 
     # Thus, test script needs to use "0" input value in main menu to close the while loop after checking the output.
