@@ -133,6 +133,7 @@ nonDefaultPrintBoard = [
 def test_load_game_no_save():
     """
     Tests the output in console of load game option in menu when there is no save file
+    There should be an error message that there is no save game found
     """
     savePath = './game_save.json'
 
@@ -154,9 +155,13 @@ def test_load_game_no_save():
     assert result == mainMenu + noSaveError + mainMenuNoWelcome
 
 @pytest.mark.order(2)
-def test_load_game_empty_board():
+@pytest.mark.parametrize("printEmptyBoard, boardSize",
+[(printEmptyBoard3x3, 3),
+(printEmptyBoard4x4, 4),
+(printEmptyBoard5x5, 5)])
+def test_load_game_empty_board(printEmptyBoard, boardSize):
     """
-    Tests the output in console of load game option in menu with 4x4 empty board existing save
+    Tests the output in console of load game option in menu with empty 3x3, 4x4, 5x5 board existing save 
     """
     savePath = './game_save.json'
 
@@ -170,7 +175,7 @@ def test_load_game_empty_board():
 
     defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
-    test_game = Game()
+    test_game = Game(width = boardSize, height = boardSize)
     test_game.building_pool = defaultBuildingPool
     test_game.randomized_building_history = {"1": ["HSE", "HSE"]}
     test_game.start_new_turn()
@@ -183,7 +188,7 @@ def test_load_game_empty_board():
         main()
 
     result = get_display_output()
-    expectedResult = mainMenu + ["", "Turn 1"] + printEmptyBoard4x4 + gameMenu + mainMenuNoWelcome
+    expectedResult = mainMenu + ["", "Turn 1"] + printEmptyBoard + gameMenu + mainMenuNoWelcome
 
     # expected result should be main menu to game with turn 1 and empty board with game menu
     assert result == expectedResult
@@ -199,6 +204,7 @@ def test_load_game_empty_board():
     assert loadedGame.turn_num == 1
     assert loadedGame.randomized_building_history == {"1": ["HSE", "HSE"]}
 
+
 @pytest.mark.order(3)
 @pytest.mark.parametrize("printBoard, boardSize",
 [(printBoard3x3, 3),
@@ -207,6 +213,7 @@ def test_load_game_empty_board():
 def test_load_game_with_save_different_board_sizes(printBoard, boardSize):
     """
     Tests the output in console of load game option in menu with existing save
+    Output should be an a board with BCH in a1.
     """
     savePath = './game_save.json'
 
@@ -257,6 +264,7 @@ def test_load_game_with_save_different_board_sizes(printBoard, boardSize):
 def test_load_game_with_all_buildings(board, testPrintBoard, buildingPool, buildingHistory):
     """
     Tests the output in console of load game option in menu with existing save with all buildings on board
+    Test two different boards, with default building pool on 1st board, and a board with PRK and MON.
     """
     savePath = './game_save.json'
 
@@ -306,6 +314,9 @@ def test_load_game_with_all_buildings(board, testPrintBoard, buildingPool, build
     ('{"boardasdf": {"0,0": "SHP"}, "turn_num": 2, "width": 4, "height": 4, "randomized_history": {"1": ["SHP", "SHP"], "2": ["BCH", "HWY"]}, "building_pool": {"HSE": 8, "FAC": 8, "SHP": 7, "HWY": 8, "BCH": 8}}')
 ])
 def test_load_game_corrupted_save(corruptStr):
+    """
+    Tests whether error message appears if save file is corrupted and user tries to load it, and tests that when user tries to load it again, there is no save found with error message.
+    """
     savePath = './game_save.json'
     with open(savePath, "w") as save:
             save.write(corruptStr)

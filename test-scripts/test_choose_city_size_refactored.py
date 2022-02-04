@@ -301,7 +301,7 @@ def test_exit_change_city_size(exitInput, expectedResult):
     0. Exit
     Your choice? 
 
-    Enter value for width: 
+    Enter value for width: 0
     
     City size will not be updated.
 
@@ -325,8 +325,8 @@ def test_exit_change_city_size(exitInput, expectedResult):
     0. Exit
     Your choice? 
 
-    Enter value for width: 
-    Enter value for height: 
+    Enter value for width: 5
+    Enter value for height: 0
     
     City size will not be updated.
 
@@ -373,8 +373,8 @@ def test_change_city_size_invalid_size():
     0. Exit
     Your choice? 
 
-    Enter value for width: 
-    Enter value for height: 
+    Enter value for width: 8
+    Enter value for height: 8
 
     The multiplication of width and height exceeds the limit of 40. Please re-enter your input.
 
@@ -402,34 +402,6 @@ def test_invalid_input_change_city_size(invalidInput, expectedResult):
     """
 
     '''
-    invalid height expected output:
-
-    Welcome, mayor of Simp City!
-    ----------------------------
-    1. Start new game
-    2. Load saved game
-    3. Show high scores
-    4. Choose building pool
-    5. Choose city size
-    
-    0. Exit
-    Your choice? 
-
-    Enter value for width: 
-
-    Invalid input has been entered. Please enter a number.
-
-    Enter value for width: 
-
-    City size will not be updated.
-
-    --------- CURRENT CITY SIZE ---------
-    Width: 4
-    Height: 4
-    -------------------------------------
-    '''
-
-    '''
     invalid width expected output:
 
     Welcome, mayor of Simp City!
@@ -443,12 +415,40 @@ def test_invalid_input_change_city_size(invalidInput, expectedResult):
     0. Exit
     Your choice? 
 
-    Enter value for width: 
-    Enter value for height: 
+    Enter value for width: <invalidInput>
 
     Invalid input has been entered. Please enter a number.
 
-    Enter value for height: 
+    Enter value for width: 0
+
+    City size will not be updated.
+
+    --------- CURRENT CITY SIZE ---------
+    Width: 4
+    Height: 4
+    -------------------------------------
+    '''
+
+    '''
+    invalid height expected output:
+
+    Welcome, mayor of Simp City!
+    ----------------------------
+    1. Start new game
+    2. Load saved game
+    3. Show high scores
+    4. Choose building pool
+    5. Choose city size
+    
+    0. Exit
+    Your choice? 
+
+    Enter value for width: 5
+    Enter value for height: <invalidInput>
+
+    Invalid input has been entered. Please enter a number.
+
+    Enter value for height: 0
 
     City size will not be updated.
 
