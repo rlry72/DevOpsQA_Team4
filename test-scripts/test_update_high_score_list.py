@@ -679,7 +679,7 @@ def test_update_high_score_corrupted_file():
     jsonFile.close()
 
 
-    set_keyboard_input(["Never"])
+    set_keyboard_input(["Never", "0"])
     
     defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
@@ -688,8 +688,8 @@ def test_update_high_score_corrupted_file():
     test_game.board = gameBoard1x1_1
     test_game.turn_num = 2
     test_game.start_new_turn()
-
+    main_menu(True)
     result = get_display_output()
 
-    assert result == [""] + finalLayoutMsg + board1x1Filled_1 + score_computation1x1_1 + congratsMsg + [""] + errorMsg \
+    assert result == [""] + finalLayoutMsg + board1x1Filled_1 + score_computation1x1_1 + [""] + errorMsg + [""] + congratsMsg \
                 + [""] + high_score_list_1x1_2 + mainMenuNoWelcome 
