@@ -298,6 +298,14 @@ def test_view_final_score(input, boardState, turnNumber, scoreBoard, heightWidth
     """
     Test script to check viewing final score computation, final total score and whether main menu is displayed after final turn.
     """
+    boardSize = heightWidth[0] * heightWidth[1]
+    highScorePath = "./high_score_" + str(boardSize) + ".json"
+
+    if os.path.exists(highScorePath):
+        os.remove(highScorePath)
+    else:
+        print('high score file does not exist')
+
     turnNumberArray = ["Turn " + str(turnNumber)]
 
     set_keyboard_input(input)
