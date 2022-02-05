@@ -395,7 +395,8 @@ def test_change_city_size_invalid_size():
 @pytest.mark.parametrize("invalidInput, expectedResult",
 [(["5", "a", "0", "0"], invalidInputWidthExpectedResult), (["5", "", "0", "0"], invalidInputWidthExpectedResult),
 (["5", "5", "b", "0", "0"], invalidInputHeightExpectedResult), (["5", "5", "", "0", "0"], invalidInputHeightExpectedResult),
-(["5", "100", "0", "0"], invalidInputWidthExpectedResult)])
+(["5", "100", "0", "0"], invalidInputWidthExpectedResult), (["5", "-3", "0", "0"], invalidInputWidthExpectedResult),
+(["5", "5", "-3", "0", "0"], invalidInputHeightExpectedResult)])
 def test_invalid_input_change_city_size(invalidInput, expectedResult):
     """
     Tests invalid input in input width and input height
