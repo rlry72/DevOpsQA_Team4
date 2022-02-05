@@ -324,7 +324,7 @@ def test_show_high_score_file_corrupted():
     jsonFile.close()
 
 
-    set_keyboard_input(["5","1","1","3","0"])
+    set_keyboard_input(["5","7","1","3","0"])
     with pytest.raises(SystemExit) as e:        
         test_application = main.main()  
        
