@@ -164,7 +164,7 @@ def test_save_game_empty_board():
 
 def test_save_game_existing_save():
     """
-    Test script to save game without placing anything on the board.
+    Test script to save game when there is an existing save
     """
     set_keyboard_input(["1", "a1", "5", "0"])
 

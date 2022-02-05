@@ -199,7 +199,7 @@ defaultBuildingPool = {"HSE":8, "FAC":8, "SHP": 8, "HWY":8, "BCH":8}
 
 def test_build_a_building_SHP():
     """
-    Test script to test Building a building from the game menu
+    Test script to test Building a shop from the game menu
     """
     set_keyboard_input(["1","a1","0"])
 

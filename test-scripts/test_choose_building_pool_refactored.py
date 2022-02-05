@@ -190,7 +190,7 @@ def test_choose_building_pool_invalid_input(invalidInput, expectedResult):
 , (["4","4","4","4","4","4","0","0"], errorMessage)])
 def test_choose_building_pool_out_of_range(invalidInput, expectedResult):
     """
-    Test script to test invalid input when choosing building
+    Test script to test out of range input when choosing building
     """
 
     set_keyboard_input(invalidInput)
