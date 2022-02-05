@@ -133,7 +133,7 @@ def test_game_menu_invalid_input(invalidInput, expectedResult):
 
 def test_game_menu_return_main_menu():
     """
-    Tests if the game can return to the main menu from the game menu. Tests to make sure the output in console is correct and main menu is displayed.
+    Tests if the game can return to the main menu from the game menu. Tests to make sure the output in console is correct and main menu is displayed properly.
     """
     # set keyboard input to 0, then 0. (ignores 1)
     set_keyboard_input(["0", "0"])
