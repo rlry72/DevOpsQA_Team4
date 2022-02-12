@@ -14,6 +14,9 @@ https://connectnpedu-my.sharepoint.com/:x:/g/personal/s10195732_connect_np_edu_s
 ## Preliminary report for testing for Iteration 1
 https://connectnpedu-my.sharepoint.com/:w:/g/personal/s10195732_connect_np_edu_sg/ES9EiTq0kw1AggA36RO-esgBZv7qZLAW4Fw1rinpFK6N9w?e=IP0E5o
 
+## QA Test Report for Iteration 2
+https://connectnpedu-my.sharepoint.com/:w:/g/personal/s10195732_connect_np_edu_sg/ERNR27IZoXlNrUsbP0snQi0BWnT3T9NQVsPUO2Hb4rCWPg?e=BGkgey
+
 ## Simple guide on writing test cases
 https://connectnpedu-my.sharepoint.com/:w:/g/personal/s10195642_connect_np_edu_sg/EV0mb9WeuORAlwjzibUHiXMBN5WpywND8-FgMBku0iOEGA?e=8hReTM
 
